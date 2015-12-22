@@ -1,0 +1,49 @@
+{# empty Twig template #}
+<nav class="rTCFixed" >
+    <form class="form-horizontal">
+            <legend class="">
+                {{ "search_menu.title"|trans }}
+            </legend>
+        <div id="accordion" >
+            
+             <h3 class="rTCBlack noBorder">
+                {{ "search_menu.nature.nature"|trans }}
+            </h3>
+            <div>
+                <input type="checkbox"/><label>&nbsp;{{ "search_menu.nature.found"|trans }}</label>
+                  <br/>
+                <input type="checkbox" class=""/><label>&nbsp;{{ "search_menu.nature.lost"|trans }}</label>             
+            </div>
+
+            <h3 class="rTCBlack noBorder">
+                Catégories
+            </h3>
+            <div>
+                <input type="checkbox" class=""/><label>&nbsp;{{ "search_menu.category.documents"|trans }}</label>
+                <br/>
+                <input type="checkbox"/><label>&nbsp;{{ "search_menu.category.luggage"|trans }}</label>
+                <br/>
+                <input type="checkbox"/><label>&nbsp;{{ "search_menu.category.electronic"|trans }}</label>
+                <br/>
+                <input type="checkbox"/><label>&nbsp;{{ "search_menu.category.people"|trans }}</label>
+            </div>
+            <h3 class="rTCBlack noBorder">{{ "search_menu.place.place"|trans }}</h3>
+            <div>
+                <select class="form-control"><option>{{ "search_menu.place.district"|trans }}</option></select>
+                <br/>
+                <select class="form-control"><option>{{ "search_menu.place.town"|trans }}</option></select>
+            </div>
+            <h3 class="rTCBlack noBorder">{{ "search_menu.period.period"|trans }}</h3>
+            <div>
+                <input type="text" class="form-control" value='{{ "search_menu.period.min_date"|trans }}'/><br/>
+                <input class="form-control" type="text" value='{{ "search_menu.period.max_date"|trans }}'/>
+            </div>
+        </div>
+        <br/>
+        
+            <input type="submit" class="rTCPink btn" value="Chercher"/>
+        
+        </form>
+    </nav>
+            <br/>
+           

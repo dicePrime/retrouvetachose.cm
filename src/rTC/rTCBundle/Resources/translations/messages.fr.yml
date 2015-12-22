@@ -1,0 +1,36 @@
+header:
+    home : Acceuil
+    about: A propos
+    help : Aide et conseils
+    blog : Blog
+    login : Connexion
+    find : Chercher
+    parameters : Parametres
+    logout : Déconnexion
+    new_lost : J'ai perdu un objet
+    new_found : J'ai trouvé un objet
+    
+search_menu:
+    title : Options de recherce
+    nature : 
+        nature : Nature
+        lost: Objets perdus
+        found : Objets trouvés
+    category :
+        category : Catégorie
+        documents : Documents
+        luggage : Bagage
+        electronic : Electronique
+        people : Personnes
+    place:
+        place : Zone géographique
+        district: Région
+        town : Ville
+    period:
+        period: Periode
+        min_date : Date minimale
+        max_date : Date maximale
+
+        
+general:
+    login : Connexion

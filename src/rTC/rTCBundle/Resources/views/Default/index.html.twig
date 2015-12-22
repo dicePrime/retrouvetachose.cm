@@ -1,0 +1,123 @@
+{% extends '::default/base.html.twig' %}
+
+{% block rightMenu %}
+
+    {{ include('::commonsFiles/rightMenu.html.twig') }}
+    
+{% endblock %}
+
+{% block leftMenu %}
+    {{ include('::commonsFiles/searchMenu.html.twig') }}
+    <p>
+        <em>
+            Vous gérez un lieu très fréquenté?
+            <br/>
+            Créez un espace dédié.<br/>
+            Vos clients/visiteurs pourront y retrouver
+            leurs objets perdus chez vous<br/>
+            
+        </em>
+    </p>
+    
+    <input type="submit" class="btn rTCGreen" value="C'est par là"/>
+{% endblock %}
+
+{% block location %}
+            {#<a href="{{ path('r_tc_homepage') }}" class="rTCBlackText">Acceuil>></a>#}
+            
+                      <li><a href="{{ path('r_tc_homepage') }}">Home</a></li>
+                      <li class="active">Toutes les annonces</li>
+                                 
+{% endblock %}
+
+{% block section %}
+
+    <div class='panel-body'>
+        <div class="count">
+            {{ pagination.getTotalItemCount }}
+        </div>
+        
+        <table class="table  table-responsive table-condensed">
+            <tr>
+                {# sorting of properties based on query components #}
+                <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+                <th{% if pagination.isSorted('a.titre') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'titre', 'a.titre') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Release', ['a.dateCreation', 'a.dateCreation']) }}</th>
+            </tr>
+        </table>
+         
+         <div class="navigation">
+            <center>
+            {{ knp_pagination_render(pagination) }}
+            </center>
+        </div>
+
+            {# table body #}
+            {% for annonce in pagination %}
+                <div class="col-xs-12 col-sm-12">
+                   {# {% set location = [asset('uploads/documents/annonces/'),annonce.document[0].path ] | join %}
+                    <img src="{{ asset(location) }}" alt="...">
+                    <div class="caption">
+                        <h4>{{ annonce.titre }}</h4>
+                        <p>{{ annonce.commentaire  }}</p>
+                        <p><a href="#" class="btn rTCGreen rTCBlackText" role="button">Afficher</a>
+                    </div>
+                   #}
+                   <div class="media">
+                       <div class="media-left media-middle">
+                           {% if annonce.imagePrincipale != NULL  %}
+                           {% set location = ['uploads/documents/annonces/',annonce.imagePrincipale ] | join %}
+                           <a href=href="{{ path('_r_tc_details_annonce',{ 'idAnnonce':annonce.id }) }}">
+                            <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
+                           </a>
+                           {% endif %}
+                       </div>
+                       
+                           <div class="media-body">
+                               <h2 class="media-heading"><h3>{{ annonce.titre }}</h3></h2>                                                       
+                               <p>{{ annonce.commentaire  }}</p>
+                                <p><a role="button" class="btn rTCGreen rTCBlackText"  href="{{ path('_r_tc_details_annonce',{ 'idAnnonce':annonce.id }) }}" role="button">Afficher</a>
+                           </div>
+                </div>
+                </div>
+        {% endfor %}
+
+        {# display navigation #}
+        <div class="navigation">
+            <center>
+            {{ knp_pagination_render(pagination) }}
+            </center>
+        </div>
+
+  </div>
+{% endblock %}
+
+{% block news %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Récemment trouvés</h3>
+        </div>
+    </div>
+        <div class="panel-body">
+            {% for i in 1..1 %}
+                <div class="thumbnail img-thumbnail col-lg-6">
+                    <img src="{{ asset('img/holder.jpg') }}" class='img-responsive' alt="...">
+                    <div class="caption">
+                        <h3>Titre de l'annonce</h3>
+                        <p>rTC Template just for description</p>
+                        <p><a href="#" class="btn rTCGreen rTCBlackText" role="button">Affichez</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <br/><br/>
+       
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $("#accordion").accordion({collapsible: true});
+        });
+    </script>
+{% endblock %}

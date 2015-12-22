@@ -1,0 +1,174 @@
+<?php
+
+namespace rTC\rTCBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use rTC\rTCBundle\Entity\File;
+use \Doctrine\Common\Collections\ArrayCollection;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of Document
+ *
+ * @author ndziePatrick
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ */
+class Document {
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO") */
+    protected $id;
+
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $path;
+
+
+    public function getAbsolutePath() {
+        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
+    }
+
+    public function getWebPath() {
+        return null === $this->path ? null : $this->getUploadDir() . '/' . $this->path;
+    }
+
+    protected function getUploadRootDir() {
+// le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir() {
+// on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'onaffiche
+// le document/image dans la vue.
+        return 'uploads/documents/annonces/';
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Annonce", inversedBy="document")
+     * @ORM\JoinColumn(name="annonce_id", referencedColumnName="id")
+     */
+    private $annonce;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Document
+     */
+    public function setPath($path) {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath() {
+        return $this->path;
+    }
+
+    /**
+     * Set annonce
+     *
+     * @param \rTC\rTCBundle\Entity\Annonce $annonce
+     * @return Document
+     */
+    public function setAnnonce(\rTC\rTCBundle\Entity\Annonce $annonce = null) {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Get annonce
+     *
+     * @return \rTC\rTCBundle\Entity\Annonce 
+     */
+    public function getAnnonce() {
+        return $this->annonce;
+    }
+
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload() {
+        if (null !== $this->pathName)
+        {
+// faites ce que vous voulez pour générer un nom unique
+            $this->path = sha1(uniqid(mt_rand(), true)) . '.' .$this->file->guessExtension() ;
+        }
+    }
+
+    /*
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+        $monfichier = fopen('testPathName.txt','w+');
+// s'il y a une erreur lors du déplacement du fichier, une exception
+// va automatiquement être lancée par la méthode move(). Cela va empêcher
+// proprement l'entité d'être persistée dans la base de données si
+// erreur il y a
+        //$this->file->move($this->getUploadRootDir(), $this->path);
+        try {
+            $this->file->move($this->getUploadRootDir(),$this->file->pathName());
+            // avez stocké le fichier
+           // « nettoie » la propriété « file » comme vous n'en aurez plus besoin
+            $this->file = null;
+        }
+        catch(\Exception $ex)
+        {
+            $monfichier = fopen('exception.txt','w+');
+            fputs($monfichier,print_r($ex->getMessage(),true));
+            fclose($monfichier);
+        }
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload() {
+        if ($this->file == $this->getAbsolutePath()) {
+            unlink($this->file);
+        }
+    }
+
+
+}

@@ -3,7 +3,8 @@
 parameters:
 #    parameter_name: value
 
-services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+#services:
+#    kernel.listener.upload_listener:
+#        class: rTC\rTCBundle\EventListener\UploadListener
+#        tags:
+#            - { name: kernel.event_listener, event: oneup_uploader.pre_upload, method: preUpload }

@@ -1,0 +1,9 @@
+r_tc_homepage:
+    path:     /
+    defaults: { _controller: rTCBundle:Default:index }
+r_tc_nouvelle_annonce:
+    path:     /nouvelleAnnonce
+    defaults: { _controller: rTCBundle:Default:nouvelleAnnonce }
+_r_tc_details_annonce:
+    path:     /detailsAnnonce/{idAnnonce}
+    defaults: { _controller: rTCBundle:Default:detailsAnnonce }

@@ -1,0 +1,40 @@
+header:
+    home: Home
+    about: About
+    help : Help and advices
+    blog : Blog
+    login : Login
+    find : Go
+    parameters : Parameters
+    logout : Logout
+    new_lost : I've lost an object
+    new_found : I've found an object
+
+
+    
+    
+search_menu:
+    title : Search options
+    nature : 
+        nature : Nature
+        lost: Lost objects
+        found : Found objects
+    category :
+        category : Category
+        documents : Documents
+        luggage : Luggage
+        electronic : Electronic
+        people : People
+    place:
+        place : Place
+        district: District
+        town : Town
+    period:
+        period: Period
+        min_date : Minimum date
+        max_date : Maximum date
+        
+general:
+    login : Login
+    
+        

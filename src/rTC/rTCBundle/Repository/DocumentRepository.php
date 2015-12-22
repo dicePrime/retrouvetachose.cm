@@ -5,10 +5,12 @@
  * Date: 19/09/2015
  * Time: 18:08
  */
+namespace rTC\rTCBundle\Repository;
 
-namespace rTC\rTCBundle\Entity;
+use Doctrine\ORM\EntityRepository;
 
 
-class DocumentRepository {
+class DocumentRepository extends EntityRepository
+{
 
 } 

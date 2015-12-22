@@ -2,12 +2,55 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>{% block titre %}{% endblock %}</title>
+        <meta name="keywords" content="{% block motsCles %}{% endblock %}" />
+        <meta name="description" content="{% block description %}{% endblock %}" />
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}" />
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% endblock %}
+
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    <container>
+        <div class="row">
+            {% block entete %}
+            {% endblock %}
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-2 rTCFixed " style="">
+                 {% block leftMenu %}
+                 {% endblock %}
+            </div>
+
+            <section class="col-lg-5 col-lg-offset-4">
+                {% block section %}
+                {% endblock %}
+            </section>
+            
+            <div class="col-lg-2 rTCFixed " style="">
+                 {% block rightMenu %}
+                     {% endblock %}
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        <footer id="footer" class="rTCGreen rTCTopElement">
+
+        </footer>
+
+
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery-1.10.0.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.js') }}"></script>
+            <script src="{{ asset('js/jquery-ui.js') }}"></script>
+        {% endblock %}
+    </container>
+</body>
 </html>

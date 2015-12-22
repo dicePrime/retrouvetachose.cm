@@ -1,0 +1,173 @@
+{% extends '::default/base.html.twig' %}
+{% block location %}
+    <li><a href="{{ path('r_tc_homepage') }}" class="rTCBlackText">Acceuil</a></li>
+    <li class="active">Nouvelle Annonce</li>
+    {% endblock %}
+
+{% block leftMenu %}
+    {{ include('rTCBundle:Annonces:CommonsFiles/aideNouvelleAnnonce.html.twig') }}
+{% endblock %}
+
+{% block section %}
+    <div class="panel-body">
+
+        {{ form_start(form, {'attr':{'class':'form-horizontal'} }) }}
+        {{ form_errors(form) }}
+        
+            <fieldset class="fieldset">
+                <h3><label class="label label-default">Informations généralles</label></h3>
+            <div class="form-group">               
+                <label class="col-xs-12 col-sm-3 control-label">
+                    Catégorie
+                </label>
+                <div class="col-xs-12 col-sm-8">
+                    {{ form_widget(form.categorie,{'attr':{'class':'form-control'} })}}
+                </div>
+
+            </div>
+
+            <div class="form-group">                
+                    <label class="col-xs-12 col-sm-3 control-label">
+                        Région 
+                    </label>
+               
+                <div class="col-xs-12 col-sm-8">
+                    {{ form_widget(form.region,{'attr':{'class':'form-control'} }) }}
+                </div>
+            </div>
+                
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 control-label">
+                    Ville 
+                </label>
+                <div class="col-lg-8">
+                    {{ form_widget(form.ville,{'attr':{'class':'form-control'} }) }}            
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 control-label">Période </label>
+                <div class="col-lg-4 ">
+                    {{ form_widget(form.dateDebut,{'attr':{'class':'form-control'} }) }}
+                </div>
+                <div class="col-lg-4">
+                    {{ form_widget(form.dateFin,{'attr':{'class':'form-control'} }) }}
+                </div>
+            </div>
+            </fieldset>    
+        
+                <fieldset>
+        <h3><label class="label label-default">Détails</label></h3>
+        
+                <div class="form-group">
+                    
+                    <label class="col-xs-12 col-sm-3 control-label">Titre de l'annonce </label>
+                    <div class="col-xs-12 col-sm-8">
+                        {{ form_widget(form.titre,{'attr':{'class':'form-control'} }) }}
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                    
+                    <label class="col-xs-12 col-sm-3 control-label">Commentaire </label>
+                    <div class="col-xs-12 col-sm-8">
+                        {{ form_widget(form.commentaire,{'attr':{'class':'form-control','rows':4} }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    
+                    <label class="col-xs-12 col-sm-3 control-label">Mots clés </label>
+                    <div class="col-lg-8">
+                        {{ form_widget(form.motsCles,{'attr':{'class':'form-control','rows':4} }) }}
+                    </div>
+                </div>
+           
+                </fieldset>
+
+                    <fieldset>
+        <h3><label class="label label-default">Photos</label></h3>
+        <div class="form-group">           
+           
+            <label class="col-xs-12 col-sm-3 control-label">Cliquez pour ajouter</label>
+                <div class="col-xs-12  col-sm-8 dropzone thumbnail" id="dropzone">
+
+                </div>
+
+                {# <div class="col-lg-8 col-lg-offset-3">
+                         {{ form_widget(form.document.file,{'attr':{'class':'form-control'} }) }}
+                     </div>
+                
+                 #}
+
+           
+        </div>
+                    </fieldset>
+        {#
+        <h3><label class="label label-default">Sécurité</label></h3>
+        <div>
+        <br/>
+        <center>
+        <div class="row">
+        <br/>
+        <div class="col-lg-3"><label for="titre">Question </label></div>
+        <div class="col-lg-8"><input type="text" class="form-control" name="ville" id="titre"/></div>
+        </div>
+        <div class="row">
+        <br/>
+        <div class="col-lg-3"><label for="commentaire">Réponse 1 </label></div>
+        <div class="col-lg-8"><input type="text" class="form-control" name="commentaire" id="commentaire"/></div>
+        </div>
+        <div class="row">
+        <br/>
+        <div class="col-lg-3"><label for="commentaire">Réponse 2 </label></div>
+        <div class="col-lg-8"><input type="text" class="form-control" name="commentaire" id="commentaire"/></div>
+        </div>
+        <div class="row">
+        <br/>
+        <div class="col-lg-3"><label for="commentaire">Réponse 3 </label></div>
+        <div class="col-lg-8"><input type="text" class="form-control" name="commentaire" id="commentaire"/></div>
+        </div>
+         <div class="row">
+        <br/>
+        <div class="col-lg-3"><label for="commentaire">Réponse 4 </label></div>
+        <div class="col-lg-8"><input type="text" class="form-control" name="commentaire" id="commentaire"/></div>
+        </div>
+        </center>
+        </div>#}
+        
+       
+        
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-offset-3">
+            <input type="submit" class="btn rTCGreen" value="Publier l'annonce"/>
+            </div>
+
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block news %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $("#dropzone").dropzone({
+                url: "{{ oneup_uploader_endpoint('gallery') }}",
+                addRemoveLinks: true,
+                dictDefaultMessage: "Ajouter une image",
+                dictRemoveFile: "Suprimer",
+                acceptedFiles: "image/*",
+                maxFilesize: 5,
+                maxThumbnailFilesize: 5
+            });
+        });
+    </script>
+
+{% endblock %}
