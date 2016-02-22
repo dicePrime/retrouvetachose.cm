@@ -1,0 +1,89 @@
+{{ form_start(form, {'attr':{'class':'form-horizontal well','data-toggle':'validator','role':'form'} }) }}
+{{ form_errors(form) }}
+
+<fieldset class="fieldset">
+    <div class="circle">1</div>
+    <legend>{{ "nouvel_espace_form.identification.identification"|trans }}</legend>
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "nouvel_espace_form.identification.nom"|trans }}
+        </label>
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.nom,{'attr':{'class':'form-control'} }) }}
+        </div>
+    </div>
+    <div class="form-group">               
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "nouvel_espace_form.identification.ville"|trans }}
+        </label>
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.ville,{'attr':{'class':'form-control'} })}}
+        </div>
+
+    </div>
+
+    <div class="form-group">                
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "nouvel_espace_form.identification.description"|trans }}
+        </label>
+
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.description,{'attr':{'class':'form-control','rows':'3'} }) }}
+        </div>
+    </div>
+     <div class="form-group">           
+
+            <label class="col-xs-12 col-sm-3 control-label">{{ "nouvelle_annonce_form.photos.instruction"|trans }}</label>
+            <div class="col-xs-12  col-sm-8 dropzone" id="dropzone" style='width:63%'>
+
+            </div>
+
+        </div>
+  </fieldset>
+    <fieldset>
+        <div class="circle rTCGreen">2</div>
+        <legend>{{ "nouvel_espace_form.contacts.contacts"|trans }}</legend>
+
+        <div class="form-group">
+
+            <label class="col-xs-12 col-sm-3 control-label">{{ "nouvel_espace_form.contacts.email1"|trans }} </label>
+            <div class="col-xs-12 col-sm-8">
+                {{ form_widget(form.email1,{'attr':{'class':'form-control'} }) }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-xs-12 col-sm-3 control-label">{{ "nouvel_espace_form.contacts.email2"|trans }} </label>
+            <div class="col-xs-12 col-sm-8">
+                {{ form_widget(form.email2,{'attr':{'class':'form-control'} }) }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-xs-12 col-sm-3 control-label">{{ "nouvel_espace_form.contacts.telephone1"|trans }} </label>
+            <div class="col-sm-8">
+                {{ form_widget(form.telephone1,{'attr':{'class':'form-control','pattern':'(6|2)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'} }) }}
+            </div>
+        </div>
+        
+         <div class="form-group">
+
+            <label class="col-xs-12 col-sm-3 control-label">{{ "nouvel_espace_form.contacts.telephone2"|trans }} </label>
+            <div class="col-sm-8">
+                {{ form_widget(form.telephone2,{'attr':{'class':'form-control','pattern':'(6|2)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'} }) }}
+            </div>
+        </div>
+             <div class="form-group">
+        <div class="col-xs-12 col-sm-offset-3">
+            <input type="submit" class="btn rTCGreen" value='{{ "nouvel_espace_form.creer"|trans}}'/>
+        </div>
+
+    </div>
+
+    </fieldset>
+  
+    {{ form_end(form) }}

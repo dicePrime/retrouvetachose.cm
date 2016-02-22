@@ -15,10 +15,51 @@ textarea
 }
 .dropzone
 {
-   padding-left :10px;
-   padding-right: 10px;
-   border:none;
+   margin-left: 15px;
+     
 }
+
+.tab-content {
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  padding: 10px;
+}
+.affix {
+  top: 100px;
+}
+
+.circle {
+	width:50px;
+    height:50px;
+    border-radius:25px;
+    font-size:25px;
+    color:#fff;
+    line-height:50px;
+    text-align:center;
+    background:rgb(255,23,255);
+}
+
+.main-content {
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-top : 1px solid #dddddd;
+  padding:10px;
+  margin-left: 0px;
+  margin-right: 5px;
+}
+
+.filter-content
+{
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-top : 1px solid #dddddd;
+  padding:10px;
+  margin-right: 20px;
+}
+
 .rTCBlack
 {
     background-color:rgb(34,44,55);
@@ -92,5 +133,20 @@ textarea
 .rTCBottom{
     padding-top: 600px;
     z-index:2;
+}
+
+.customFieldset {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+.customLegend {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    border:none;
 }
 

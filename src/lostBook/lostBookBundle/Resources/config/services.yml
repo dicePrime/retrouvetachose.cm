@@ -1,0 +1,8 @@
+services:
+    redirectionConnexionListener:
+        class: lostBook\lostBookBundle\EventListener\RedirectionConnexionListener
+        arguments: [@service_container,@session]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+

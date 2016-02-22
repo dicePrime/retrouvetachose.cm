@@ -1,0 +1,46 @@
+_lostbook_homepage:
+    path:     /
+    defaults: { _controller: lostBookBundle:Default:index }
+_lostbook_nouvelle_annonce:
+    path:     /nouvelleAnnonce
+    defaults: { _controller: lostBookBundle:Default:nouvelleAnnonce }
+_lostbook_details_annonce:
+    path:     /detailsAnnonce/{idAnnonce}
+    defaults: { _controller: lostBookBundle:Default:detailsAnnonce }
+    
+    
+## Espaces
+
+_lostbook_espaces_index:
+    path: /espaces
+    defaults: { _controller: lostBookBundle:Espace:index }
+    
+_lostbook_nouvel_espace:
+    path: /nouvelEspace
+    defaults: { _controller: lostBookBundle:Espace:nouvelEspace }
+    
+_lostbook_details_espace:
+    path: /detailsEspace/{idEspace}
+    defaults: { _controller: lostBookBundle:Espace:detailsEspace }
+    
+    
+## Administration
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+    
+    
+_espaces_for_ville:
+    path:  /espacesForville/{idVille}         
+    defaults: { _controller: lostBookBundle:AJAX:getEspacesForVille }
+    options:
+        expose: true
+    
+annonces:
+    type:   rest
+    resource:   lostBook\lostBookBundle\Controller\API\AnnonceController
+    
+villes:
+    type:   rest
+    resource: lostBook\lostBookBundle\Controller\API\VilleController

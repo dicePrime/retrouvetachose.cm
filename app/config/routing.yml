@@ -1,9 +1,9 @@
 r_tc_user:
-    resource: "@rTCUserBundle/Resources/config/routing.yml"
+    resource: "@lostBookUserBundle/Resources/config/routing.yml"
     prefix:   /
 
 r_tc:
-    resource: "@rTCBundle/Resources/config/routing.yml"
+    resource: "@lostBookBundle/Resources/config/routing.yml"
     prefix:   /
 
 app:
@@ -19,3 +19,10 @@ oneup_uploader:
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+admin_area:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+    
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

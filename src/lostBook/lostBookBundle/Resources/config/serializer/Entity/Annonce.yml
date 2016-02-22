@@ -1,0 +1,33 @@
+## YAML Template.
+---
+## YAML Template.
+---
+rTC\rTCBundle\Entity\Annonce:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        dateDebut:
+            expose: true
+        perdu:
+            expose: true
+        email:
+            expose: true
+        perdu:
+            expose: true
+        dateFin:
+            expose: true
+        ville:
+            expose: true
+        etat:
+            expose: true
+        dateCreation:
+            expose: true
+        commentaire:
+            expose: true
+        titre:
+            expose: true
+        espace:
+            expose: true
+        couleur:
+            expose: true

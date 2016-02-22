@@ -1,0 +1,61 @@
+{% extends '::default/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+{% endblock %}
+
+{% block section %}        
+         {{ include('::commonsFiles/nouvelleAnnonceForm.html.twig') }}   
+{% endblock %}
+
+{% block location %}
+    <li><a href="{{ path('_lostbook_homepage') }}" class="rTCBlackText">Acceuil</a></li>
+    <li class="active">Nouvelle Annonce</li>
+{% endblock %}
+
+{% block rightMenu %}
+    <blockquote>
+    {{ include('::commonsFiles/infoNouvelleAnnonce.html.twig') }}
+    </blockquote>
+
+{% endblock %}
+
+{% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/custom/nouvelleAnnonce.js') }}"></script>
+        <script src="{{ asset('js/validator.js') }}"></script>
+        <script src="{{ asset('js/dropzone.js') }}"></script>
+        <script src="{{ asset('js/moment.js') }}"></script>
+         <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+        <script>
+        $(document).ready(function() {
+            $("#dropzone").dropzone({
+                url: "{{ oneup_uploader_endpoint('gallery') }}",
+                addRemoveLinks: true,
+                dictDefaultMessage: "{{ "nouvelle_annonce_form.photos.instruction"|trans }}",
+                dictRemoveFile: "{{ "nouvelle_annonce_form.photos.supprimer"|trans }}",
+                acceptedFiles: "image/*",
+                maxFilesize: 5,
+                maxThumbnailFilesize: 5
+            });
+            $('#dateDebut').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+             $('#dateFin').datetimepicker({
+                useCurrent:false,
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+            $("#dateDebut").on("dp.change", function (e) {
+            $('#dateFin').data("DateTimePicker").minDate(e.date);
+        });
+        $("#dateFin").on("dp.change", function (e) {
+            $('#dateDebut').data("DateTimePicker").maxDate(e.date);
+        });
+        });
+        </script>
+{% endblock %}

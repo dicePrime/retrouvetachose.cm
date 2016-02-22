@@ -1,0 +1,116 @@
+{% extends '::default/base.html.twig' %}
+
+{% block rightMenu %}
+    <blockquote>
+    {{ include('::commonsFiles/rightMenu.html.twig') }}
+    </blockquote>
+
+{% endblock %}
+
+{% block leftMenu %}
+    {{ include('::commonsFiles/searchMenu.html.twig') }}
+    <h1 style="display: inline"><span class="glyphicon glyphicon-info-sign rTCPinkText"></span></h1>
+    <p>
+         
+        <em>
+            Vous gérez un lieu très fréquenté?
+            <br/>
+            Créez un espace dédié.<br/>
+            Vos clients/visiteurs pourront y retrouver
+            leurs objets perdus chez vous<br/>
+
+        </em>
+    </p>
+
+    <input type="submit" class="btn rTCGreen" value="C'est par là"/>
+{% endblock %}
+
+{% block location %}
+    {#<a href="{{ path('r_tc_homepage') }}" class="rTCBlackText">Acceuil>></a>#}
+
+    <li><a href="{{ path('_lostbook_homepage') }}" class="rTCBlackText">Acceuil</a></li>
+    <li><a href="{{ path('_lostbook_espaces_index') }}">{{ "espaces.tous_les_espaces"|trans }}</a></li>
+    <li class="active">(<span class="rTCPinkText"><strong>{{ pagination.getTotalItemCount }}</strong></span>)</li>
+
+{% endblock %}
+
+{% block section %}             
+
+    <div class="row">
+      
+        <div class="col-xs-12 pull-right">
+            <span class="glyphicon glyphicon-arrow-up rTCPinkText"></span>{{ knp_pagination_sortable(pagination, 'Date Ascendante', 'a.id') }} | <span class="glyphicon glyphicon-arrow-down rTCPinkText"></span><span class="rTCPinkText">{{ knp_pagination_sortable(pagination, 'Date descendante', 'a.id') }}</span> | <span class="glyphicon glyphicon-usd rTCPinkText"></span>{{ knp_pagination_sortable(pagination, 'Avec récompense', 'a.id') }}
+        </div>
+        <br/>
+      
+    </div>
+
+
+
+
+    {# table body #}
+    <div class="row main-content well">
+        <ul class="media-list">
+                    <div class="col-xs-12 col-sm-12">
+        {% for espace in pagination %}
+
+                {# {% set location = [asset('uploads/documents/annonces/'),annonce.document[0].path ] | join %}
+                 <img src="{{ asset(location) }}" alt="...">
+                 <div class="caption">
+                     <h4>{{ annonce.titre }}</h4>
+                     <p>{{ annonce.commentaire  }}</p>
+                     <p><a href="#" class="btn rTCGreen rTCBlackText" role="button">Afficher</a>
+                 </div>
+                #}
+                
+                <div class="media table-hover">
+                    <div class="media-left media-middle">
+                        {% if espace.imagePrincipale != NULL  %}
+                            {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
+                            <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
+                                <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
+                            </a>
+                        {% else %}
+                            <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
+                                <img class="media-object img-thumbnail" src="{{ asset('img/espace.png'|imagine_filter('main_thumb')) }}"/>
+                            </a>
+                       {% endif %}
+                           
+                    </div>
+
+                    <div class="media-body">
+                        <h3 class="media-heading rTCGreenText">{{ espace.nom }}</h3>                                                     
+                        <p>{{ espace.description|truncate(100)}}</p>
+                        <p>{{ espace.nombreAnnonces }} Annonces</p>
+                        <br/><br/><br/>
+                    </div>
+
+
+                </div>
+            
+        {% endfor %}
+        </div>
+        </ul>
+    </div>
+
+    {# display navigation #}
+    <div class="row">
+
+        <div class="col-xs-6  navigation pull-right">
+            <center>
+                {{ knp_pagination_render(pagination) }}
+            </center>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $("#accordion").accordion({collapsible: true});
+        });
+    </script>
+{% endblock %}

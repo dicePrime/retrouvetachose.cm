@@ -1,59 +1,3 @@
-{#<div class="row-fluid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class=" navbar  rTCBlack navbar-fixed-top" role="navigation">
-            <div class="collapse navbar-collapse">
-
-                <a class="" href="#">
-                    <img src="{{ asset('img/logo_rtc.png') }}" class="col-lg-1 col-sm-1 col-md-1 rTCBlack img img-responsive"/>
-                </a>
-                <ul class="nav navbar-nav">
-                    <li class="rTCActive"><a href="#" class="rTCWhiteText ">{{ "header.home"|trans }}</a></li>
-                    <li><a href="#about" class="rTCWhiteText">{{ "header.blog"|trans }}</a></li>
-                </ul>
-
-                <form class="navbar-form form-group">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <a class="btn rTCPink" value="" href="{{ path('r_tc_nouvelle_annonce') }}"><span class="rTCBlackText"><i class='icon icon-question'></i>&nbsp;J'ai perdu un objet</span></a>
-                      
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="input-group col-lg-4 col-sm-4 col-md-4">
-                        <input type="text" class="form-control" placeholder="Retrouvez des pages officielles, exemple : taxi">
-                        <col-lg- class="input-group-btn">
-                            <button class="btn btn-default" type="button">Chercher!</button>
-                        </col-lg->
-                    </div>                  
-                    
-                   
-                     <a class="btn rTCGreen" value="" href="{{ path('r_tc_nouvelle_annonce') }}"><span class="rTCBlackText"><i class='icon icon-plus'></i>&nbsp;J'ai trouvé un objet</span></a>
-                      &nbsp;&nbsp;
-                    
-                    <div class="dropdown input-group">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                            <i class="icon-th"></i>&nbsp;Paramètres
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Connexion</a></li>
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mon profil</a></li>
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Déconnexion</a></li>
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gerer les espaces</a></li>
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gerer les pages</a></li>
-                            
-                        </ul>
-                    </div>
-                </form>
-
-
-
-            </div><!--/.nav-collapse -->
-        </div>
-    </div>
-</div>
-#}
 <nav class="navbar rTCBlack navbar-fixed-top" role="navigation">
     <div class="container">
 
@@ -64,28 +8,41 @@
                 <span class="icon-bar rTCWhite"></span>
                 <span class="icon-bar rTCWhite"></span>
             </button>
-            <a class="navbar-brand rTCWhiteText" href="#">rTC</a>
+            <a class="navbar-brand rTCGreenText" href="#">lostbook</a>
         </div>
 
         <div class="navbar-collapse collapse" id="navbar-collapsible">
 
             <ul class="nav navbar-nav navbar-right">
                 
-                <li><a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
-                        <span class="glyphicon glyphicon-question-sign"></span> FAQ</a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#" class="rTCWhiteText">
-                        <span class="glyphicon glyphicon-log-in"></span> CONNEXION / INSCRIPTION
+                <li>
+                    <a role="button" href="{{ path('_lostbook_homepage') }}" class="rTCWhiteText">
+                        <span class="glyphicon glyphicon-folder-open rTCGreenText"></span>  TOUTES LES ANNONCES
                     </a>
                 </li>
-             
-                               
+                <li>
+                
+                <li>
+                    <a role="button" href="{{ path('_lostbook_espaces_index') }}" class="rTCWhiteText">
+                        <span class="glyphicon glyphicon-home rTCPinkText"></span> ESPACES DEDIES
+                    </a>
+                </li>
+                <li>
+                    <a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
+                        <span class="glyphicon glyphicon-question-sign"></span> FAQ</a>
+                </li>
+                                                   
                 <li>
                         <a role="button" class="dropdown-toggle rTCWhiteText" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                            <span class="glyphicon glyphicon-cog"></span> PARAMETRES
+                            <span class="glyphicon glyphicon-cog rTCGreenText"></span> PARAMETRES
                         </a>
                         <ul class="dropdown-menu navbar-default" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#" class="rTCWhiteText">
+                                    <span class="glyphicon glyphicon-log-in"></span> CONNEXION / INSCRIPTION
+                                </a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-user"></span> MON PROFIL</a></li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-log-out"></span> DECONNEXION</a></li>
@@ -98,7 +55,7 @@
                 </li>
                 
                 <li><a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
-                        <span class="glyphicon glyphicon-question-sign"></span> LANGUAGE</a>
+                        <span class="glyphicon glyphicon-flag rTCPinkText"></span> LANGUAGE</a>
                 </li>
                 
             </ul>

@@ -5,6 +5,38 @@ parameters:
 
 #services:
 #    kernel.listener.upload_listener:
-#        class: rTC\rTCBundle\EventListener\UploadListener
+#        class: lostBook\lostBookBundle\EventListener\UploadListener
 #        tags:
 #            - { name: kernel.event_listener, event: oneup_uploader.pre_upload, method: preUpload }
+
+services:
+    
+    kernel.listener.upload_listener:
+        class: lostBook\lostBookBundle\EventListener\RedirectionConnexionListener
+        arguments: [@service_container,@session]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            
+    admin.ville:
+        class: lostBook\lostBookBundle\Admin\VilleAdmin
+        arguments: [~, lostBook\lostBookBundle\Entity\Ville, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Ville }
+    
+    admin.espace:
+        class: lostBook\lostBookBundle\Admin\EspaceAdmin
+        arguments: [~, lostBook\lostBookBundle\Entity\Espace, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Espace }
+    admin.annonce:
+        class: lostBook\lostBookBundle\Admin\AnnonceAdmin
+        arguments: [~, lostBook\lostBookBundle\Entity\Annonce, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Annonce }
+            
+    admin.categorie:
+        class: lostBook\lostBookBundle\Admin\CategorieAdmin
+        arguments: [~, lostBook\lostBookBundle\Entity\Categorie, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Categorie }
+            

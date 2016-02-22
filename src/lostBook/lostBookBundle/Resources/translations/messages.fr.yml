@@ -1,0 +1,116 @@
+header:
+    home : Acceuil
+    about: A propos
+    help : Aide et conseils
+    blog : Blog
+    login : Connexion
+    find : Chercher
+    parameters : Parametres
+    logout : Déconnexion
+    new_lost : J'ai perdu un objet
+    new_found : J'ai trouvé un objet
+    
+search_menu:
+    title : Options de recherce
+    nature : 
+        nature : Nature
+        lost: Objets perdus
+        found : Objets trouvés
+    category :
+        category : Catégorie
+        documents : Documents
+        luggage : Bagage
+        electronic : Electronique
+        people : Personnes
+    place:
+        place : Zone géographique
+        district: Région
+        town : Ville
+    period:
+        period: Periode
+        min_date : Date minimale
+        max_date : Date maximale
+
+        
+general:
+    login : Connexion
+    
+    
+    
+nouvelle_annonce_form:
+    nature: Nature
+    categorie : Catégorie
+    ville : Ville
+    espace: Espace
+    periode:
+        periode: Période
+        de: de
+        a : à
+    couleur: Couleur
+    titre: Titre de l'annonce
+    commentaire: Commentaire
+    mots_cles: Mots Clés
+    photos: 
+        photos: Photos(4 au maximum)
+        inscrution : Cliquez pour ajouter
+        
+    recompense: 
+        avec_recompense: Avec Récompense?
+        montant: Montant(XAF)
+        autre: Ou Autre Chose
+        
+    securite:
+        securite: Sécurité et Contacts
+        email: Email
+        telephone1: Telephone 1
+        telephone2: Telephone 2
+        me_contacter: Me Contacter par téléphone?
+        code: Créer un code pour gérer l'annonce
+        confirm: Confirmer le code
+    publier : Publier l'annonce
+    erreurs:
+        codes_identiques: The codes don't
+        
+espaces:
+    tous_les_espaces: Tous les espaces
+    
+nouvel_espace_form:
+    identification: 
+       identification: Identification de l'espace
+       nom: Nom
+       ville: Ville
+       description: Description
+    contacts:
+        contacts: Contacts
+        email1: Email 1
+        email2: Email 2
+        telephone1: Téléphone 1
+        telephone2: Téléphone 2
+    creer: Créer
+    nombre_photos: Vous ne pouvez pas insérer plus d'une photo
+    
+details_espace:
+    ville: Ville
+    nombre_annonces: Nombre d'annonces
+    date_creation: Date de création
+    nombre_visites: Nombre de vues
+    description: Description
+    
+index:
+    options_recherche: Options de recherche
+    ville: ville
+    du: du
+    au: au
+    espace: espace
+    categorie: categorie
+    nature: nature
+    recompense: Avec recompense ?
+    chercher: Chercher
+    
+        
+        
+    
+    
+    
+    
+    

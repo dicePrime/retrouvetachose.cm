@@ -1,0 +1,129 @@
+{% extends '::default/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+{% endblock %}
+{% block rightMenu %}
+    <blockquote>
+    {{ include('::commonsFiles/rightMenu.html.twig') }}
+    </blockquote>
+
+{% endblock %}
+
+{% block leftMenu %}
+    {{ include('::commonsFiles/searchMenu.html.twig') }}
+    <h1 style="display: inline"><span class="glyphicon glyphicon-info-sign rTCPinkText"></span></h1>
+    <p>
+         
+        <em>
+            Vous gérez un lieu très fréquenté?
+            <br/>
+            Créez un espace dédié.<br/>
+            Vos clients/visiteurs pourront y retrouver
+            leurs objets perdus chez vous<br/>
+
+        </em>
+    </p>
+
+    <input type="submit" class="btn rTCGreen" value="C'est par là"/>
+{% endblock %}
+
+{% block location %}
+    {#<a href="{{ path('r_tc_homepage') }}" class="rTCBlackText">Acceuil>></a>#}
+
+    <li><a href="{{ path('_lostbook_homepage') }}">Home</a></li>
+    <li class="active">Toutes les annonces(<span class="rTCPinkText"><strong>{{ pagination.getTotalItemCount }}</strong></span>)</li>
+
+{% endblock %}
+
+{% block section %}             
+
+   {{ include('::commonsFiles/rechercheAnnoncesForm.html.twig') }}  
+
+
+
+    {# table body #}
+    <div class="row">
+        <ul class="media-list">
+                    <div class="col-xs-12 col-sm-12">
+                        {% if pagination | length != 0 %}
+        {% for annonce in pagination %}
+
+                
+                <div class="media table-hover">
+                    <div class="media-left media-middle">
+                        {% if annonce.imagePrincipale != NULL  %}
+                            {% set location = ['uploads/documents/annonces/',annonce.imagePrincipale ] | join %}
+                            <a href="{{ path('_lostbook_details_annonce',{ 'idAnnonce':annonce.id }) }}">
+                                <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="media-body">
+                        <h3 class="media-heading rTCGreenText">{{ annonce.titre }}</h3>                                                     
+                        <p>{{ annonce.commentaire  }}</p>
+                        <br/><br/><br/>
+                    </div>
+
+
+                </div>
+            
+        {% endfor %}
+        {% else %}
+            <p>
+               <img src="{{asset('img/nothing_found.png') }}" class='img img-responsive' style='display:inline;background-color:black'/> AUCUNE ANNONCE TROUVEE. 
+            </p>
+                
+        {% endif %}
+      
+        </div>
+        </ul>
+    </div>
+
+    {# display navigation #}
+    <div class="row">
+
+        <div class="col-xs-6  navigation pull-right">
+            <center>
+                {{ knp_pagination_render(pagination) }}
+            </center>
+        </div>
+    </div>
+            
+
+{% endblock %}
+
+{% block news %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/custom/index.js') }}"></script>
+    <script src="{{ asset('js/validator.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script>
+    
+        $(document).ready(function () {
+            $('#dateDebut').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+             $('#dateFin').datetimepicker({
+                useCurrent:false,
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+            $("#dateDebut").on("dp.change", function (e) {
+            $('#dateFin').data("DateTimePicker").minDate(e.date);
+        });
+        $("#dateFin").on("dp.change", function (e) {
+            $('#dateDebut').data("DateTimePicker").maxDate(e.date);
+        });
+        });
+    </script>
+{% endblock %}

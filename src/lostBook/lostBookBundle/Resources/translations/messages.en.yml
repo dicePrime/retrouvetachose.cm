@@ -1,0 +1,93 @@
+header:
+    home: Home
+    about: About
+    help : Help and advices
+    blog : Blog
+    login : Login
+    find : Go
+    parameters : Parameters
+    logout : Logout
+    new_lost : I've lost an object
+    new_found : I've found an object
+
+
+    
+    
+search_menu:
+    title : Search options
+    nature : 
+        nature : Nature
+        lost: Lost objects
+        found : Found objects
+    category :
+        category : Category
+        documents : Documents
+        luggage : Luggage
+        electronic : Electronic
+        people : People
+    place:
+        place : Place
+        district: District
+        town : Town
+    period:
+        period: Period
+        min_date : Minimum date
+        max_date : Maximum date
+        
+general:
+    login : Login
+    
+nouvelle_annonce_form:
+    nature: Nature
+    categorie : Catégorie
+    ville : Ville
+    espace: Espace
+    periode:
+        periode: Période
+        de: de
+        a : à
+    couleur: Couleur
+    titre: Titre de l'annonce
+    commentaire: Commentaire
+    mots_cles: Mots Clés
+    photos: 
+        photos: Photos(4 au maximum)
+        instruction : Cliquez pour ajouter
+        supprimer: "Supprimer"
+    recompense: 
+        recompense: Récompense
+        avec_recompense: Avec Récompense?
+        montant: Montant(XAF)
+        autre: Ou Autre Chose
+        
+    securite:
+        securite: Sécurité et Contacts
+        email: Email
+        telephone1: Telephone 1
+        telephone2: Telephone 2
+        me_contacter: Me Contacter par téléphone?
+        code: Créer un code pour gérer l'annonce
+        entrez_code: saisissez le code
+        confirm: Confirmer le code
+    publier : Publier l'annonce
+        
+    erreurs:
+        codes_identiques: The codes don't match
+      
+nouvel_espace_form:
+    identification: 
+       identificaton: Identification de l'espace
+       nom: Nom
+       ville: Ville
+       description: Description
+    contacts:
+        contacts: Contacts
+        email1: Email 1
+        email2: Email 2
+        telephone1: Téléphone 1
+        telephone2: Téléphone 2
+    creer: Créer
+    nombre_photos: Vous ne pouvez pas insérer plus d'une photo
+        
+    
+        

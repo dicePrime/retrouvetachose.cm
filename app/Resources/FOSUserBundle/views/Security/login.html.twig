@@ -10,14 +10,15 @@
     <legend>{{ 'security.login.submit'|trans }}</legend>
     
     <input type="hidden" name="_csrf_token"  value="{{ csrf_token }}" />
-    <div class="row">
-    <div class="col-lg-5">
+    <div class="form-group">
+    <div class="col-xs-12 col-sm-6">
         <p><strong>Pas encore inscrit?</strong></p>
         <em>Nous vous invitons à le faire afin<br/> de profiter de notre service</em>
         <br/>
         <br/>
         <input type="submit" class="btn rTCPink" value="S'inscrire"/>
     </div>
+    
     
     <div class='col-lg-3'>    
     <label for="username">{{ 'security.login.username'|trans }}</label>
@@ -51,5 +52,5 @@
 {% endblock fos_user_content %}
 
 {% block location %}
-    <a href="{{ path('r_tc_homepage') }}" class="rTCBlackText">Paramètres >> Connexion</a>
+    <a href="{{ path('_lostbook_homepage') }}" class="rTCBlackText">Paramètres >> Connexion</a>
 {% endblock %}
