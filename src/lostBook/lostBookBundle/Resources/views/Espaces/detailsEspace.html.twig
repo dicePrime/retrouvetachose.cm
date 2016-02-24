@@ -22,13 +22,13 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">A propos de l'espace</a></li>
-                <li role="presentation"><a href="#annonces" aria-controls="annonce" role="tab" data-toggle="tab">Annonces(<span class="rTCGreenText">{{ pagination.getTotalItemCount }})</span></a></li>
+                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">A propos de l'espace</a></li>
+                <li role="presentation" class="active"><a href="#annonces" aria-controls="annonce" role="tab" data-toggle="tab">Annonces(<span class="rTCGreenText">{{ pagination.getTotalItemCount }})</span></a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="about">
+                <div role="tabpanel" class="tab-pane" id="about">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div style="padding-top:30px;">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="annonces">
+                <div role="tabpanel" class="tab-pane active" id="annonces">
                     <div class="row">
         <ul class="media-list">
                     <div class="col-xs-12 col-sm-12">
@@ -92,6 +92,14 @@
         {% endfor %}
         </div>
         </ul>
+    </div>
+        <div class="row">
+
+        <div class="col-xs-6  navigation pull-right">
+            <center>
+                {{ knp_pagination_render(pagination) }}
+            </center>
+        </div>
     </div>
                 </div>
                 

@@ -204,7 +204,7 @@ class Annonce {
     /**
      *
      * @var integer
-     * @ORM\Column(name="nombre_vues",type="integer",options={"default:0"})
+     * @ORM\Column(name="nombre_vues",type="integer",nullable=true,options={"default:0"})
      */
     protected $nombreVues;
     

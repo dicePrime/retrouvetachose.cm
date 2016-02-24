@@ -1,0 +1,47 @@
+<div class="row">
+        <ul class="media-list">
+                    <div class="col-xs-12 col-sm-12">
+                        {% if pagination | length != 0 %}
+        {% for annonce in pagination %}
+
+                
+                <div class="media table-hover">
+                    <div class="media-left media-middle">
+                        {% if annonce.imagePrincipale != NULL  %}
+                            {% set location = ['uploads/documents/annonces/',annonce.imagePrincipale ] | join %}
+                            <a href="{{ path('_lostbook_details_annonce',{ 'idAnnonce':annonce.id }) }}">
+                                <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="media-body">
+                        <h3 class="media-heading rTCGreenText">{{ annonce.titre }}</h3>                                                     
+                        <p>{{ annonce.commentaire  }}</p>
+                        <br/><br/><br/>
+                    </div>
+
+
+                </div>
+            
+        {% endfor %}
+        {% else %}
+            <p>
+               <img src="{{asset('img/nothing_found.png') }}" class='img img-responsive' style='display:inline;background-color:black'/> AUCUNE ANNONCE TROUVEE. 
+            </p>
+                
+        {% endif %}
+      
+        </div>
+        </ul>
+    </div>
+
+    {# display navigation #}
+    <div class="row">
+
+        <div class="col-xs-6  navigation pull-right">
+            <center>
+                {{ knp_pagination_render(pagination) }}
+            </center>
+        </div>
+    </div>

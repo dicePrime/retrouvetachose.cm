@@ -106,7 +106,20 @@ index:
     nature: nature
     recompense: Avec recompense ?
     chercher: Chercher
-    
+
+
+# Time ago in words - Twig Extension
+less than %seconds seconds ago: Il y'a moins de %seconds secondes
+half a minute ago: Il y'a plus de 30 secondes
+less than a minute ago: Il y'a moins d'une minute 
+1 minute ago: Il y'a une minute
+%minutes minutes ago: Il y'a %minutes minutes
+about 1 hour ago: Il y'a presque 1 heure
+about %hours hours ago: Il y'a environ %hours heures
+1 day ago: Il y'a 1 jour
+%days days ago: Il y'a %days jours
+"{1} 1 month ago |]1,Inf[ %months months ago": "{1} Il y'a un mois |]1,Inf[ Il y'a %months mois"
+"{1} 1 year ago |]1,Inf[ %years years ago":  "Il ya un an |]1,Inf[ Il y'a %years ans"
         
         
     

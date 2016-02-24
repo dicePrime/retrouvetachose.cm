@@ -109,14 +109,16 @@ liip_imagine:
             quality: 100
             filters:
                 auto_rotate: ~
-                thumbnail: { size: [150, 150], mode: outbound }
+                thumbnail: { size: [150, 150], mode: outbound, allow_upscale: true }
+                
                 
         my_thumb:
             quality: 100
             filters:
                 auto_rotate: ~
-                thumbnail: { size: [500,350], mode: outbound }
-                
+                thumbnail: { size: [350,400], mode: outbound }
+                upscale: { min: [350, 400] }
+       
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -146,5 +148,12 @@ fos_rest:
         failed_validation: HTTP_BAD_REQUEST
         default_engine: twig
     routing_loader:
-        default_format: json
-                
+        default_format: 
+            
+
+services:
+    salavert.twig.time_ago:
+        class: Salavert\Twig\Extension\TimeAgoExtension
+        arguments: [@translator]
+        tags:
+        - { name: twig.extension }         

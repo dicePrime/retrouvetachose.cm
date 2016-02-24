@@ -127,7 +127,7 @@ class EspaceController extends Controller {
         $pagination = $paginator->paginate(
             $annonces,
             $request->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
+            2/*limit per page*/
         );
         
         return $this->render('lostBookBundle:Espaces:detailsEspace.html.twig',

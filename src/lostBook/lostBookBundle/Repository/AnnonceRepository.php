@@ -50,7 +50,160 @@ class AnnonceRepository extends EntityRepository
                                   . "JOIN a.medias m");
         $annonces = $query->getResult();  
         
-        return $annonces;
+        $annoncesNature = $this->getAnnoncesForNature($annonces, $recherche->getNature());
+        $annoncesVilles = $this->getAnnoncesForVille($annoncesNature, $recherche->getVille());
+        $annoncesEspace = $this->getAnnoncesForEspace($annoncesVilles, $recherche->getEspace());
+        $annoncesCategorie = $this->getAnnoncesForCategory($annoncesEspace, $recherche->getCategorie());
+        $annoncesDateDebut = $this->getAnnoncesForDateDebut($annoncesCategorie, $recherche->getDebut());
+        $annoncesDateFin = $this->getAnnoncesForDateFin($annoncesDateDebut, $recherche->getFin());
+        
+        return $annoncesDateFin;
         
     }
+    
+    
+    public function getAnnoncesForCategory($annonces,$category)
+    {
+       if($category != null)
+       {
+       $resultat = array();
+       
+       foreach($annonces as $next)
+       {
+           if($next->getCategorie() == $category)
+           {
+               $resultat[] = $next;
+           }
+       }
+       
+       return $resultat;
+       }
+       else
+       {
+           return $annonces;
+       }
+    }
+    
+    public function getAnnoncesForNature($annonces,$nature)
+    {
+        if($nature != null)
+        {
+        $resultat = array();
+        
+        foreach($annonces as $next)
+        {
+            if($next->getPerdu() == $nature)
+            {
+                $resultat[] = $next;
+            }
+        }
+        
+        return $resultat;
+        }
+        else
+        {
+            return $annonces;
+        }
+    }
+    
+    public function getAnnoncesForVille($annonces,$ville)
+    {
+        if($ville != null)
+        {
+        $resultat = array();
+        
+        foreach($annonces as $next)
+        {
+            if($next->getVille() == $ville)
+            {
+                $resultat[] = $next;
+            }
+        }
+        
+        return $resultat;
+        }
+        else
+        {
+            return $annonces;
+        }
+    }
+    
+    public function getAnnoncesForEspace($annonces,$espace)
+    {
+        if($espace != null)
+        {
+        $resultat = array();
+        
+     
+        foreach($annonces as $next)
+        {
+            
+            if($next->getEspace() == $espace)
+            {
+               
+                $resultat[] = $next;
+            }
+        }
+        
+        return $resultat;
+        }
+        else
+        {
+            return $annonces;
+        }
+    }
+    
+    public function getAnnoncesForDateDebut($annonces,$date)
+    {
+        if($date != null)
+        {
+        $resultat = array();
+        
+        foreach($annonces as $next)
+        {   
+            
+            $debut = \DateTime::createFromFormat('d/m/Y',$date);
+            
+            $debutFormated = \DateTime::createFromFormat('Y-m-d H:i:s',$debut->format('Y-m-d H:i:s'));
+            
+            if($next->getDateCreation() >= $debutFormated)
+            {
+                $resultat[] = $next;
+            }
+        }
+        return $resultat;
+        }
+        else
+        {
+            return $annonces;
+        }
+    }
+    
+    public function getAnnoncesForDateFin($annonces,$date)
+    {
+        if($date != null)
+        {
+        $resultat = array();
+        
+        foreach($annonces as $next)
+        {   
+            
+            $debut = \DateTime::createFromFormat('d/m/Y',$date);
+            
+            $debutFormated = \DateTime::createFromFormat('Y-m-d H:i:s',$debut->format('Y-m-d H:i:s'));
+            
+            if($next->getDateCreation() <= $debutFormated)
+            {
+                $resultat[] = $next;
+            }
+        }
+        return $resultat;
+        }
+        else
+        {
+            return $annonces;
+        }
+    }
+    
+    
 }

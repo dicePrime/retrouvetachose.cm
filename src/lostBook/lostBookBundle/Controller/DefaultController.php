@@ -15,23 +15,54 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        $request = $this->getRequest();        
-        $recherche = new RechercheAnnonces();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        
+        if($session->get('recherche') != null)
+        {
+            $recherche = $session->get('recherche');
+        }
+        else
+        {
+            $recherche = new RechercheAnnonces();
+        }
         $form = $this->createForm(new RechercheAnnoncesType(), $recherche);
         $form->handleRequest($request);
         
-         $session = $request->getSession();
+         
          $afterLoginRoute = $session->get('afterLoginRoute');
          $annonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Annonce');
             
         
         if($form->isValid())
         {
+           $idText = $recherche->getEspace();
+           $idTextArray = preg_split("#-#", $idText);
+           if(isset($idTextArray[0]))
+           {
+               $idEspace = preg_replace('/\s+/', '', $idTextArray[0]);
+           }
+           
+            
+            $recherche->setEspace($idEspace);
             $annonces = $annonceRepository->getResultatRecherche($recherche);
+            $session->set('recherche',$recherche);
+            $session->set('resultatRechercheAnnonces',$annonces);
+            
         }
         else
-        {         
-            $annonces = $annonceRepository->findAll();            
+        {      
+           
+            if($session->get('resultatRechercheAnnonces') != null)
+            {
+                
+                $annonces = $session->get('resultatRechercheAnnonces');
+            }
+            else
+            {
+                $annonces = $annonceRepository->findAll();     
+            }
+                      
         }
         $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate(
@@ -39,6 +70,7 @@ class DefaultController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             5/*limit per page*/
         );
+            $pagination->setUsedRoute('_lostbook_homepage');
         
         if($afterLoginRoute == Routes::$NOUVEL_ESPACE_ROUTE)
         {
@@ -50,11 +82,12 @@ class DefaultController extends Controller
             return $this->render('lostBookBundle:Default:index.html.twig',
                     array('pagination'=>$pagination,
                           'form'=>$form->createView()));
-        }
-        
+        }       
         
         
     }
+    
+    
     
     /**
      * C'est le controleur qui est appellé pour générer et 
@@ -79,7 +112,7 @@ class DefaultController extends Controller
 
        if($form->isValid())
        {
-
+           
            $session = $request->getSession();
            $user = $this->container->get('security.context')->getToken()->getUser();
            if($user!='anon.')
@@ -104,6 +137,7 @@ class DefaultController extends Controller
            }
            $espace = $espaceRepository->find($idEspace); 
            $annonce->setEspace($espace);
+           $annonce->setNombreVues(0);
            $espace->setNombreAnnonces($espace->getNombreAnnonces() + 1);
            $em = $this->getDoctrine()->getManager();
 
@@ -129,11 +163,14 @@ class DefaultController extends Controller
            }
            
            $em->flush();
+           
+          
            //Ici on met à jour l'objet annonce en lui définissant une image principale
            return $this->redirect($this->generateUrl('_lostbook_homepage'));
        }
        else
        {
+           
             return $this->render('lostBookBundle:Annonces:publierAnnonce.html.twig',array('form'=>$form->createView()));
        }
 

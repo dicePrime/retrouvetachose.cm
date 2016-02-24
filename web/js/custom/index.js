@@ -38,7 +38,7 @@ $(document).ready(function () {
          
          var ajaxRoute = Routing.generate('_espaces_for_ville',{ idVille: $("#rechercheAnnonces_ville").val() });
         $("#rechercheAnnonces_espace").val('loading ...');
-        alert(val);
+        
         $.ajax({  
            url :  ajaxRoute,
            type : 'POST',

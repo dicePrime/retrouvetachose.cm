@@ -36,6 +36,16 @@ class RedirectionConnexionListener {
         $route = $event->getRequest()->attributes->get('_route');
         
         
+       if($route == '_lostbook_homepage')
+        {
+            
+            if($event->getRequest()->get('page') == null)
+            {
+                $this->session->set('resultatRechercheAnnonces',null);
+                $this->session->set('resultatRechercheEspaces',null);
+                $this->session->set('recherche',null);
+            }
+        }
         if($route == Routes::$NOUVEL_ESPACE_ROUTE)
         {
             if(!is_object($this->securityContext->getToken()->getUser()))

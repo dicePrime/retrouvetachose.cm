@@ -28,6 +28,7 @@
         "sonata-project/doctrine-orm-admin-bundle": "~2.3",
         "friendsofsymfony/rest-bundle": "~1.7",
         "jms/serializer-bundle": "~1.1",
+        "salavert/time-ago-in-words": "1.*",
         "doctrine/doctrine-fixtures-bundle": "~2.3",
         "friendsofsymfony/jsrouting-bundle": "~1.5"
     },
