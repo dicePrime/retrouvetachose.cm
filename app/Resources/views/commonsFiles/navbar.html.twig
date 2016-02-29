@@ -13,7 +13,7 @@
 
         <div class="navbar-collapse collapse" id="navbar-collapsible">
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li>
                     <a role="button" class="dropdown-toggle rTCWhiteText" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                         <span class="glyphicon glyphicon-menu-hamburger rTCGreenText"></span> MENU
@@ -40,11 +40,7 @@
                 </li>
 
 
-                <li>
-
-
-
-
+                    
                 <li>
                     <a role="button" class="dropdown-toggle rTCWhiteText" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                         <span class="glyphicon glyphicon-cog rTCGreenText"></span> PARAMETRES
@@ -75,11 +71,56 @@
 
 
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="btn rTCGreen" value="" href="{{ path('_lostbook_nouvelle_annonce') }}"><span class="rTCWhiteText"><i class='icon icon-plus'></i>&nbsp;<span class="rTCWhiteText">Nouvelle Annonce</span></span></a>
+            <ul class="nav navbar-nav navbar-right visible-xs">
+                
+                    
+                   
+                        <li>
+                            <a role="button" href="{{ path('_lostbook_homepage') }}" class="rTCWhiteText">
+                                <span class="glyphicon glyphicon-folder-open rTCGreenText"></span>  TOUTES LES ANNONCES
+                            </a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li>
+                            <a role="button" href="{{ path('_lostbook_espaces_index') }}" class="rTCWhiteText">
+                                <span class="glyphicon glyphicon-home rTCPinkText"></span> ESPACES DEDIES
+                            </a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li>
+                            <a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
+                                <span class="glyphicon glyphicon-question-sign"></span> FAQ</a>
+                        </li>  
 
+                    
+                                                        
+             
+                   
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#" class="rTCWhiteText">
+                                <span class="glyphicon glyphicon-log-in"></span> CONNEXION / INSCRIPTION
+                            </a>
+                        </li>
+                        
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-user rTCGreenText"></span> MON PROFIL</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-log-out"></span> DECONNEXION</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-home"></span> MES ESPACES</a></li>
+                        <li><a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
+                        <span class="glyphicon glyphicon-flag rTCPinkText"></span> LANGUAGE</a>
                 </li>
+                        
+
+                  
+                </li>
+               
+
+
+
+
+            </ul>                    
+                                
+            <ul class="nav navbar-nav navbar-right hidden-xs" style='padding-top:9px'>                
+                    <a class="btn rTCGreen"  value="" href="{{ path('_lostbook_nouvelle_annonce') }}"><span class="rTCWhiteText"><i class='icon icon-plus'></i>&nbsp;<span class="rTCWhiteText">Nouvelle Annonce</span></span></a>
             </ul>
             {# <div class="col-xs-12 navbar-form navbar-left" style="display:inline;">
               

@@ -116,8 +116,9 @@ liip_imagine:
             quality: 100
             filters:
                 auto_rotate: ~
-                thumbnail: { size: [350,400], mode: outbound }
+                thumbnail: { size: [350,400], mode: inset }
                 upscale: { min: [350, 400] }
+                downscale: { max: [350,400] }
        
 sonata_block:
     default_contexts: [cms]

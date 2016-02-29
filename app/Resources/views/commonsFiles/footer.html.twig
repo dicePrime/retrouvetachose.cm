@@ -1,6 +1,12 @@
 {# empty Twig template #}
 <div class="container-fluid  navbar-default">
     <div class="row">
+        <div class="col-xs-12 visible-xs navbar-fixed-bottom">
+            <center> <a class="btn rTCGreen" value="" href="{{ path('_lostbook_nouvelle_annonce') }}"><span class="rTCWhiteText"><i class='icon icon-plus'></i>&nbsp;<span class="rTCWhiteText">Nouvelle Annonce</span></span></a>
+            </center>
+        </div>
+    </div>
+    <div class="row">
         
 
         <div class="col-lg-2 col-lg-offset-1">
@@ -17,10 +23,11 @@
 
         <div class="col-lg-2">
             <h4>Nous contacter</h4>
-            <p><i class="icon-phone"></i>&nbsp;Tel:+237 691 161 547</p>
-            <p><i class="icon-facebook"></i>&nbsp;&nbsp;&nbsp;Facebook</p>
-            <p><i class="icon-twitter"></i>&nbsp;Twitter</p>
-            <p><i class="icon-google-plus"></i>&nbsp;Google plus</p>
+            <p><i class="fa fa-phone"></i>&nbsp;Tel:+237 691 161 547</p>
+             <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
+            <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
+            <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+            <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="col-lg-2">
             <h4>Politique</h4>
@@ -30,10 +37,21 @@
             </ul>
         </div> 
     </div>
+    
 
     <div class="row">
         <div class="col-lg-4 col-lg-offset-3">
             <p>&copy; Copyright {{ "now"|date('Y') }} - rTC team</p>
         </div>
     </div>
+   
 </div>
+        
+        {# <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i>                           </a>
+                        
+                        
+                       
+                        <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
+                        <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
+                     #}

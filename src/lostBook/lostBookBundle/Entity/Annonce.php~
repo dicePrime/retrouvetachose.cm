@@ -204,16 +204,20 @@ class Annonce {
     /**
      *
      * @var integer
-     * @ORM\Column(name="nombre_vues",type="integer",options={"default:0"})
+     * @ORM\Column(name="nombre_vues",type="integer",nullable=true,options={"default:0"})
      */
     protected $nombreVues;
     
-    
+    /**
+     * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireAnnonce", mappedBy="annonce")
+     */
+    protected $commentaires;
     
     
 
     public function __construct() {
         $this->medias = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     /**
@@ -776,4 +780,27 @@ class Annonce {
     }
 
 
+
+    /**
+     * Set nombreVues
+     *
+     * @param integer $nombreVues
+     * @return Annonce
+     */
+    public function setNombreVues($nombreVues)
+    {
+        $this->nombreVues = $nombreVues;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreVues
+     *
+     * @return integer 
+     */
+    public function getNombreVues()
+    {
+        return $this->nombreVues;
+    }
 }

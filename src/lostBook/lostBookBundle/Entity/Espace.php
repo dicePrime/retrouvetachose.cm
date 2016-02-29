@@ -129,12 +129,18 @@ class Espace
      */
     protected $nombreVisites;
     
+    /**
+     * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireEspace", mappedBy="espace")
+     */
+    protected $commentaires;
+    
     
 
     
     public function __construct() {
         $this->medias = new ArrayCollection();
         $this->annonces = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     /**
@@ -492,5 +498,38 @@ class Espace
     public function getNombreVisites()
     {
         return $this->nombreVisites;
+    }
+
+    /**
+     * Add commentaires
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireEspace $commentaires
+     * @return Espace
+     */
+    public function addCommentaire(\lostBook\lostBookBundle\Entity\CommentaireEspace $commentaires)
+    {
+        $this->commentaires[] = $commentaires;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaires
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireEspace $commentaires
+     */
+    public function removeCommentaire(\lostBook\lostBookBundle\Entity\CommentaireEspace $commentaires)
+    {
+        $this->commentaires->removeElement($commentaires);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

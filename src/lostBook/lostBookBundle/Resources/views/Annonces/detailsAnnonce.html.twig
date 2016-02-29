@@ -21,30 +21,43 @@
             <h1 class="rTCBlackText">{{ annonce.titre }}</h1>
         </div>
     </div>
-     <div class="row">
+     <div class="row" style="padding-top:25px;">
          <div class="col-xs-12 col-sm-6">
             <p>
-        <span>Publiée il y'a  {{ annonce.dateCreation | time_ago_in_words(false,true) | trans }}        
-            {% if  annonce.utilisateur.nom is defined %}
+                <a class="btn btn-social-icon rTCGreenText"> <i class="fa fa-user"></i></a> Publiée par  {% if  annonce.utilisateur.nom is defined %}
                 {#{{ annonce.utilisateur.nom }}#}
             {% else %}
             AnonymousUser
-            {% endif %}
+            {% endif %}        <br/>  
+                <a class="btn btn-social-icon rTCBlackText"><i class="glyphicon glyphicon-time"></i></a> Publié {{ annonce.dateCreation | time_ago_in_words(false,true) | trans }} <br/>
+                 <a class="btn btn-social-icon rTCPinkText"><i class="glyphicon glyphicon-eye-open"></i></a> Vue {{ annonce.nombreVues }} fois
+               
         </span><br/>
         
-        TAGS: <a href="#">{{ annonce.motsCles }}</a>
+        TAGS:
+        {% set tags = annonce.motsCles| split(' ') %}
+        {% for tag in tags %}
+            <a href="#">#{{ tag }}</a>
+            {% endfor %}
+        
         
     </p>
          </div>
-            <div class="col-xs-12 col-sm-6">
-                
+            <div class="col-xs-12 col-sm-6 pull-right">
+                <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i>                           </a>
+                        
+                        <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
+                        <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
+                        <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
+                        <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
             </div>
     
     
     <br/> 
     </div>
      <div class="row">
-     <div class="col-xs-12  col-sm-7" id="pgwSlideshow">
+     <div class="col-xs-12  col-sm-6" id="pgwSlideshow">
      
             <ul>
                     {% for document in annonce.medias %}
@@ -54,34 +67,98 @@
             </ul>
     
     </div>
-     </div>
-     
-            <div class="row" style="padding-top:25px;">
-                <div class="col-xs-12 col-sm-9">
-                    <h2>Commentaire</h2>
-                    <blockquote>
+             <div class="col-xs-12 col-sm-6">
+                 
+
                         {{ annonce.commentaire }}
-                    </blockquote>
-                </div>
-            </div>
+                    
+                
+             </div>
+                        </div>
+    
+     
+            
     
     <div class="row" style="padding-top:50px;">
     <div class="col-xs-12 col-sm-12">
      <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#infos" aria-controls="infos" role="tab" data-toggle="tab">Informations</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+    <li role="presentation" class="active"><a href="#commentaires" aria-controls="commentaires" role="tab" data-toggle="tab">Commentaires</a></li>
+    <li role="presentation"><a href="#contacts" aria-controls="contacts" role="tab" data-toggle="tab">Contacts</a></li>
+
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="infos">
-          
-      </div>
-    <div role="tabpanel" class="tab-pane" id="commentaires">Commentaires</div>
-    <div role="tabpanel" class="tab-pane" id="messages">Sécurité</div>
-    <div role="tabpanel" class="tab-pane" id="parametres">Paramètres</div>
+   <div role="tabpanel" class="tab-pane active" id="commentaires">
+       <div id="commentairesItems">
+       {% for commentaire in annonce.commentaires %}
+           <div class="row">
+               <div class="col-xs-12">
+                   <blockquote>
+                       <p>{{ commentaire.commentaire }}</p>
+                       
+                       <footer>
+                           <strong>{{ commentaire.pseudo }}, le {{ commentaire.date }}</strong>
+                       </footer>
+                   </blockquote>
+               </div>
+           </div> 
+        {% endfor %}
+       </div>
+        
+   {% if app.user %}
+       <form class="form-horizontal well" data-toggle='validator' id="commentaireForm">
+           <div class="form-group">
+               <label class="col-xs-12 col-sm-4 control-label">Commentaire</label>
+               <div class="col-xs-12 col-sm-8">
+                   <textarea class="form-control" id="commentaire" name="commentaire" required></textarea>
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="col-xs-12 col-sm-8 col-sm-offset-4">
+                   <input type="submit" class="btn btn-primary" value="soumettre"/>
+               </div>
+           </div>
+       </form>
+   {% else %}
+        <form class="form-horizontal well" data-toggle='validator' id="commentaireForm">
+            <div class="form-group">
+               <label class="col-xs-12 col-sm-4 control-label">Email</label>
+               <div class="col-xs-12 col-sm-8">
+                   <input type="email" class="form-control" id="emailCommentaire" name="emailCommentaire" required/>
+               </div>
+           </div>
+           <div class="form-group">
+               <label class="col-xs-12 col-sm-4 control-label">Commentaire</label>
+               <div class="col-xs-12 col-sm-8">
+                   <textarea class="form-control" id="commentaire" name="commentaire" required></textarea>
+               </div>
+           </div>
+           <div class="form-group">
+               <div class="col-xs-12 col-sm-8 col-sm-offset-4">
+                   <input type="submit" class="btn btn-primary" value="soumettre"/>
+               </div>
+           </div>
+       </form>  
+   {% endif %}
+   </div>
+    <div role="tabpanel" class="tab-pane" id="contacts">
+        <h4>Téléphone</h4>
+         <dl class="dl-horizontal">
+             <dt><a class="btn btn-social-icon btn-success"><i class="fa fa-phone"></i></a></dt>
+              <dd style="padding: 10px;"><a href="tel:{{ annonce.telephone1 }}">{{ annonce.telephone1 }}</a></dd>
+             <dt><a class="btn btn-social-icon btn-success"><i class="fa fa-phone"></i></a></dt>
+              <dd style="padding: 10px;"><a href="tel:{{ annonce.telephone2 }}">{{ annonce.telephone2 }}</a></dd>
+                        
+        </dl>
+              <h4>Email</h4>
+         <dl class="dl-horizontal">
+             <dt><a class="btn btn-social-icon btn-primary"><i class="fa fa-envelope"></i></a></dt>
+                <dd style="padding: 10px;"><a href="mailto:{{ annonce.email }}">{{ annonce.email }}</a> </dd>
+
+                        
+        </dl>
+    </div>
   </div>
     </div>
 </div>
@@ -92,11 +169,11 @@
 {% block javascripts %}
         {{ parent() }}
         <script src="{{ asset('js/tiksluscarousel.js') }}"></script>
+        <script src="{{ asset('js/validator.js') }}"></script>
         <script>
         $(document).ready(function() {
         $('#pgwSlideshow').tiksluscarousel({
                 height :0,
-                nav : 'thumbnails',
                 autoPlay: false
 
         });

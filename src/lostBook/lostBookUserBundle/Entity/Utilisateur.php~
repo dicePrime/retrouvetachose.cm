@@ -28,6 +28,8 @@ class Utilisateur extends BaseUser
         parent::__construct();
         $this->annonces = new ArrayCollection();
         $this->espaces = new ArrayCollection();
+        $this->commentairesAnnonce = new ArrayCollection();
+        $this->commentairesEspace = new ArrayCollection();
     }
 
     /**
@@ -39,6 +41,16 @@ class Utilisateur extends BaseUser
      * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\Espace", mappedBy="administrateur")
      */
     private $espaces;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireAnnonce", mappedBy="utilisateur")
+     */
+    private $commentairesAnnonce;
+    
+     /**
+     * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireEspace", mappedBy="utilisateur")
+     */
+    private $commentairesEspace;
 
     /**
      * Get id
@@ -233,4 +245,80 @@ class Utilisateur extends BaseUser
     {
         return $this->email;
     }
+
+    /**
+     * Add annonces
+     *
+     * @param \lostBook\lostBookBundle\Entity\Annonce $annonces
+     * @return Utilisateur
+     */
+    public function addAnnonce(\lostBook\lostBookBundle\Entity\Annonce $annonces)
+    {
+        $this->annonces[] = $annonces;
+
+        return $this;
+    }
+
+    /**
+     * Remove annonces
+     *
+     * @param \lostBook\lostBookBundle\Entity\Annonce $annonces
+     */
+    public function removeAnnonce(\lostBook\lostBookBundle\Entity\Annonce $annonces)
+    {
+        $this->annonces->removeElement($annonces);
+    }
+
+    /**
+     * Get annonces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnnonces()
+    {
+        return $this->annonces;
+    }
+
+    /**
+     * Add espaces
+     *
+     * @param \lostBook\lostBookBundle\Entity\Espace $espaces
+     * @return Utilisateur
+     */
+    public function addEspace(\lostBook\lostBookBundle\Entity\Espace $espaces)
+    {
+        $this->espaces[] = $espaces;
+
+        return $this;
+    }
+
+    /**
+     * Remove espaces
+     *
+     * @param \lostBook\lostBookBundle\Entity\Espace $espaces
+     */
+    public function removeEspace(\lostBook\lostBookBundle\Entity\Espace $espaces)
+    {
+        $this->espaces->removeElement($espaces);
+    }
+
+    /**
+     * Get espaces
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEspaces()
+    {
+        return $this->espaces;
+    }
+    
+    function getCommentairesAnnonce() {
+        return $this->commentairesAnnonce;
+    }
+
+    function setCommentairesAnnonce($commentairesAnnonce) {
+        $this->commentairesAnnonce = $commentairesAnnonce;
+    }
+
+
 }

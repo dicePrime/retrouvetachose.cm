@@ -208,12 +208,16 @@ class Annonce {
      */
     protected $nombreVues;
     
-    
+    /**
+     * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireAnnonce", mappedBy="annonce")
+     */
+    protected $commentaires;
     
     
 
     public function __construct() {
         $this->medias = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     /**
@@ -798,5 +802,38 @@ class Annonce {
     public function getNombreVues()
     {
         return $this->nombreVues;
+    }
+
+    /**
+     * Add commentaires
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireAnnonce $commentaires
+     * @return Annonce
+     */
+    public function addCommentaire(\lostBook\lostBookBundle\Entity\CommentaireAnnonce $commentaires)
+    {
+        $this->commentaires[] = $commentaires;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaires
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireAnnonce $commentaires
+     */
+    public function removeCommentaire(\lostBook\lostBookBundle\Entity\CommentaireAnnonce $commentaires)
+    {
+        $this->commentaires->removeElement($commentaires);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

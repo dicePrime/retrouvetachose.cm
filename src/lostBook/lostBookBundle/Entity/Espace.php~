@@ -129,12 +129,18 @@ class Espace
      */
     protected $nombreVisites;
     
+    /**
+     * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireEspace", mappedBy="espace")
+     */
+    protected $commentaires;
+    
     
 
     
     public function __construct() {
         $this->medias = new ArrayCollection();
         $this->annonces = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     /**
@@ -469,5 +475,28 @@ class Espace
     public function getAdministrateur()
     {
         return $this->administrateur;
+    }
+
+    /**
+     * Set nombreVisites
+     *
+     * @param integer $nombreVisites
+     * @return Espace
+     */
+    public function setNombreVisites($nombreVisites)
+    {
+        $this->nombreVisites = $nombreVisites;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreVisites
+     *
+     * @return integer 
+     */
+    public function getNombreVisites()
+    {
+        return $this->nombreVisites;
     }
 }
