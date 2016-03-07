@@ -24,5 +24,39 @@ class RechercheEspaces {
     
     protected $nom;
     
+    function getVille() {
+        return $this->ville;
+    }
+
+    function getDebut() {
+        return $this->debut;
+    }
+
+    function getFin() {
+        return $this->fin;
+    }
+
+    function getNom() {
+        return $this->nom;
+    }
+
+    function setVille($ville) {
+        $this->ville = $ville;
+    }
+
+    function setDebut($debut) {
+        $this->debut = $debut;
+    }
+
+    function setFin($fin) {
+        $this->fin = $fin;
+    }
+
+    function setNom($nom) {
+        $this->nom = $nom;
+    }
+
+
+    
   
 }

@@ -45,9 +45,8 @@ class AnnonceRepository extends EntityRepository
     public function getResultatRecherche(RechercheAnnonces $recherche)
     {
         $em = $this->getEntityManager();
-        $query = $em->createQuery("SELECT a,m"
-                                  . " FROM lostBookBundle:Annonce a "
-                                  . "JOIN a.medias m");
+        $query = $em->createQuery("SELECT a"
+                                  . " FROM lostBookBundle:Annonce a ");
         $annonces = $query->getResult();  
         
         $annoncesNature = $this->getAnnoncesForNature($annonces, $recherche->getNature());

@@ -151,5 +151,9 @@ textarea
     text-align: left !important;
     border:none;
 }
+.lostbook-hover:hover{
+    border:1px solid;
+    border-color:rgb(255,23,255);
+}
 
 

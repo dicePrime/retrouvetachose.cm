@@ -1,0 +1,3 @@
+An exception occurred while executing 'INSERT INTO commentaire_annonce (commentaire, nom, email, pseudo, date, user_id, annonce_id) VALUES (?, ?, ?, ?, ?, ?, ?)' with params ["Troisi\u00e8me commentaire", null, "npatrickjoel@gmail.com", "La synapse", null, null, 15]:
+
+SQLSTATE[23000]: Integrity constraint violation: 1048 Le champ 'nom' ne peut être vide (null)

@@ -39,7 +39,7 @@ class Commentaire {
      /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string")
+     * @ORM\Column(name="nom", type="string",nullable=TRUE)
      */
     protected $nom;
     

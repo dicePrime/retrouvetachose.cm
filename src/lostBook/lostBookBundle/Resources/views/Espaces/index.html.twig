@@ -1,4 +1,9 @@
 {% extends '::default/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+{% endblock %}
 
 {% block rightMenu %}
     <blockquote>
@@ -36,33 +41,15 @@
 
 {% block section %}             
 
-    <div class="row">
-      
-        <div class="col-xs-12 pull-right">
-            <span class="glyphicon glyphicon-arrow-up rTCPinkText"></span>{{ knp_pagination_sortable(pagination, 'Date Ascendante', 'a.id') }} | <span class="glyphicon glyphicon-arrow-down rTCPinkText"></span><span class="rTCPinkText">{{ knp_pagination_sortable(pagination, 'Date descendante', 'a.id') }}</span> | <span class="glyphicon glyphicon-usd rTCPinkText"></span>{{ knp_pagination_sortable(pagination, 'Avec récompense', 'a.id') }}
-        </div>
-        <br/>
-      
-    </div>
-
-
-
+  {{ include('::commonsFiles/rechercheEspacesForm.html.twig') }}  
 
     {# table body #}
-    <div class="row main-content well">
+    <div class="row">
         <ul class="media-list">
                     <div class="col-xs-12 col-sm-12">
         {% for espace in pagination %}
 
-                {# {% set location = [asset('uploads/documents/annonces/'),annonce.document[0].path ] | join %}
-                 <img src="{{ asset(location) }}" alt="...">
-                 <div class="caption">
-                     <h4>{{ annonce.titre }}</h4>
-                     <p>{{ annonce.commentaire  }}</p>
-                     <p><a href="#" class="btn rTCGreen rTCBlackText" role="button">Afficher</a>
-                 </div>
-                #}
-                
+              
                 <div class="media table-hover">
                     <div class="media-left media-middle">
                         {% if espace.imagePrincipale != NULL  %}
@@ -108,9 +95,28 @@
 
 {% block javascripts %}
     {{ parent() }}
+     <script src="{{ asset('js/validator.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $("#accordion").accordion({collapsible: true});
+             $('#dateDebut').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+             $('#dateFin').datetimepicker({
+                useCurrent:false,
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+            $("#dateDebut").on("dp.change", function (e) {
+            $('#dateFin').data("DateTimePicker").minDate(e.date);
+        });
+        $("#dateFin").on("dp.change", function (e) {
+            $('#dateDebut').data("DateTimePicker").maxDate(e.date);
+        });
         });
     </script>
 {% endblock %}

@@ -44,6 +44,7 @@ class RedirectionConnexionListener {
                 $this->session->set('resultatRechercheAnnonces',null);
                 $this->session->set('resultatRechercheEspaces',null);
                 $this->session->set('recherche',null);
+                $this->session->set('rechercheEspaces',null);
             }
         }
         if($route == Routes::$NOUVEL_ESPACE_ROUTE)

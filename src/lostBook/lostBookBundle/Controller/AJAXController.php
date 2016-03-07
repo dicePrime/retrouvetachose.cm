@@ -19,6 +19,7 @@ use lostBook\lostBookBundle\Commons\Routes;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use lostBook\lostBookBundle\Entity\CommentaireAnnonce;
 use lostBook\lostBookBundle\Entity\CommentaireEspace;
+use lostBook\lostBookBundle\Commons\CommonsTasks;
 use lostBook\lostBookBundle\Repository\CommentaireAnnonceRepository;
 use lostBook\lostBookBundle\Repository\CommentaireEspaceRepository;
 
@@ -40,17 +41,32 @@ class AJAXController extends Controller {
     public function nouveauCommentaireAnnonceAction() {
 
         $commentaireAnnonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:CommentaireAnnonce');
+        $annonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Annonce');
         $request = $this->getRequest();
         $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
 
         try {
             if ($request->isXmlHttpRequest()) {
+                $idAnnonce = $request->get('idAnnonce');
+                $annonce = $annonceRepository->find($idAnnonce);
                 
-            } else {
+                $commentaireAnnonce = new CommentaireAnnonce();
+                
+                $commentaireAnnonce->setAnnonce($annonce);
+                $commentaireAnnonce->setCommentaire($request->get('commentaire'));
+                $commentaireAnnonce->setEmail($request->get('emailCommentaire'));
+                $commentaireAnnonce->setPseudo($request->get('pseudo'));
+                $date = new \DateTime('today');
+                $commentaireAnnonce->setDate($date);
+                $em->persist($commentaireAnnonce);
+                $em->flush();
+                                return new JsonResponse(array('code' => 0, 'message' => 'The file specified was not found'));
+     } else {
                 return new JsonResponse(array('code' => -1, 'message' => 'The file specified was not found'));
             }
         } catch (\Exception $ex) {
-            CommonTasks::writeFile('exceptions/controllersExceptions/nouvelleExtractionActionException.txt', $ex->getTraceAsString(), 'w+');
+            CommonsTasks::writeFile('exceptions/controllersExceptions/nouvelleExtractionActionException.txt', $ex->getMessage(), 'w+');
             return new JsonResponse(array('code' => -1, 'message' => 'Programmation error'));
         }
     }

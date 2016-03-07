@@ -16,6 +16,9 @@ use lostBook\lostBookBundle\Entity\Espace;
 use lostBook\lostBookBundle\Form\Type\EspaceType;
 use Symfony\Component\HttpFoundation\File;
 use Symfony\Component\HttpFoundation\Request;
+use lostBook\lostBookBundle\Form\Type\RechercheEspacesType;
+use lostBook\lostBookBundle\Entity\RechercheEspaces;
+
 
 
 class EspaceController extends Controller {
@@ -27,9 +30,47 @@ class EspaceController extends Controller {
      */
     public function indexAction()
     {
+        
         $request = $this->getRequest();
-        $espaceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Espace');
-        $espaces = $espaceRepository->findAll();
+        $session = $request->getSession();
+        
+        if($session->get('rechercheEspaces') != null)
+        {
+            $recherche = $session->get('rechercheEspaces');
+        }
+        else
+        {
+            $recherche = new RechercheEspaces();
+        }
+        $form = $this->createForm(new RechercheEspacesType(), $recherche);
+        $form->handleRequest($request);
+        
+         $espaceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Espace');
+        
+        
+        if($form->isValid())
+        {
+            $espaces = $espaceRepository->getResultatRecherche($recherche);
+            $session->set('rechercheEspaces',$recherche);
+            $session->set('resultatRechercheEspaces',$espaces);
+            
+        }
+        else
+        {      
+           
+            if($session->get('resultatRechercheEspaces') != null)
+            {
+                
+                $espaces = $session->get('resultatRechercheEspaces');
+            }
+            else
+            {
+                $espaces = $espaceRepository->findAll();     
+            }
+                      
+        }
+        
+       
       
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -39,7 +80,9 @@ class EspaceController extends Controller {
         );
        
         
-        return $this->render('lostBookBundle:Espaces:index.html.twig',array('pagination'=>$pagination));
+        return $this->render('lostBookBundle:Espaces:index.html.twig',
+                array('pagination'=>$pagination,
+                      'form'=>$form->createView()));
         
           
     }

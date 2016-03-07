@@ -34,12 +34,12 @@ class AnnonceType extends AbstractType {
         $builder->add("codeCreateur","password",array('attr'=>array('required'=>false)));
         $builder->add("confirmCode","password",array('attr'=>array('required'=>false)));
         $builder->add("email","email");
-        $builder->add("telephone1","text",array('attr'=>array('required'=>false)));
+        $builder->add("telephone1","text",array('required'=>false));
         $builder->add("telephone2","text",array('required'=>false));
         $builder->add("meContacter","checkbox",array('attr'=>array('checked'=>'checked'),'required'=>false));
         $builder->add("avecRecompense","checkbox",array('required'=>false));
         $builder->add("montantRecompense","number",array('required'=>false));
-        $builder->add("perdu","choice",array('choices'=>array('0'=>'Perte','1'=>'Restitution','required'=>false)));
+        $builder->add("perdu","choice",array('choices'=>array('0'=>'Perte','1'=>'Restitution'),'required'=>false));
         $builder->add("autreRecompense","textarea",array('required'=>false));
     }
 

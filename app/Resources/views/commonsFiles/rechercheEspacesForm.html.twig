@@ -21,35 +21,18 @@
                         <div class="co-xs-12 col-sm-6">
                             <div class="input-group">
                                 <span class="input-group-addon">{{ "index.nature"|trans|upper }}</span>
-                                {{ form_widget(form.nature,{'attr':{'class':'form-control'} }) }}
+                                {{ form_widget(form.ville,{'attr':{'class':'form-control'} }) }}
                             </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-6">
                             <div class="input-group">
                                 <span class="input-group-addon">{{ "index.categorie"|trans|upper }}</span>
-                                {{ form_widget(form.categorie,{'attr':{'class':'form-control'} }) }}
+                                {{ form_widget(form.nom,{'attr':{'class':'form-control'} }) }}
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">      
-                        <div class="co-xs-12 col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-addon">{{ "index.ville"|trans|upper }}</span>
-                                {{ form_widget(form.ville,{'attr':{'class':'form-control'} }) }}
-                            </div>
-                        </div>     
-
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-addon">{{ "index.espace"|trans|upper }}</span>
-                                {{ form_widget(form.espace,{'attr':{'class':'form-control'} }) }}
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="form-group">
+                     <div class="form-group">
                         <div class="col-sm-6">
                             <div class="input-group date" id="dateDebut">
                                 <span class="input-group-addon">{{ "index.du"|trans|upper }}</span>
@@ -67,16 +50,11 @@
                             </div>
                         </div>
                     </div>
+                 
 
                     <div class="form-group">
-                        <div class="col-xs-3 col-sm-4 col-sm-offset-2">
-                            <label class="checkbox-inline">
-                                {{ form_widget(form.avecRecompense) }} <strong>
-                                    {{ "index.recompense"|trans }}
-                                </strong>
-                            </label>
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
+                        
+                        <div class="col-xs-12 col-sm-4 col-sm-offset-8">
                             <button type="submit" class="btn rTCGreen"><span class="glyphicon glyphicon-search"></span> {{ "index.chercher"|trans|upper}}</button>
                         </div>
                     </div>

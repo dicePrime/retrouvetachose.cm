@@ -25,18 +25,9 @@ class RechercheEspacesType extends AbstractType {
         $builder->add("fin", "text",array('required'=>false));
         $builder->add("ville", "entity", array('class' =>'lostBook\lostBookBundle\Entity\Ville','required'=>false
                                         ,'placeholder'=>'ALL'
-                                        ,'empty_data'=> null));
-        $builder->add("categorie", "entity", array('class'=>'lostBook\lostBookBundle\Entity\Categorie',
-                                 'property'=>'nom','required'=>false,
-                                 'placeholder'=>'ALL',
-                                 'empty_data'=>null));
-        $builder->add("espace","text",array('required'=>false));
-        $builder->add("avecRecompense","checkbox",array('required'=>false));
-        $builder->add("nature","choice",array('choices'=>array('0'=>'Perte','1'=>'Restitution'),
-                                'required'=>false,
-                                'placeholder'=>'ALL',
-                                'empty_data'=> null
-                                    ));
+                                        ,'empty_data'=> null));      
+        $builder->add("nom","text",array('required'=>false));
+        
    }
     
     public function getName() {

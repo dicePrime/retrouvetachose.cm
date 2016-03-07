@@ -3,6 +3,7 @@
 namespace lostBook\lostBookBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use lostBook\lostBookBundle\Entity\RechercheEspaces;
 
 /**
  * EspaceRepository
@@ -21,5 +22,105 @@ class EspaceRepository extends EntityRepository
         $espaces = $query->getResult();  
         
         return $espaces;
+    }
+    
+    public function getResultatRecherche(RechercheEspaces $recherche)
+    {
+        $em = $this->getEntityManager();
+        if($recherche->getNom() != null)
+        {
+        $query = $em->createQuery("SELECT e"
+                                  . " FROM lostBookBundle:Espace e "
+                                  . "where e.nom like :nom");
+        $query->setParameter('nom','%'.$recherche->getNom().'%');
+        }
+        else
+        {
+           $query = $em->createQuery("SELECT e,m"
+                                  . " FROM lostBookBundle:Espace e "
+                                  . "JOIN e.medias m"); 
+        }
+        $espaces = $query->getResult();             
+        
+        $espacesVilles = $this->getEspacesForVille($espaces, $recherche->getVille());
+        $espacesDebut = $this->getEspacesForDateDebut($espacesVilles, $recherche->getDebut());
+        $espacesFin = $this->getEspacesForDateFin($espacesDebut, $recherche->getFin());
+        
+        return $espacesFin;
+        
+    }
+    
+    public function getEspacesForVille($espaces,$ville)
+    {
+        if($ville != null)
+        {
+        $resultat = array();
+        
+        foreach($espaces as $next)
+        {
+            if($next->getVille() == $ville)
+            {
+                $resultat[] = $next;
+            }
+        }
+        
+        return $resultat;
+        }
+        else
+        {
+            return $espaces;
+        }
+    }    
+        
+    public function getEspacesForDateDebut($espaces,$date)
+    {
+        if($date != null)
+        {
+        $resultat = array();
+        
+        foreach($espaces as $next)
+        {   
+            
+            $debut = \DateTime::createFromFormat('d/m/Y',$date);
+            
+            $debutFormated = \DateTime::createFromFormat('Y-m-d H:i:s',$debut->format('Y-m-d H:i:s'));
+            
+            if($next->getDateCreation() >= $debutFormated)
+            {
+                $resultat[] = $next;
+            }
+        }
+        return $resultat;
+        }
+        else
+        {
+            return $espaces;
+        }
+    }
+    
+    public function getEspacesForDateFin($espaces,$date)
+    {
+        if($date != null)
+        {
+        $resultat = array();
+        
+        foreach($espaces as $next)
+        {   
+            
+            $debut = \DateTime::createFromFormat('d/m/Y',$date);
+            
+            $debutFormated = \DateTime::createFromFormat('Y-m-d H:i:s',$debut->format('Y-m-d H:i:s'));
+            
+            if($next->getDateCreation() <= $debutFormated)
+            {
+                $resultat[] = $next;
+            }
+        }
+        return $resultat;
+        }
+        else
+        {
+            return $espaces;
+        }
     }
 }

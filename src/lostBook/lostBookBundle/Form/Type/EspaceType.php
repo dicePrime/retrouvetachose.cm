@@ -28,9 +28,9 @@ class EspaceType extends AbstractType
         $builder->add("nom","text");
         $builder->add("description","textarea");
         $builder->add("email1","email");
-        $builder->add("email2","email",array('attr'=>array('required'=>false)));
+        $builder->add("email2","email",array('required'=>false));
         $builder->add("telephone1","text");
-        $builder->add("telephone2","text",array('attr'=>array('required'=>false)));
+        $builder->add("telephone2","text",array('required'=>false));
         
     }
     

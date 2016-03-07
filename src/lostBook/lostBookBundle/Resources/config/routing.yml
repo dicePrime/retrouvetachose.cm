@@ -8,6 +8,11 @@ _lostbook_details_annonce:
     path:     /detailsAnnonce/{idAnnonce}
     defaults: { _controller: lostBookBundle:Default:detailsAnnonce }
     
+_lostbook_nouveau_commentaire_annonce_action:
+    path: /commentaireAnnonce
+    defaults: { _controller: lostBookBundle:AJAX:nouveauCommentaireAnnonce }
+    options:
+        expose: true
     
 ## Espaces
 
