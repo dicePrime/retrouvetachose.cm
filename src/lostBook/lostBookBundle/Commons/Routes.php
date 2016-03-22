@@ -17,4 +17,6 @@ class Routes {
     //put your code here
     
      public static $NOUVEL_ESPACE_ROUTE = '_lostbook_nouvel_espace';
+     
+     public static $EDITION_ANNONCE = '_lostbook_update_annonce';
 }

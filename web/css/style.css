@@ -1,7 +1,9 @@
+@font-face { font-family: Baskerville; src: url('baskvl.otf'); } 
 body 
 {
  padding: 0px 0px 0px 0px;
  z-index: 0;
+ font-family: Baskerville;
 }
 .starter-template 
 {

@@ -125,7 +125,7 @@ class Espace
     /**
      *
      * @var integer
-     * @ORM\Column(name="nombre_visites",type="integer",options={"default:0"})
+     * @ORM\Column(name="nombre_visites",type="integer",nullable=TRUE,options={"default:0"})
      */
     protected $nombreVisites;
     

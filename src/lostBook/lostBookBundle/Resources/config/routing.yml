@@ -13,6 +13,19 @@ _lostbook_nouveau_commentaire_annonce_action:
     defaults: { _controller: lostBookBundle:AJAX:nouveauCommentaireAnnonce }
     options:
         expose: true
+_lostbook_delete_image_annonce_action:
+    path: /deleteImageAnnonce/{idAnnonce}/{idMedia}
+    defaults: { _controller: lostBookBundle:AJAX:deleteImageAnnonce }
+    options:
+        expose: true
+_lostbook_update_annonce:
+    path: /annonces/miseAJour/{idAnnonce}
+    defaults: { _controller: lostBookBundle:Default:updateAnnonce }
+    
+_lostbook_saisie_code_createur:
+    path: /security/code/{idAnnonce}
+    defaults: { _controller: lostBookBundle:Security:saisieCodeCreateur }
+    
     
 ## Espaces
 

@@ -8,7 +8,7 @@
                 <span class="icon-bar rTCWhite"></span>
                 <span class="icon-bar rTCWhite"></span>
             </button>
-            <a class="navbar-brand rTCWhiteText" href="#"><span class="rTCGreenText">lost</span>book</a>
+            <a class="navbar-brand rTCWhiteText" href="#">lostbook</a>
         </div>
 
         <div class="navbar-collapse collapse" id="navbar-collapsible">
@@ -46,18 +46,27 @@
                         <span class="glyphicon glyphicon-cog rTCGreenText"></span> PARAMETRES
                     </a>
                     <ul class="dropdown-menu navbar-default" role="menu" aria-labelledby="dropdownMenu1">
+                        {% if not app.user %}
                         <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="#" class="rTCWhiteText">
+                            <a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_login') }}" class="rTCWhiteText">
                                 <span class="glyphicon glyphicon-log-in"></span> CONNEXION / INSCRIPTION
                             </a>
                         </li>
+                        
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-user rTCGreenText"></span> MON PROFIL</a></li>
+                        {% endif %}
+                        {% if app.user %}
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-user rTCGreenText"></span> EDITER MON PROFIL</a></li>
                         <li role="presentation" class="divider"></li>
+                        {% endif %}
+                        {% if app.user %}
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-log-out"></span> DECONNEXION</a></li>
                         <li role="presentation" class="divider"></li>
+                        {% endif %}
+                        {% if app.user %}
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-home"></span> MES ESPACES</a></li>
                         <li role="presentation" class="divider"></li>
+                        {% endif %}
                          <li><a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
                         <span class="glyphicon glyphicon-flag rTCPinkText"></span> LANGUAGE</a>
                 </li>
@@ -65,6 +74,16 @@
 
                     </ul>
                 </li>
+                {% if app.user %}
+                 <li>
+                            <a role="button" href="{{ path('fos_user_profile_show') }}" class="rTCWhiteText">
+                              
+                                    <span class="glyphicon glyphicon-user"></span>                               
+                                {{ app.user.username }}
+                            </a>
+                 </li>
+                 {% endif %}
+                
                
 
 
@@ -97,7 +116,7 @@
              
                    
                         <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="#" class="rTCWhiteText">
+                            <a role="menuitem"  href="{{ path('fos_user_security_login') }}" class="rTCWhiteText">
                                 <span class="glyphicon glyphicon-log-in"></span> CONNEXION / INSCRIPTION
                             </a>
                         </li>
@@ -162,7 +181,6 @@
                 <div class="input-group">
                     <input type="text" class="form-control" aria-label="..." style="border-right: none">
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default" style="border-right:none;border-left: none"><span class="glyphicon glyphicon-cog"></span></button>
                         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                     </div>
                 </div>

@@ -75,7 +75,13 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: lostBook\lostBookUserBundle\Entity\Utilisateur
+    user_class: lostBook\lostBookUserBundle\Entity\Utilisateur    
+    registration:
+        form :
+            type: app_user_registration
+    profile:
+        form:
+            type: app_user_profile
 
 oneup_uploader:
     mappings:
@@ -119,6 +125,17 @@ liip_imagine:
                 thumbnail: { size: [350,400], mode: inset }
                 upscale: { min: [350, 400] }
                 downscale: { max: [350,400] }
+        avatar:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: [50,50], mode:inset }
+        previous_media:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: [100,100], mode:inset }
+                
        
 sonata_block:
     default_contexts: [cms]

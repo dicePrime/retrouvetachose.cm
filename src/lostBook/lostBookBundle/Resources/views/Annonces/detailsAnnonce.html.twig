@@ -12,7 +12,7 @@
 {% block rightMenu %}
 
     {{ include('::commonsFiles/rightMenu.html.twig') }}
-    
+
 {% endblock %}
 
 {% block section %}
@@ -20,176 +20,193 @@
         <div class="col-xs-12">
             <h1 class="rTCBlackText">{{ annonce.titre }}</h1>
         </div>
+
     </div>
-     <div class="row" style="padding-top:25px;">
-         <div class="col-xs-12 col-sm-6">
+    <div class="row" style="padding-top:25px;">
+        <div class="col-xs-12 col-sm-6">
             <p>
                 <a class="btn btn-social-icon rTCGreenText"> <i class="fa fa-user"></i></a> Publiée par  {% if  annonce.utilisateur.nom is defined %}
-                {#{{ annonce.utilisateur.nom }}#}
-            {% else %}
-            AnonymousUser
-            {% endif %}        <br/>  
-                <a class="btn btn-social-icon rTCBlackText"><i class="glyphicon glyphicon-time"></i></a> Publié {{ annonce.dateCreation | time_ago_in_words(false,true) | trans }} <br/>
-                 <a class="btn btn-social-icon rTCPinkText"><i class="glyphicon glyphicon-eye-open"></i></a> Vue {{ annonce.nombreVues }} fois<br/>
-                 <a class="btn btn-social-icon rTCGreenText" href=""><i class="glyphicon glyphicon-home"></i></a> <a href="{{ path('_lostbook_details_espace',{'idEspace':annonce.espace.id }) }}">{{ annonce.espace.nom }}</a>
-        </span><br/>
-        
-        TAGS:
-        {% set tags = annonce.motsCles| split(' ') %}
-        {% for tag in tags %}
-            <a href="#">#{{ tag }}</a>
-            {% endfor %}
-        
-        
-    </p>
-         </div>
-            <div class="col-xs-12 col-sm-6 pull-right">
-                <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i>                           </a>
-                        
-                        <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
-                        <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
-                        <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
-                        <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
-                        <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
-            </div>
-    
-    
-    <br/> 
-    </div>
-     <div class="row">
-     <div class="col-xs-12  col-sm-6" id="pgwSlideshow">
-     
-            <ul>
-                    {% for document in annonce.medias %}
-                        {% set location = ['uploads/documents/annonces/',document.path ] | join %}
-                        <li><img class="media-object img-thumbnail img-responsive" src="{{ asset(location | imagine_filter('my_thumb')) }}" width='400'/></li>
-                    {% endfor %}
-            </ul>
-    
-    </div>
-             <div class="col-xs-12 col-sm-6">
-                 
+                    {#{{ annonce.utilisateur.nom }}#}
+                    {% else %}
+                    AnonymousUser
+                    {% endif %}        <br/>  
+                        <a class="btn btn-social-icon rTCBlackText"><i class="glyphicon glyphicon-time"></i></a> Publié {{ annonce.dateCreation | time_ago_in_words(false,true) | trans }} <br/>
+                        <a class="btn btn-social-icon rTCPinkText"><i class="glyphicon glyphicon-eye-open"></i></a> Vue {{ annonce.nombreVues }} fois<br/>
+                        <a class="btn btn-social-icon rTCGreenText" href=""><i class="glyphicon glyphicon-home"></i></a> <a href="{{ path('_lostbook_details_espace',{'idEspace':annonce.espace.id }) }}">{{ annonce.espace.nom }}</a>
+                        </span><br/>
 
-                        {{ annonce.commentaire }}
-                    
-                
-             </div>
+                        TAGS:
+                        {% set tags = annonce.motsCles| split(' ') %}
+                        {% for tag in tags %}
+                            <a href="#">#{{ tag }}</a>
+                        {% endfor %}
+
+
+                    </p>
+                </div>
+                <div class="col-xs-12 col-sm-6 pull-right">
+                    <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i>                           </a>
+
+                    <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
+                    <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
+                    <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+                    <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
+                    <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
+                </div>
+
+
+                <br/> 
+            </div>
+            <div class="row">
+                <div class="col-xs-12  col-sm-6" id="pgwSlideshow">
+
+                    <ul>
+                        {% for document in annonce.medias %}
+                            {% set location = ['uploads/documents/annonces/',document.path ] | join %}
+                            <li><img class="media-object img-thumbnail img-responsive" src="{{ asset(location | imagine_filter('my_thumb')) }}" width='400'/></li>
+                            {% endfor %}
+                    </ul>
+
+                </div>
+                <div class="col-xs-12 col-sm-6">
+
+
+                    {{ annonce.commentaire }}
+
+
+                </div>
+            </div>
+
+
+
+
+            <div class="row" style="padding-top:50px;">
+                <div class="col-xs-12 col-sm-12">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#commentaires" aria-controls="commentaires" role="tab" data-toggle="tab">Commentaires</a></li>
+                        <li role="presentation"><a href="#contacts" aria-controls="contacts" role="tab" data-toggle="tab">Contacts</a></li>
+
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="commentaires">
+                            {% if app.user %}
+                                <form class="form-horizontal well" data-toggle='validator' id="nouveauCommentaire" style="padding-top: 50px;">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 control-label">Commentaire</label>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <textarea class="form-control" id="commentaire" name="commentaire" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12 col-sm-8 col-sm-offset-4">
+                                            <input type="submit" class="btn btn-primary" value="soumettre"/>
+                                            <input type="hidden" value="{{ annonce.id }}" id="idAnnonce" name="idAnnonce"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <form class="form-horizontal well" data-toggle='validator' id="nouveauCommentaire" style="padding-top: 50px;">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 control-label">Pseudo</label>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <input type="text" class="form-control" id="pseudo" name="pseudo" value="test" required/>
+                                        </div>  
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 control-label">Email</label>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <input type="email" class="form-control" id="emailCommentaire" name="emailCommentaire" value="test@gmail.com" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 control-label">Commentaire</label>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <textarea class="form-control" id="commentaire" name="commentaire" required>TEST</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12 col-sm-4">
+                                            <span id="reponse"></span>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
+                                            <input type="submit" class="btn btn-primary" value="soumettre"/>
+                                            <input type="hidden" value="{{ annonce.id }}" id="idAnnonce" name="idAnnonce"/>
+                                        </div>
+                                    </div>
+                                </form>  
+                            {% endif %}
+                            <div id="commentairesItems" style="padding-top: 50px;">
+                                {% for commentaire in annonce.commentaires %}
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <blockquote>
+                                                <p>{{ commentaire.commentaire }}</p>
+
+                                                <footer>
+                                                    <strong>{{ commentaire.pseudo }}, le {{ commentaire.date | date }}</strong>
+                                                </footer>
+                                            </blockquote>
+                                        </div>
+                                    </div> 
+                                {% endfor %}
+                            </div>
+
+
                         </div>
-    
-     
-            
-    
-    <div class="row" style="padding-top:50px;">
-    <div class="col-xs-12 col-sm-12">
-     <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#commentaires" aria-controls="commentaires" role="tab" data-toggle="tab">Commentaires</a></li>
-    <li role="presentation"><a href="#contacts" aria-controls="contacts" role="tab" data-toggle="tab">Contacts</a></li>
+                        <div role="tabpanel" class="tab-pane" id="contacts">
+                            <h4>Téléphone</h4>
+                            <dl class="dl-horizontal">
+                                <dt><a class="btn btn-social-icon btn-success"><i class="fa fa-phone"></i></a></dt>
+                                <dd style="padding: 10px;"><a href="tel:{{ annonce.telephone1 }}">{{ annonce.telephone1 }}</a></dd>
+                                <dt><a class="btn btn-social-icon btn-success"><i class="fa fa-phone"></i></a></dt>
+                                <dd style="padding: 10px;"><a href="tel:{{ annonce.telephone2 }}">{{ annonce.telephone2 }}</a></dd>
 
-  </ul>
+                            </dl>
+                            <h4>Email</h4>
+                            <dl class="dl-horizontal">
+                                <dt><a class="btn btn-social-icon btn-primary"><i class="fa fa-envelope"></i></a></dt>
+                                <dd style="padding: 10px;"><a href="mailto:{{ annonce.email }}">{{ annonce.email }}</a> </dd>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-   <div role="tabpanel" class="tab-pane active" id="commentaires">
-       {% if app.user %}
-       <form class="form-horizontal well" data-toggle='validator' id="nouveauCommentaire" style="padding-top: 50px;">
-           <div class="form-group">
-               <label class="col-xs-12 col-sm-4 control-label">Commentaire</label>
-               <div class="col-xs-12 col-sm-8">
-                   <textarea class="form-control" id="commentaire" name="commentaire" required></textarea>
-               </div>
-           </div>
-           <div class="form-group">
-               <div class="col-xs-12 col-sm-8 col-sm-offset-4">
-                   <input type="submit" class="btn btn-primary" value="soumettre"/>
-                   <input type="hidden" value="{{ annonce.id }}" id="idAnnonce" name="idAnnonce"/>
-               </div>
-           </div>
-       </form>
-   {% else %}
-        <form class="form-horizontal well" data-toggle='validator' id="nouveauCommentaire" style="padding-top: 50px;">
-            <div class="form-group">
-              <label class="col-xs-12 col-sm-4 control-label">Pseudo</label>
-               <div class="col-xs-12 col-sm-8">
-                   <input type="text" class="form-control" id="pseudo" name="pseudo" value="test" required/>
-               </div>  
+
+                            </dl>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-               <label class="col-xs-12 col-sm-4 control-label">Email</label>
-               <div class="col-xs-12 col-sm-8">
-                   <input type="email" class="form-control" id="emailCommentaire" name="emailCommentaire" value="test@gmail.com" required/>
-               </div>
-           </div>
-           <div class="form-group">
-               <label class="col-xs-12 col-sm-4 control-label">Commentaire</label>
-               <div class="col-xs-12 col-sm-8">
-                   <textarea class="form-control" id="commentaire" name="commentaire" required>TEST</textarea>
-               </div>
-           </div>
-           <div class="form-group">
-               <div class="col-xs-12 col-sm-4">
-                   <span id="reponse"></span>
-               </div>
-               <div class="col-xs-12 col-sm-4">
-                   <input type="submit" class="btn btn-primary" value="soumettre"/>
-                   <input type="hidden" value="{{ annonce.id }}" id="idAnnonce" name="idAnnonce"/>
-               </div>
-           </div>
-       </form>  
-   {% endif %}
-       <div id="commentairesItems" style="padding-top: 50px;">
-       {% for commentaire in annonce.commentaires %}
-           <div class="row">
-               <div class="col-xs-12">
-                   <blockquote>
-                       <p>{{ commentaire.commentaire }}</p>
-                       
-                       <footer>
-                           <strong>{{ commentaire.pseudo }}, le {{ commentaire.date | date }}</strong>
-                       </footer>
-                   </blockquote>
-               </div>
-           </div> 
-        {% endfor %}
-       </div>
-        
-   
-   </div>
-    <div role="tabpanel" class="tab-pane" id="contacts">
-        <h4>Téléphone</h4>
-         <dl class="dl-horizontal">
-             <dt><a class="btn btn-social-icon btn-success"><i class="fa fa-phone"></i></a></dt>
-              <dd style="padding: 10px;"><a href="tel:{{ annonce.telephone1 }}">{{ annonce.telephone1 }}</a></dd>
-             <dt><a class="btn btn-social-icon btn-success"><i class="fa fa-phone"></i></a></dt>
-              <dd style="padding: 10px;"><a href="tel:{{ annonce.telephone2 }}">{{ annonce.telephone2 }}</a></dd>
-                        
-        </dl>
-              <h4>Email</h4>
-         <dl class="dl-horizontal">
-             <dt><a class="btn btn-social-icon btn-primary"><i class="fa fa-envelope"></i></a></dt>
-                <dd style="padding: 10px;"><a href="mailto:{{ annonce.email }}">{{ annonce.email }}</a> </dd>
-
-                        
-        </dl>
-    </div>
-  </div>
-    </div>
-</div>
-{% endblock %}
+                                {% if (not app.user) or (app.user != annonce.utilisateur)  %}
+            <div class="row" style="padding-top:50px;">
+                <div class="col-xs-12 col-sm-5 pull-left">
+                    <h4>
+                    <a href="{{ path('_lostbook_update_annonce',{'idAnnonce':annonce.id}) }}" class="rTCBlackText"><span class="glyphicon glyphicon-edit rTCGreenText"></span> Modifier l'annonce</a>
+                    </h4>
+                </div>
+                 <div class="col-xs-12 col-sm-5">
+                    <h4>
+                    <a href="{{ path('_lostbook_update_annonce',{'idAnnonce':annonce.id}) }}" class="rTCBlackText"><span class="glyphicon glyphicon-trash rTCPinkText"></span> Supprimer l'annonce</a>
+                    </h4>
+                </div>
+               
+            </div>
+                    {% endif %}
+                    
+            {% endblock %}
 
 
 
-{% block javascripts %}
-        {{ parent() }}
-        <script src="{{ asset('js/tiksluscarousel.js') }}"></script>
-        <script src="{{ asset('js/validator.js') }}"></script>
-        <script src="{{ asset('js/custom/detailsAnnonce.js') }}"></script>
-        <script>
-        $(document).ready(function() {
-        $('#pgwSlideshow').tiksluscarousel({
-                height :0,
-                autoPlay: false
+                {% block javascripts %}
+                    {{ parent() }}
+                    <script src="{{ asset('js/tiksluscarousel.js') }}"></script>
+                    <script src="{{ asset('js/validator.js') }}"></script>
+                    <script src="{{ asset('js/custom/detailsAnnonce.js') }}"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $('#pgwSlideshow').tiksluscarousel({
+                                height: 0,
+                                autoPlay: false
 
-        });
-        });
-        </script>
-{% endblock %}
+                            });
+                        });
+                    </script>
+                {% endblock %}

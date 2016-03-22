@@ -22,6 +22,12 @@ class Utilisateur extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="photo",type="string",nullable=TRUE)
+     */
+    protected $photo;
             
     public function __construct() 
     {
@@ -51,6 +57,27 @@ class Utilisateur extends BaseUser
      * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireEspace", mappedBy="utilisateur")
      */
     private $commentairesEspace;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="lostBook\lostBookUserBundle\Entity\MediaUtilisateur", mappedBy="utilisateur")
+     */
+    private $media;
+    
+    
+    
+    
+    /**
+     * @var string
+     * @ORM\Column(name="telephone1",type="string",nullable=TRUE)
+     */
+    protected $telephone1;
+    
+    /**
+     *
+     * @var string
+     * @ORM\Column(name="telephone2",type="string",nullable=TRUE)
+     */
+    protected $telephone2;  
 
     /**
      * Get id
@@ -376,5 +403,92 @@ class Utilisateur extends BaseUser
     public function getCommentairesEspace()
     {
         return $this->commentairesEspace;
+    }
+
+    /**
+     * Set telephone1
+     *
+     * @param string $telephone1
+     * @return Utilisateur
+     */
+    public function setTelephone1($telephone1)
+    {
+        $this->telephone1 = $telephone1;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone1
+     *
+     * @return string 
+     */
+    public function getTelephone1()
+    {
+        return $this->telephone1;
+    }
+
+    /**
+     * Set telephone2
+     *
+     * @param string $telephone2
+     * @return Utilisateur
+     */
+    public function setTelephone2($telephone2)
+    {
+        $this->telephone2 = $telephone2;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone2
+     *
+     * @return string 
+     */
+    public function getTelephone2()
+    {
+        return $this->telephone2;
+    }
+    
+    function getPhoto() {
+        return $this->photo;
+    }
+
+    function setPhoto($photo) {
+        $this->photo = $photo;
+    }
+
+    /**
+     * Add media
+     *
+     * @param \lostBook\lostBookUserBundle\Entity\MediaUtilisateur $media
+     * @return Utilisateur
+     */
+    public function addMedia(\lostBook\lostBookUserBundle\Entity\MediaUtilisateur $media)
+    {
+        $this->media[] = $media;
+
+        return $this;
+    }
+
+    /**
+     * Remove media
+     *
+     * @param \lostBook\lostBookUserBundle\Entity\MediaUtilisateur $media
+     */
+    public function removeMedia(\lostBook\lostBookUserBundle\Entity\MediaUtilisateur $media)
+    {
+        $this->media->removeElement($media);
+    }
+
+    /**
+     * Get media
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMedia()
+    {
+        return $this->media;
     }
 }

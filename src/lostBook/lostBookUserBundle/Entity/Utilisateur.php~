@@ -22,6 +22,8 @@ class Utilisateur extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    protected $photo;
             
     public function __construct() 
     {
@@ -51,6 +53,24 @@ class Utilisateur extends BaseUser
      * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireEspace", mappedBy="utilisateur")
      */
     private $commentairesEspace;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="lostBook\lostBookUserBundle\Entity\MediaUtilisateur", mappedBy="utilisateur")
+     */
+    private $media;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="telephone1",type="string",nullable=TRUE)
+     */
+    protected $telephone1;
+    
+    /**
+     *
+     * @var string
+     * @ORM\Column(name="telephone2",type="string",nullable=TRUE)
+     */
+    protected $telephone2;  
 
     /**
      * Get id
@@ -321,4 +341,114 @@ class Utilisateur extends BaseUser
     }
 
 
+
+    /**
+     * Add commentairesAnnonce
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireAnnonce $commentairesAnnonce
+     * @return Utilisateur
+     */
+    public function addCommentairesAnnonce(\lostBook\lostBookBundle\Entity\CommentaireAnnonce $commentairesAnnonce)
+    {
+        $this->commentairesAnnonce[] = $commentairesAnnonce;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentairesAnnonce
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireAnnonce $commentairesAnnonce
+     */
+    public function removeCommentairesAnnonce(\lostBook\lostBookBundle\Entity\CommentaireAnnonce $commentairesAnnonce)
+    {
+        $this->commentairesAnnonce->removeElement($commentairesAnnonce);
+    }
+
+    /**
+     * Add commentairesEspace
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireEspace $commentairesEspace
+     * @return Utilisateur
+     */
+    public function addCommentairesEspace(\lostBook\lostBookBundle\Entity\CommentaireEspace $commentairesEspace)
+    {
+        $this->commentairesEspace[] = $commentairesEspace;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentairesEspace
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireEspace $commentairesEspace
+     */
+    public function removeCommentairesEspace(\lostBook\lostBookBundle\Entity\CommentaireEspace $commentairesEspace)
+    {
+        $this->commentairesEspace->removeElement($commentairesEspace);
+    }
+
+    /**
+     * Get commentairesEspace
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentairesEspace()
+    {
+        return $this->commentairesEspace;
+    }
+
+    /**
+     * Set telephone1
+     *
+     * @param string $telephone1
+     * @return Utilisateur
+     */
+    public function setTelephone1($telephone1)
+    {
+        $this->telephone1 = $telephone1;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone1
+     *
+     * @return string 
+     */
+    public function getTelephone1()
+    {
+        return $this->telephone1;
+    }
+
+    /**
+     * Set telephone2
+     *
+     * @param string $telephone2
+     * @return Utilisateur
+     */
+    public function setTelephone2($telephone2)
+    {
+        $this->telephone2 = $telephone2;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone2
+     *
+     * @return string 
+     */
+    public function getTelephone2()
+    {
+        return $this->telephone2;
+    }
+    
+    function getPhoto() {
+        return $this->photo;
+    }
+
+    function setPhoto($photo) {
+        $this->photo = $photo;
+    }
 }

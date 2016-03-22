@@ -46,4 +46,27 @@ class CommentaireAnnonce extends Commentaire {
     }
 
 
+
+    /**
+     * Set annonce
+     *
+     * @param \lostBook\lostBookBundle\Entity\Annonce $annonce
+     * @return CommentaireAnnonce
+     */
+    public function setAnnonce(\lostBook\lostBookBundle\Entity\Annonce $annonce = null)
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * Get annonce
+     *
+     * @return \lostBook\lostBookBundle\Entity\Annonce 
+     */
+    public function getAnnonce()
+    {
+        return $this->annonce;
+    }
 }

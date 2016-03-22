@@ -3,6 +3,8 @@
 namespace lostBook\lostBookUserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use lostBook\lostBookBundle\Entity\Media;
+use Doctrine\Common\Annotations\Annotation;
 
 /**
  * MediaUtilisateur
@@ -10,37 +12,27 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="media_utilisateur")
  * @ORM\Entity(repositoryClass="lostBook\lostBookUserBundle\Repository\MediaUtilisateurRepository")
  */
-class MediaUtilisateur
+class MediaUtilisateur extends Media
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO") */
+    protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="chemin", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Utilisateur", inversedBy="media")
+     * @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id")
      */
-    private $chemin;
+    private $utilisateur;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255)
-     */
-    private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="date_creation", type="string", length=255)
-     */
-    private $dateCreation;
+    
+    protected function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'onaffiche
+        // le document/image dans la vue.
+        return 'uploads/documents/utilisateurs/';
+    }
 
 
     /**
@@ -54,71 +46,25 @@ class MediaUtilisateur
     }
 
     /**
-     * Set chemin
+     * Set utilisateur
      *
-     * @param string $chemin
+     * @param \lostBook\lostBookUserBundle\Entity\Utilisateur $utilisateur
      * @return MediaUtilisateur
      */
-    public function setChemin($chemin)
+    public function setUtilisateur(\lostBook\lostBookUserBundle\Entity\Utilisateur $utilisateur = null)
     {
-        $this->chemin = $chemin;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
     /**
-     * Get chemin
+     * Get utilisateur
      *
-     * @return string 
+     * @return \lostBook\lostBookUserBundle\Entity\Utilisateur 
      */
-    public function getChemin()
+    public function getUtilisateur()
     {
-        return $this->chemin;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return MediaUtilisateur
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set dateCreation
-     *
-     * @param string $dateCreation
-     * @return MediaUtilisateur
-     */
-    public function setDateCreation($dateCreation)
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
-    }
-
-    /**
-     * Get dateCreation
-     *
-     * @return string 
-     */
-    public function getDateCreation()
-    {
-        return $this->dateCreation;
+        return $this->utilisateur;
     }
 }

@@ -1,0 +1,41 @@
+{{ form_start(form, {'attr':{'class':'form-horizontal well','data-toggle':'validator','role':'form'} }) }}
+{{ form_errors(form) }}
+
+<fieldset class="fieldset">
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "saisie_code_createur.email"|trans }}
+        </label>
+        <div class="col-xs-12 col-sm-4">
+            {{ form_widget(form.email,{'attr':{'class':'form-control'} }) }}
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            {% if messageCode %}
+                <label class="label label-danger control-label">{{ "saisie_code_createur.erreur_email"|trans }}</label>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group">               
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "saisie_code_createur.saisir"|trans }}
+        </label>
+        <div class="col-xs-12 col-sm-4">
+            {{ form_widget(form.code,{'attr':{'class':'form-control'} })}}
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            {% if messageEmail %}
+                <label class="label label-danger control-label">{{ "saisie_code_createur.erreur_code"|trans }}</label>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-offset-3">
+            <input type="submit" class="btn rTCGreen" value='{{ "saisie_code_createur.soumettre"|trans}}'/>
+        </div>
+
+    </div>
+    {{ form_end(form) }}
+

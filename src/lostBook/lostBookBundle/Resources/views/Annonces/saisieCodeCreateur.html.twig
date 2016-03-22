@@ -1,0 +1,58 @@
+{% extends '::default/base.html.twig' %}
+
+{% block rightMenu %}
+
+    {{ include('::commonsFiles/rightMenu.html.twig') }}
+
+
+{% endblock %}
+
+{% block leftMenu %}
+    {{ include('::commonsFiles/searchMenu.html.twig') }}
+    <h1 style="display: inline"><span class="glyphicon glyphicon-info-sign rTCPinkText"></span></h1>
+    <p>
+
+        <em>
+            Vous gérez un lieu très fréquenté?
+            <br/>
+            Créez un espace dédié.<br/>
+            Vos clients/visiteurs pourront y retrouver
+            leurs objets perdus chez vous<br/>
+
+        </em>
+    </p>
+
+    <input type="submit" class="btn rTCGreen" value="C'est par là"/>
+{% endblock %}
+
+{% block location %}
+    {#<a href="{{ path('r_tc_homepage') }}" class="rTCBlackText">Acceuil>></a>#}
+
+    <li><a href="{{ path('_lostbook_homepage') }}">Home</a></li>
+    <li class="active"></li>
+
+{% endblock %}
+
+{% block section %}             
+
+    {{ include('::commonsFiles/saisieCodeCreateurForm.html.twig') }}  
+
+{% endblock %}
+
+{% block news %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/custom/index.js') }}"></script>
+    <script src="{{ asset('js/validator.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script>
+
+        $(document).ready(function ($) {
+
+        });
+    </script>
+{% endblock %}
+

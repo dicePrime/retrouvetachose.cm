@@ -35,14 +35,15 @@ class DetailsAnnonceListener {
         $route = $event->getRequest()->attributes->get('_route');
         
         
-        if($route == Routes::$NOUVEL_ESPACE_ROUTE)
+        if($route == Routes::$NOUVEL_ESPACE_ROUTE || $route == Routes::$EDITION_ANNONCE)
         {
-            if(!is_object($this->securityContext->getToken()->getUser()))
+           /* if(!is_object($this->securityContext->getToken()->getUser()))
             {
                 $this->session->set('afterLoginRoute',Routes::$NOUVEL_ESPACE_ROUTE);
                 $this->session->getFlashBag()->add('Notification','Vous devez vous identifier');
                 $event->setResponse(new RedirectResponse($this->router->generate('fos_user_security_login')));
-            }
+            }*/
         }
+        
     }
 }

@@ -1,0 +1,247 @@
+            
+{{ form_start(form, {'attr':{'class':'form-horizontal well','data-toggle':'validator','role':'form'} }) }}
+{{ form_errors(form) }}
+
+<fieldset class="fieldset">
+    <div class="circle">1</div>
+    <legend>Catégorie</legend>
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "nouvelle_annonce_form.nature"|trans }}
+        </label>
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.perdu,{'attr':{'class':'form-control'} }) }}
+        </div>
+    </div>
+    <div class="form-group">               
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "nouvelle_annonce_form.categorie"|trans }}
+        </label>
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.categorie,{'attr':{'class':'form-control'} })}}
+        </div>
+
+    </div>
+
+    <div class="form-group">                
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "nouvelle_annonce_form.ville"|trans }}
+        </label>
+
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.ville,{'attr':{'class':'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-3 control-label">
+            {{ "nouvelle_annonce_form.espace"|trans }} 
+        </label>
+        <div class="col-sm-8">
+            {{ form_widget(form.idEspaceHandler,{'attr':{'class':'form-control'} }) }}            
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-3 control-label"> {{ "nouvelle_annonce_form.periode.periode"|trans }} </label>
+
+        <div class="col-sm-4 ">
+            <div class="input-group date" id="dateDebut">
+                <span class="input-group-addon">{{ "nouvelle_annonce_form.periode.de"|trans }}</span>
+                {{ form_widget(form.dateDebut,{'attr':{'class':'form-control'} }) }}
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>       
+
+
+        <div class="col-sm-4">
+            <div class="input-group date" id="dateFin">
+                <span class="input-group-addon">{{ "nouvelle_annonce_form.periode.a"|trans }}</span>
+                {{ form_widget(form.dateFin,{'attr':{'class':'form-control'} }) }}
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+    </div>       
+    <div class="form-group">
+
+        <label class="col-xs-12 col-sm-3 control-label">Couleur </label>
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.couleurObjet,{'attr':{'class':'form-control'} }) }}
+        </div>
+    </div>                  
+</fieldset>
+<fieldset>
+    <div class="circle rTCGreen">2</div>
+    <legend>Détails</legend>
+
+    <div class="form-group">
+
+        <label class="col-xs-12 col-sm-3 control-label">{{ "nouvelle_annonce_form.titre"|trans }} </label>
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.titre,{'attr':{'class':'form-control','maxlength':'255'} }) }}
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="col-xs-12 col-sm-3 control-label">{{ "nouvelle_annonce_form.commentaire"|trans }} </label>
+        <div class="col-xs-12 col-sm-8">
+            {{ form_widget(form.commentaire,{'attr':{'class':'form-control','rows':3} }) }}
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="col-xs-12 col-sm-3 control-label">{{ "nouvelle_annonce_form.mots_cles"|trans }} </label>
+        <div class="col-sm-8">
+            {{ form_widget(form.motsCles,{'attr':{'class':'form-control','rows':3} }) }}
+        </div>
+    </div>
+
+</fieldset>
+
+<fieldset id="minImages">
+    <div class="circle rTCBlack">3</div>
+    <legend>{{ "nouvelle_annonce_form.photos.photos"|trans }}</legend>
+
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-offset-3">
+            {% for document in annonce.medias %}
+                {% set location = ['uploads/documents/annonces/',document.path ] | join %}
+                <div style="display:inline">                   
+                    <figure style="display:inline">
+                    <img class="media-object img-thumbnail img-responsive" src="{{ asset(location | imagine_filter('previous_media')) }}" style="display:inline"/>
+                    <figcaption style="display:inline"><a role="button" data-value="{{ document.id }}" title="supprimer" class="previousImages"><span class="glyphicon glyphicon-trash" style="color:red" ></span></a></figcaption>
+                    </figure>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <center><span id="messageSuppression"></span></center>
+        
+    </div>
+    <div class="form-group">        
+
+        <label class="col-xs-12 col-sm-3 control-label">{{ "nouvelle_annonce_form.photos.instruction"|trans }}</label>
+        <div class="col-xs-12  col-sm-8 dropzone" id="dropzone" style='width:64%'>
+
+        </div>
+
+    </div>
+</fieldset>
+
+<fieldset>
+    <div class="circle">4</div>
+    <legend>{{ "nouvelle_annonce_form.recompense.recompense"|trans }}</legend>
+    <div class='form-group'>
+        <div class='checkbox col-xs-12 col-sm-8 col-sm-offset-3'>
+            <label class="checkbox-inline">
+                {{ form_widget(form.avecRecompense) }} <strong>{{ "nouvelle_annonce_form.recompense.avec_recompense"|trans }}</strong>
+            </label>
+        </div>
+    </div>
+
+    <div class='form-group' id="montantRecompenseGroup">
+        <label class='col-xs-12 col-sm-3 control-label'>{{ "nouvelle_annonce_form.montant"|trans }}</label>
+        <div class='col-xs-12 col-sm-8'>
+            {{ form_widget(form.montantRecompense,{'attr':{'class':'form-control'} }) }}
+        </div>
+    </div>
+    <div class='form-group' id="autreRecompenseGroup">
+        <label class='col-xs-12 col-sm-3 control-label'>{{ "nouvelle_annonce_form.autre"|trans }}</label>
+        <div class='col-xs-12 col-sm-8'>
+            {{ form_widget(form.autreRecompense,{'attr':{'class':'form-control'} }) }}
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <div class="circle rTCGreen">5</div>
+    <legend>
+        {{ "nouvelle_annonce_form.securite.securite"|trans }}
+    </legend>
+    <div class='form-group has-feedback'>
+        <label class='col-xs-12 col-sm-3 control-label'>
+            {{"nouvelle_annonce_form.securite.email"|trans }}
+        </label>
+        <div class='col-xs-12 col-sm-8'>
+            {{ form_widget(form.email,{'attr':{'class':'form-control'} }) }}
+        </div>
+    </div>
+    <div class='form-group has-feedback'>
+        <label class='col-xs-12 col-sm-3 control-label'>
+            {{ "nouvelle_annonce_form.securite.telephone1"|trans }}
+        </label>
+        <div class='col-xs-12 col-sm-8'>
+            {{ form_widget(form.telephone1,{'attr':{'class':'form-control','pattern':'(6|2)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'} }) }}
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class='form-group has-feedback'>
+        <label class='col-xs-12 col-sm-3 control-label'>
+            {{ "nouvelle_annonce_form.securite.telephone2"|trans }}
+        </label>
+        <div class='col-xs-12 col-sm-8'>
+            {{ form_widget(form.telephone2,{'attr':{'class':'form-control','pattern':'(6|2)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'} }) }}
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+
+    <div class='form-group'>
+        <div class='checkbox col-xs-12 col-sm-8 col-sm-offset-3'>
+            <label class="checkbox-inline">
+                {{ form_widget(form.meContacter) }} <strong>
+                    {{ "nouvelle_annonce_form.securite.me_contacter"|trans }}
+                </strong>
+            </label>
+        </div>
+    </div>
+</fieldset>
+<br/><br/>
+<fieldset id='securite'
+
+          {% if app.user != null %}
+              style='display:none'
+          {% endif %}
+          >
+    <div class="circle rTCBlack">6</div>
+    <legend>
+        {{ "nouvelle_annonce.securite.code/code"|trans }}
+
+    </legend>
+    <div class='form-group'>
+        <label class='col-xs-12 col-sm-3 control-label'>
+            {{ "nouvelle_annonce_form.securite.entrez_code"|trans }}
+        </label>
+        <div class='col-xs-12 col-sm-8'>
+            {{ form_widget(form.codeCreateur,{'attr':{'class':'form-control','data-minlength':'4','data-maxlength':'8','id':'password'} }) }}
+            <span class="help-block with-errors"></span>
+        </div>
+    </div>
+    <div class='form-group'>
+        <label class='col-xs-12 col-sm-3 control-label'>
+            {{ "nouvelle_annonce_form.securite.confirm"|trans }}
+        </label>
+        <div class='col-xs-12 col-sm-8'>
+
+            {{ form_widget(form.confirmCode,{'attr':{'class':'form-control',
+                    'data-match':'#annonce_codeCreateur',
+                    'data-match-error': "nouvelle_annonce_form.erreurs.codes_identiques"|trans  } }) }}
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+
+</fieldset>
+<br/><br/>
+
+
+<div class="form-group">
+    <div class="col-xs-12 col-sm-offset-3">
+        <input type="submit" class="btn rTCGreen" value='{{ "nouvelle_annonce_form.publier"|trans}}'/>
+    </div>
+    <input type="hidden" id="idAnnonce" value ="{{ annonce.id }}"/>
+</div>
+{{ form_end(form) }}

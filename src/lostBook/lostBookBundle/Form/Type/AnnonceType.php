@@ -39,7 +39,7 @@ class AnnonceType extends AbstractType {
         $builder->add("meContacter","checkbox",array('attr'=>array('checked'=>'checked'),'required'=>false));
         $builder->add("avecRecompense","checkbox",array('required'=>false));
         $builder->add("montantRecompense","number",array('required'=>false));
-        $builder->add("perdu","choice",array('choices'=>array('0'=>'Perte','1'=>'Restitution'),'required'=>false));
+        $builder->add("perdu","choice",array('choices'=>array('0'=>'Recherche','1'=>'Restitution')));
         $builder->add("autreRecompense","textarea",array('required'=>false));
     }
 

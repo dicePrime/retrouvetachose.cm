@@ -25,6 +25,7 @@ class Annonce {
     protected $id;
 
     /**
+     * Cette variable booléenne indique si l'annonce porte sur une perte ou sur une trouvaille
      * @var boolean
      * 
      * @ORM\Column(name="perdu",type="boolean",options={"default:0"})
@@ -33,20 +34,25 @@ class Annonce {
     
     
     /**
-     *
+     * Cette variable booléene indique si l'annonce a ou non une récompense
+     * Si l'annonce a une récompense, la variable vaut 1
      * @var boolean
      * @ORM\Column(name="avec_recompense",type="boolean",options={"default:0"})
      */
     protected $avecRecompense;
     
      /**
-     *
+     * Cette variable indique si oui ou non on doit afficher le numéro de téléphone
+     * de celui qui a crée l'annonce
      * @var type boolean
      * @ORM\Column(name="me_contacter",type="boolean",options={"default:0"})
      */
     protected $meContacter;
 
     /**
+     * $dateDebut represente la date au plus tôt à laquelle
+     * l'objet, la personne ou l'animal a été trouvé ou perdu
+     * 
      * @var string
      *
      * @ORM\Column(name="date_debut", type="string")
@@ -59,7 +65,10 @@ class Annonce {
     
     
     /**
-     *
+     * Lorsque quequ'un crée une annonce sans être inscrit à l'application
+     * Il a besoin d'un code pour modifier son annonce plus tard
+     * ce code et son addresse email suffiront pour modifier l'annonce
+     * 
      * @var string
      * @ORM\Column(name="code_createur",type="string",nullable=TRUE)
      */
@@ -90,7 +99,8 @@ class Annonce {
 
     /**
      * @var string
-     *
+     * 0 = valide
+     * 1 = suprimée
      * @ORM\Column(name="etat", type="string",options={"defaults:0"})
      */
     protected $etat;

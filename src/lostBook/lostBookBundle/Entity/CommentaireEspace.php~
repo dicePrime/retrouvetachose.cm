@@ -47,4 +47,27 @@ class CommentaireEspace extends Commentaire {
     }
 
 
+
+    /**
+     * Set espace
+     *
+     * @param \lostBook\lostBookBundle\Entity\Espace $espace
+     * @return CommentaireEspace
+     */
+    public function setEspace(\lostBook\lostBookBundle\Entity\Espace $espace = null)
+    {
+        $this->espace = $espace;
+
+        return $this;
+    }
+
+    /**
+     * Get espace
+     *
+     * @return \lostBook\lostBookBundle\Entity\Espace 
+     */
+    public function getEspace()
+    {
+        return $this->espace;
+    }
 }

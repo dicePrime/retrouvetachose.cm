@@ -7,7 +7,7 @@
 
 {% block rightMenu %}
     <blockquote>
-    {{ include('::commonsFiles/rightMenu.html.twig') }}
+        {{ include('::commonsFiles/rightMenu.html.twig') }}
     </blockquote>
 
 {% endblock %}
@@ -16,7 +16,7 @@
     {{ include('::commonsFiles/searchMenu.html.twig') }}
     <h1 style="display: inline"><span class="glyphicon glyphicon-info-sign rTCPinkText"></span></h1>
     <p>
-         
+
         <em>
             Vous gérez un lieu très fréquenté?
             <br/>
@@ -41,42 +41,42 @@
 
 {% block section %}             
 
-  {{ include('::commonsFiles/rechercheEspacesForm.html.twig') }}  
+    {{ include('::commonsFiles/rechercheEspacesForm.html.twig') }}  
 
     {# table body #}
     <div class="row">
         <ul class="media-list">
-                    <div class="col-xs-12 col-sm-12">
-        {% for espace in pagination %}
+            <div class="col-xs-12 col-sm-12">
+                {% for espace in pagination %}
 
-              
-                <div class="media table-hover">
-                    <div class="media-left media-middle">
-                        {% if espace.imagePrincipale != NULL  %}
-                            {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
-                            <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
-                                <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
-                            </a>
-                        {% else %}
-                            <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
-                                <img class="media-object img-thumbnail" src="{{ asset('img/espace.png'|imagine_filter('main_thumb')) }}"/>
-                            </a>
-                       {% endif %}
-                           
+
+                    <div class="media table-hover">
+                        <div class="media-left media-middle">
+                            {% if espace.imagePrincipale != NULL  %}
+                                {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
+                                <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
+                                    <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
+                                </a>
+                            {% else %}
+                                <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
+                                    <img class="media-object img-thumbnail" src="{{ asset('img/espace.png'|imagine_filter('main_thumb')) }}"/>
+                                </a>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="media-body">
+                            <h3 class="media-heading rTCGreenText">{{ espace.nom }}</h3>                                                     
+                            <p>{{ espace.description|truncate(100)}}</p>
+                            <p>{{ espace.nombreAnnonces }} Annonces</p>
+                            <br/><br/><br/>
+                        </div>
+
+
                     </div>
 
-                    <div class="media-body">
-                        <h3 class="media-heading rTCGreenText">{{ espace.nom }}</h3>                                                     
-                        <p>{{ espace.description|truncate(100)}}</p>
-                        <p>{{ espace.nombreAnnonces }} Annonces</p>
-                        <br/><br/><br/>
-                    </div>
-
-
-                </div>
-            
-        {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
         </ul>
     </div>
 
@@ -95,28 +95,28 @@
 
 {% block javascripts %}
     {{ parent() }}
-     <script src="{{ asset('js/validator.js') }}"></script>
+    <script src="{{ asset('js/validator.js') }}"></script>
     <script src="{{ asset('js/moment.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
     <script>
         $(document).ready(function () {
-             $('#dateDebut').datetimepicker({
+            $('#dateDebut').datetimepicker({
                 format: 'DD/MM/YYYY',
                 locale: 'fr'
             }
             );
-             $('#dateFin').datetimepicker({
-                useCurrent:false,
+            $('#dateFin').datetimepicker({
+                useCurrent: false,
                 format: 'DD/MM/YYYY',
                 locale: 'fr'
             }
             );
             $("#dateDebut").on("dp.change", function (e) {
-            $('#dateFin').data("DateTimePicker").minDate(e.date);
-        });
-        $("#dateFin").on("dp.change", function (e) {
-            $('#dateDebut').data("DateTimePicker").maxDate(e.date);
-        });
+                $('#dateFin').data("DateTimePicker").minDate(e.date);
+            });
+            $("#dateFin").on("dp.change", function (e) {
+                $('#dateDebut').data("DateTimePicker").maxDate(e.date);
+            });
         });
     </script>
 {% endblock %}

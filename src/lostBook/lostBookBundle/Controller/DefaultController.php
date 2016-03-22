@@ -176,6 +176,96 @@ class DefaultController extends Controller
 
 
     }
+    
+    public function updateAnnonceAction($idAnnonce)
+    {
+       $espaceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Espace');   
+       $annonceRepository = $this->getDoctrine()->getRepository("lostBookBundle:Annonce");
+       $mediaAnnonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:MediaAnnonce');
+        
+        //On récupère la requête
+        $request = $this->getRequest();
+        
+        //On récupère l'annonce
+        $annonce = $annonceRepository->find($idAnnonce);
+        $medias = $mediaAnnonceRepository->findBy(array('annonce'=>$annonce->getId()));
+        $annonce->setMedias($medias);
+
+        //on crée le formulaire en se basant sur l'objet récupéré précédemment
+       $form = $this->createForm(new AnnonceType(), $annonce);
+
+       $form->handleRequest($request);
+
+       if($form->isValid())
+       {
+           
+           $session = $request->getSession();
+           $user = $this->container->get('security.context')->getToken()->getUser();
+           if($user!='anon.')
+           {             
+             $annonce->setUtilisateur($user);  
+           }
+           else
+           {
+               
+               $annonce->setUtilisateur(NULL);
+           }
+           
+           $annonce->setPerdu(true);
+           $annonce->setEtat('0');
+           $date = new \DateTime('today');
+           $annonce->setDateCreation($date);
+           $idText = $annonce->getIdEspaceHandler();
+           $idTextArray = preg_split("#-#", $idText);
+           if(isset($idTextArray[0]))
+           {
+               $idEspace = preg_replace('/\s+/', '', $idTextArray[0]);
+           }
+           if($annonce->getEspace()->getId() != $idEspace)
+           {
+                $espacePrecedent = $espaceRepository->find($annonce->getEspace()->getId());
+                $espace = $espaceRepository->find($idEspace); 
+                $annonce->setEspace($espace);
+                $espace->setNombreAnnonces($espace->getNombreAnnonces() + 1);
+                $espacePrecedent->setNombreAnnonces($espacePrecedent->getNombreAnnonces() - 1);
+           }
+           $em = $this->getDoctrine()->getManager();
+
+          
+           $manager = $this->get('oneup_uploader.orphanage_manager')->get('gallery');
+           $files = $manager->getFiles();
+           $files = $manager->uploadFiles();
+           
+           //à ce niveau, on met à jour l'annonce en définissant son image par défaut
+           foreach($files as $document)
+           {
+               $tmp = new MediaAnnonce();
+               $tmp->file = $document;
+               $tmp->setAnnonce($annonce);
+               $tmp->preUpload();
+               $em->persist($tmp);
+               $tmp->upload();
+
+           }
+           if(isset($files[0]))
+           {
+               $annonce->setImagePrincipale($files[0]->getFileName());
+           }
+           
+           $em->flush();
+           
+          
+           //Ici on met à jour l'objet annonce en lui définissant une image principale
+           return $this->redirect($this->generateUrl('_lostbook_homepage'));
+       }
+       else
+       {
+           
+            return $this->render('lostBookBundle:Annonces:majAnnonce.html.twig',
+                    array('form'=>$form->createView(),
+                          'annonce'=>$annonce));
+       }  
+    }
 
     public function detailsAnnonceAction($idAnnonce)
     {

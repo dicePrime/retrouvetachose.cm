@@ -50,9 +50,9 @@ class AJAXController extends Controller {
             if ($request->isXmlHttpRequest()) {
                 $idAnnonce = $request->get('idAnnonce');
                 $annonce = $annonceRepository->find($idAnnonce);
-                
+
                 $commentaireAnnonce = new CommentaireAnnonce();
-                
+
                 $commentaireAnnonce->setAnnonce($annonce);
                 $commentaireAnnonce->setCommentaire($request->get('commentaire'));
                 $commentaireAnnonce->setEmail($request->get('emailCommentaire'));
@@ -61,9 +61,35 @@ class AJAXController extends Controller {
                 $commentaireAnnonce->setDate($date);
                 $em->persist($commentaireAnnonce);
                 $em->flush();
-                                return new JsonResponse(array('code' => 0, 'message' => 'The file specified was not found'));
-     } else {
-                return new JsonResponse(array('code' => -1, 'message' => 'The file specified was not found'));
+                return new JsonResponse(array('code' => 0, 'message' => 'Commentaire Enregistré'));
+            } else {
+                return new JsonResponse(array('code' => -1, 'message' => 'Le ocmmentaire n\'a pas pu etre enregistré'));
+            }
+        } catch (\Exception $ex) {
+            CommonsTasks::writeFile('exceptions/controllersExceptions/nouvelleExtractionActionException.txt', $ex->getMessage(), 'w+');
+            return new JsonResponse(array('code' => -1, 'message' => 'Programmation error'));
+        }
+    }
+    
+    public function deleteImageAnnonceAction($idAnnonce,$idMedia) {
+
+        $commentaireAnnonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:CommentaireAnnonce');
+        $annonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Annonce');
+        $mediaAnnonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:MediaAnnonce');
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+
+        try {
+            if ($request->isXmlHttpRequest()) {
+               
+                $annonce = $annonceRepository->find($idAnnonce);
+                $media = $mediaAnnonceRepository->find($idMedia);
+                $em->remove($media);               
+                $em->flush();
+                return new JsonResponse(array('code' => 0, 'message' => 'Commentaire Enregistré'));
+            } else {
+                return new JsonResponse(array('code' => -1, 'message' => 'Le ocmmentaire n\'a pas pu etre enregistré'));
             }
         } catch (\Exception $ex) {
             CommonsTasks::writeFile('exceptions/controllersExceptions/nouvelleExtractionActionException.txt', $ex->getMessage(), 'w+');

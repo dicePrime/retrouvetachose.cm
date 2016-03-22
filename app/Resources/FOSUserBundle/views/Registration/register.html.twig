@@ -1,5 +1,30 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
 {% endblock fos_user_content %}
+{% block location %}
+
+    <li class="active">INSCRIPTION ></li>
+
+ {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#dropzone").dropzone({
+                url: "{{ oneup_uploader_endpoint('gallery') }}",
+                addRemoveLinks: true,
+                dictDefaultMessage: "{{ "nouvelle_annonce_form.photos.instruction"|trans }}",
+                dictRemoveFile: "{{ "nouvelle_annonce_form.photos.supprimer"|trans }}",
+                acceptedFiles: "image/*",
+                maxFilesize: 10,
+                maxThumbnailFilesize: 5
+            });
+           
+        });
+    </script>
+    {% endblock %}

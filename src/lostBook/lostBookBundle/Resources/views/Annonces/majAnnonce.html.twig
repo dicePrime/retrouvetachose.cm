@@ -1,0 +1,93 @@
+{% extends '::default/base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
+{% endblock %}
+
+{% block section %}        
+    {{ include('::commonsFiles/majAnnonceForm.html.twig') }}   
+{% endblock %}
+
+{% block location %}
+    <li><a href="{{ path('_lostbook_homepage') }}">Acceuil</a></li>
+    <li><a href="{{ path('_lostbook_details_annonce',{'idAnnonce': annonce.id }) }}">Annonce {{ annonce.id }}</a></li>
+    <li class="active">Mise à jour</li>
+    {% endblock %}
+
+{% block rightMenu %}
+    <blockquote>
+        {{ include('::commonsFiles/infoNouvelleAnnonce.html.twig') }}
+    </blockquote>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/custom/nouvelleAnnonce.js') }}"></script>
+    <script src="{{ asset('js/validator.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#dropzone").dropzone({
+                url: "{{ oneup_uploader_endpoint('gallery') }}",
+                addRemoveLinks: true,
+                dictDefaultMessage: "{{ "nouvelle_annonce_form.photos.instruction"|trans }}",
+                dictRemoveFile: "{{ "nouvelle_annonce_form.photos.supprimer"|trans }}",
+                acceptedFiles: "image/*",
+                maxFilesize: 10,
+                maxFiles: 4,
+                maxThumbnailFilesize: 8
+
+            });
+
+            $(".previousImages").bind('click', function () {
+
+                var id = $(this).data("value");
+                var idAnnonce = $("#idAnnonce").val();
+                var parent = $(this).parent().parent().parent();
+                
+
+                var ajaxRoute = Routing.generate('_lostbook_delete_image_annonce_action', 
+                                                {idAnnonce: idAnnonce,idMedia:id});
+                $("#messageSuppression").html("<span class='label label-info'> Suppression en cours ...</span>");
+                $.ajax({
+                    url: ajaxRoute,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data)
+                    {
+                        $("#messageSuppression").html("<span class='label label-success'> Photo Supprimée</span>");
+                        parent.remove();
+                    },
+                    error: function (data)
+                    {
+                       $("#messageSuppression").html("<span class='label label-danger'> Impossible de Supprimer la photo</span>"); 
+                    }
+
+                });
+
+            });
+
+            $('#dateDebut').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+            $('#dateFin').datetimepicker({
+                useCurrent: false,
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+            $("#dateDebut").on("dp.change", function (e) {
+                $('#dateFin').data("DateTimePicker").minDate(e.date);
+            });
+            $("#dateFin").on("dp.change", function (e) {
+                $('#dateDebut').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+    </script>
+{% endblock %}

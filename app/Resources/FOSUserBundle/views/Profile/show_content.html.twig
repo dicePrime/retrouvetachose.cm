@@ -1,6 +1,133 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="fos_user_user_show">
-    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <div class="row" style="padding-top:50px;">
+
+        <div class="col-xs-12 col-sm-12">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                <li role="presentation"><a href="#annonces" aria-controls="annonces" role="tab" data-toggle="tab">Annonces({{ pagination.getTotalItemCount }})</a></li>
+                <li role="presentation"><a href="#espaces" aria-controls="espaces" role="tab" data-toggle="tab">Espaces({{ paginationEspaces | length }})</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane" id="annonces">
+                    <div class="row">
+                        <ul class="media-list">
+                            <div class="col-xs-12 col-sm-12">
+                                {% if pagination | length != 0 %}
+                                    {% for annonce in pagination %}
+
+
+                                        <div class="media lostbook-hover">
+                                            <div class="media-left">
+                                                {% if annonce.imagePrincipale != NULL  %}
+                                                    {% set location = ['uploads/documents/annonces/',annonce.imagePrincipale ] | join %}
+                                                    <a href="{{ path('_lostbook_details_annonce',{ 'idAnnonce':annonce.id }) }}">
+                                                        <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="media-body">
+                                                <h3 class="media-heading rTCGreenText">{{ annonce.titre }}</h3>                                                     
+                                                <p>{{ annonce.commentaire  }}</p>
+                                                <br/><br/><br/>
+                                            </div>
+
+
+                                        </div>
+
+                                    {% endfor %}
+                                {% else %}
+                                    <p>
+                                        <img src="{{asset('img/nothing_found.png') }}" class='img img-responsive' style='display:inline;background-color:black'/> AUCUNE ANNONCE TROUVEE. 
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane active" id="profile">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <img class="img img-thumbnail img-responsive" alt="AUCUNE PHOTO RENSEIGNEE" src="{{ asset( ['uploads/documents/utilisateurs/',user.photo] | join|imagine_filter('my_thumb') ) }} "/>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4>
+                                        {% if user.photo != null %}
+                                            <img class="img img-thumbnail img-circle img-responsive" src="{{ asset( ['uploads/documents/utilisateurs/',user.photo] | join|imagine_filter('avatar') ) }} " style="padding: 0px;display: inline"/>
+                                        {% else %}
+                                            <span class="glyphicon glyphicon-user"></span>
+                                        {% endif %}
+                                        {{ user.username }}
+                                    </h4>
+                                </div>
+
+                                <div class="panel-body">
+                                    <dl class="dl-horizontal">
+                                        <dt>Email </dt><dd> {{ user.email }}</dd>
+                                        <dt>Téléphone 1</dt><dd> {{ user.telephone1 }}</dd>
+                                        <dt>Téléphone 2</dt><dd>{{ user.telephone2 }}</dd>
+                                        <dt>Dernière connexion</dt><dd>{{ user.lastLogin | date }}</dd>
+                                    </dl>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="espaces">
+                    <div class="row">
+                        <ul class="media-list">
+            <div class="col-xs-12 col-sm-12">
+                {% for espace in paginationEspaces %}
+
+
+                    <div class="media table-hover">
+                        <div class="media-left media-middle">
+                            {% if espace.imagePrincipale != NULL  %}
+                                {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
+                                <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
+                                    <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
+                                </a>
+                            {% else %}
+                                <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
+                                    <img class="media-object img-thumbnail" src="{{ asset('img/espace.png'|imagine_filter('main_thumb')) }}"/>
+                                </a>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="media-body">
+                            <h3 class="media-heading rTCGreenText">{{ espace.nom }}</h3>                                                     
+                            <p>{{ espace.description|truncate(100)}}</p>
+                            <p>{{ espace.nombreAnnonces }} Annonces</p>
+                            <br/><br/><br/>
+                        </div>
+
+
+                    </div>
+
+                {% endfor %}
+            </div>
+        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

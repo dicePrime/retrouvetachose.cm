@@ -125,7 +125,7 @@ class Espace
     /**
      *
      * @var integer
-     * @ORM\Column(name="nombre_visites",type="integer",options={"default:0"})
+     * @ORM\Column(name="nombre_visites",type="integer",nullable=TRUE,options={"default:0"})
      */
     protected $nombreVisites;
     
@@ -498,5 +498,38 @@ class Espace
     public function getNombreVisites()
     {
         return $this->nombreVisites;
+    }
+
+    /**
+     * Add commentaires
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireEspace $commentaires
+     * @return Espace
+     */
+    public function addCommentaire(\lostBook\lostBookBundle\Entity\CommentaireEspace $commentaires)
+    {
+        $this->commentaires[] = $commentaires;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaires
+     *
+     * @param \lostBook\lostBookBundle\Entity\CommentaireEspace $commentaires
+     */
+    public function removeCommentaire(\lostBook\lostBookBundle\Entity\CommentaireEspace $commentaires)
+    {
+        $this->commentaires->removeElement($commentaires);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

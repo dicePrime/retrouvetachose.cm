@@ -106,6 +106,13 @@ index:
     nature: nature
     recompense: Avec recompense ?
     chercher: Chercher
+    
+saisie_code_createur:
+    email: Entrez votre email
+    saisir: Entrez le code
+    soumettre: Soumettre
+    erreur_code : Le code ne correspond
+    erreur_email : L'email entré ne correspond pas à celui associé à l'annonce
 
 
 # Time ago in words - Twig Extension

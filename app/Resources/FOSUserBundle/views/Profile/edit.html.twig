@@ -3,3 +3,29 @@
 {% block fos_user_content %}
 {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
 {% endblock fos_user_content %}
+
+{% block location %}
+
+    <li></li><a href="{{ path('fos_user_profile_show') }}">PROFILE</a><li class="active"> / Mise à jour</li>
+
+ {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}  
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#dropzone").dropzone({
+                url: "{{ oneup_uploader_endpoint('gallery') }}",
+                addRemoveLinks: true,
+                dictDefaultMessage: "{{ "nouvelle_annonce_form.photos.instruction"|trans }}",
+                dictRemoveFile: "{{ "nouvelle_annonce_form.photos.supprimer"|trans }}",
+                acceptedFiles: "image/*",
+                maxFilesize: 10,
+                maxThumbnailFilesize: 5
+            });
+           
+        });
+    </script>
+    {% endblock %}
