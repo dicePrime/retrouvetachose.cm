@@ -13,6 +13,7 @@ namespace lostBook\lostBookBundle\Controller;
  */
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use lostBook\lostBookBundle\Entity\Espace;
+use lostBook\lostBookBundle\Entity\Annonce;
 use lostBook\lostBookBundle\Form\Type\AnnonceType;
 use Symfony\Component\HttpFoundation\File;
 use lostBook\lostBookBundle\Commons\Routes;
@@ -37,13 +38,66 @@ class AJAXController extends Controller {
         $response = new JsonResponse();
         return $response->setData($espaces);
     }
+    
+    public function contacterAnnonceurAction()
+    {
+        //$utilisateurRepository = $this->getDoctrine()->getRepository('lostBookUserBundle:Utilisateur');
+        $annonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Annonce');
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        
+        try {
+            if ($request->isXmlHttpRequest()) 
+            {
+                $idAnnonce = $request->get('idAnnonce');                
+                $annonce = $annonceRepository->find($idAnnonce);
+                $message = $request->get('message');     
+                CommonsTasks::writeFile('commentaires.txt',$message, 'w+');
+                $this->sendContactEmail($annonce, $message);
+                
+                return new JsonResponse(array('code' => 0, 'message' => 'Commentaire Enregistré'));
+            } else {
+                return new JsonResponse(array('code' => -1, 'message' => 'Le ocmmentaire n\'a pas pu etre enregistré'));
+            }
+        } 
+        catch (\Exception $ex)
+        {
+            CommonsTasks::writeFile('commentaire.txt', $ex->getMessage().$idAnnonce, 'w+');
+            return new JsonResponse(array('code' => -1, 'message' => 'Programmation error'));
+        }
+    }
+    
+    
+     public function sendContactEmail(Annonce $annonce, $message) {
+        try {            
+            $email = \Swift_Message::newInstance();
+            $email->setFrom("npatrickjoel@orange.com", "retrouveTaChose");
+            $email->setBcc($annonce->getUtilisateur()->getEmail());
+            $email->setSubject("Un utilisateur vous a contacté");
+
+            $body = $this->render('lostBookBundle:Emails:nouveauContact.html.twig',array('annonce'=>$annonce, 'message'=>$message));
+            $email->setBody($body, 'text/html');
+
+
+            $this->get('mailer')->send($email);
+            //$mailer->send($email);
+            return true;
+        } catch (\Exception $ex) {
+            $file = fopen("text.txt","w+");
+            
+            fputs($file, $ex->getMessage());
+            
+            fclose($file);
+            
+            return false;
+        }
+    }
 
     public function nouveauCommentaireAnnonceAction() {
 
         $commentaireAnnonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:CommentaireAnnonce');
         $annonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Annonce');
         $request = $this->getRequest();
-        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
         try {
@@ -55,9 +109,10 @@ class AJAXController extends Controller {
 
                 $commentaireAnnonce->setAnnonce($annonce);
                 $commentaireAnnonce->setCommentaire($request->get('commentaire'));
-                $commentaireAnnonce->setEmail($request->get('emailCommentaire'));
-                $commentaireAnnonce->setPseudo($request->get('pseudo'));
-                $date = new \DateTime('today');
+                $commentaireAnnonce->
+                        setPseudo($this->container->get('security.context')
+                                ->getToken()->getUser()->getUserName());
+                $date = new \DateTime('now');
                 $commentaireAnnonce->setDate($date);
                 $em->persist($commentaireAnnonce);
                 $em->flush();
@@ -66,24 +121,21 @@ class AJAXController extends Controller {
                 return new JsonResponse(array('code' => -1, 'message' => 'Le ocmmentaire n\'a pas pu etre enregistré'));
             }
         } catch (\Exception $ex) {
-            CommonsTasks::writeFile('exceptions/controllersExceptions/nouvelleExtractionActionException.txt', $ex->getMessage(), 'w+');
+            CommonsTasks::writeFile('commentaire.txt', $ex->getMessage(), 'w+');
             return new JsonResponse(array('code' => -1, 'message' => 'Programmation error'));
         }
     }
     
     public function deleteImageAnnonceAction($idAnnonce,$idMedia) {
 
-        $commentaireAnnonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:CommentaireAnnonce');
-        $annonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:Annonce');
         $mediaAnnonceRepository = $this->getDoctrine()->getRepository('lostBookBundle:MediaAnnonce');
         $request = $this->getRequest();
-        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
         try {
             if ($request->isXmlHttpRequest()) {
                
-                $annonce = $annonceRepository->find($idAnnonce);
+                
                 $media = $mediaAnnonceRepository->find($idMedia);
                 $em->remove($media);               
                 $em->flush();
@@ -96,5 +148,41 @@ class AJAXController extends Controller {
             return new JsonResponse(array('code' => -1, 'message' => 'Programmation error'));
         }
     }
+    public function deleteImageEspaceAction($idEspace,$idMedia) {
+        $mediaEspaceRepository = $this->getDoctrine()->getRepository('lostBookBundle:MediaEspace');
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        try {
+            if ($request->isXmlHttpRequest()) {
+               
+                $media = $mediaEspaceRepository->find($idMedia);
+                $em->remove($media);               
+                $em->flush();
+                return new JsonResponse(array('code' => 0, 'message' => 'Commentaire Enregistré'));
+            } else {
+                return new JsonResponse(array('code' => -1, 'message' => 'Le ocmmentaire n\'a pas pu etre enregistré'));
+            }
+        } catch (\Exception $ex) {
+            CommonsTasks::writeFile('exceptions/controllersExceptions/nouvelleExtractionActionException.txt', $ex->getMessage(), 'w+');
+            return new JsonResponse(array('code' => -1, 'message' => 'Programmation error'));
+        }
+    }
+    
+    /*public function searchEspacesAction()
+    {
+        $request = $this->getRequest();
+        $q = $request->query->get('q');
+        $results = $this->getDoctrine()->getRepository("lostBookBundle:Espace")->findLikeName($q);
+        
+        return $this->render('lostBookBundle:Annonces:publierAnnonce.html.twig', array('results' => $results));
+    }
+    
+    public function getEspaceAction($id = null)
+    {
+        $espace = $this->getDoctrine()->getRepository('lostBook:Espace')->find($id);
+
+        return new Response($espace->getNom());
+    }*/
 
 }

@@ -1,0 +1,1 @@
+Method "description" for object "lostBook\lostBookBundle\Entity\Annonce" does not exist in "lostBookBundle:Emails:newMatchCase.html.twig" at line 21

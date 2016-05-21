@@ -79,9 +79,19 @@ fos_user:
     registration:
         form :
             type: app_user_registration
+        confirmation:
+            enabled: true
     profile:
         form:
             type: app_user_profile
+    from_email:
+        address: npatrickjoel@gmail.com
+        sender_name : freeFinder
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template: email/password_resetting.email.twig
 
 oneup_uploader:
     mappings:
@@ -115,7 +125,7 @@ liip_imagine:
             quality: 100
             filters:
                 auto_rotate: ~
-                thumbnail: { size: [150, 150], mode: outbound, allow_upscale: true }
+                thumbnail: { size: [242, 200], mode: outbound, allow_upscale: true }
                 
                 
         my_thumb:
@@ -174,4 +184,32 @@ services:
         class: Salavert\Twig\Extension\TimeAgoExtension
         arguments: [@translator]
         tags:
-        - { name: twig.extension }         
+        - { name: twig.extension }      
+    fos_user.doctrine_registry:
+        alias: doctrine
+        
+#hwi_oauth:
+    # name of the firewall in which this bundle is active, this setting MUST be set
+ #   firewall_name: main
+  #  connect:
+   #     account_connector: app.provider.oauth
+   # resource_owners:
+    #    facebook:
+     #       type:                facebook
+      #      client_id:           %facebook_client_id%
+      #      client_secret:       %facebook_client_secret%
+       #     scope:               "email, public_profile"
+        #    infos_url:           "https://graph.facebook.com/me?fields=id,name,email,picture.type(large)"
+        #    paths:
+         #       email: email
+         #   options:
+          #      display: page
+        #google:
+         #   type:                google
+          #  client_id:           %google_client_id%
+           # client_secret:       %google_client_secret%
+           # scope:              "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+           # paths:
+            #    email: email
+        
+        

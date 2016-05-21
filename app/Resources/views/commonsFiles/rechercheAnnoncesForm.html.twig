@@ -1,14 +1,7 @@
-<div id="accordion" class="panel-group">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#formulaire">
-                   + {{ "index.options_recherche"|trans|upper }}
-                    </a>
-               
-            </h4>
-        </div>
-
+<div id="accordion" class="panel-group" style='padding-left: 15px;'>   
+                            <a  data-toggle="collapse"  data-parent="#accordion" href="#formulaire" class="btn rTCGreen rTCWhiteText">
+                    <span class='glyphicon glyphicon-search'></span>
+                 </a>                        
         <div class="panel-collapse collapse" id="formulaire">
             <div class="panel-body">
 
@@ -40,13 +33,13 @@
                             </div>
                         </div>     
 
-                        <div class="col-xs-12 col-sm-6">
+                        <div class="col-xs-12 col-sm-5">
                             <div class="input-group">
                                 <span class="input-group-addon">{{ "index.espace"|trans|upper }}</span>
                                 {{ form_widget(form.espace,{'attr':{'class':'form-control'} }) }}
                             </div>
                         </div>
-
+                             <div class="col-sm-1" id="loading" hidden><img src="{{ asset('img/ajax_loader.gif') }}" height="30" width="30"/></div>
 
                     </div>
                     <div class="form-group">
@@ -85,5 +78,5 @@
         </div>
 
         {{ form_end(form) }}
-    </div>
+    
 </div>

@@ -1,9 +1,5 @@
 {% extends '::default/base.html.twig' %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
-{% endblock %}
+
 
 {% block rightMenu %}
     <blockquote>
@@ -33,9 +29,14 @@
 {% block location %}
     {#<a href="{{ path('r_tc_homepage') }}" class="rTCBlackText">Acceuil>></a>#}
 
-    <li><a href="{{ path('_lostbook_homepage') }}" class="rTCBlackText">Acceuil</a></li>
-    <li><a href="{{ path('_lostbook_espaces_index') }}">{{ "espaces.tous_les_espaces"|trans }}</a></li>
-    <li class="active">(<span class="rTCPinkText"><strong>{{ pagination.getTotalItemCount }}</strong></span>)</li>
+    <li><a href="{{ path('_lostbook_homepage') }}">Acceuil</a></li>
+    <li><a href="{{ path('_lostbook_espaces_index') }}">Espaces</a></li>
+    
+    {% if afficherRecherche == FALSE %}
+    <li class="active">{{ "espaces.tous_les_espaces"|trans }} (<span class="rTCPinkText"><strong>{{ pagination.getTotalItemCount }}</strong></span>)</li>
+    {% else %}
+    <li class="active">{{ "espaces.resultats_recherche"|trans }} (<span class="rTCPinkText"><strong>{{ pagination.getTotalItemCount }}</strong></span>)</li>
+    {% endif %}
 
 {% endblock %}
 
@@ -45,45 +46,41 @@
 
     {# table body #}
     <div class="row">
-        <ul class="media-list">
-            <div class="col-xs-12 col-sm-12">
-                {% for espace in pagination %}
-
-
-                    <div class="media table-hover">
-                        <div class="media-left media-middle">
+        <div class="col-xs-12">
+            {% if pagination | length != 0 %}
+                 {% for espace in pagination %}
+                     <div class="col-xs-12 col-sm-4">
+                        <div class="thumbnail" style='height:360px;'>
                             {% if espace.imagePrincipale != NULL  %}
                                 {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
-                                <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
-                                    <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
-                                </a>
                             {% else %}
-                                <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
-                                    <img class="media-object img-thumbnail" src="{{ asset('img/espace.png'|imagine_filter('main_thumb')) }}"/>
-                                </a>
+                                {% set location = 'img/espace.png' %}
                             {% endif %}
-
+                            <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}"> <img src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" ></a>
+                            <div class="caption">
+                                <h4 class='rTCGreenText'>{{ espace.nom|truncate(30) }}</h4>
+                                <p>{{ espace.nombreAnnonces }} {{"espaces.nombre_annonces"|trans }}</p>
+                                <p><a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}" class="btn rTCGreen rTCWhiteText" role="button">Afficher</a></p>
+                            </div>
                         </div>
-
-                        <div class="media-body">
-                            <h3 class="media-heading rTCGreenText">{{ espace.nom }}</h3>                                                     
-                            <p>{{ espace.description|truncate(100)}}</p>
-                            <p>{{ espace.nombreAnnonces }} Annonces</p>
-                            <br/><br/><br/>
-                        </div>
-
-
                     </div>
+                 {% endfor %}
+                 {% else %}
+                <p>
+                    <img src="{{asset('img/nothing_found.png') }}" class='img img-responsive' style='display:inline;background-color:black'/> {{ "espace.aucun_trouve"|trans|upper }} 
+                </p>
 
-                {% endfor %}
-            </div>
-        </ul>
+            {% endif %}
+            
+        </div>
     </div>
+        
+   
 
     {# display navigation #}
     <div class="row">
 
-        <div class="col-xs-6  navigation pull-right">
+        <div class="col-xs-12  navigation pull-right">
             <center>
                 {{ knp_pagination_render(pagination) }}
             </center>
@@ -95,27 +92,51 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/select2.full.js') }}"></script>
     <script src="{{ asset('js/validator.js') }}"></script>
     <script src="{{ asset('js/moment.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#dateDebut').datetimepicker({
-                format: 'DD/MM/YYYY',
-                locale: 'fr'
-            }
-            );
-            $('#dateFin').datetimepicker({
-                useCurrent: false,
-                format: 'DD/MM/YYYY',
-                locale: 'fr'
-            }
-            );
-            $("#dateDebut").on("dp.change", function (e) {
-                $('#dateFin').data("DateTimePicker").minDate(e.date);
-            });
-            $("#dateFin").on("dp.change", function (e) {
-                $('#dateDebut').data("DateTimePicker").maxDate(e.date);
+         
+         $("#rechercheEspace_ville").select2();
+          var $ville = $('#rechercheEspace_ville');
+            $ville.change(function () {
+                // ... retrieve the corresponding form.
+                $("#loading").attr('hidden', false);
+                if ($("#rechercheEspace_espace").data('select2'))
+                {
+                    $("#rechercheEspace_espace").select2("destroy");
+                }
+                var $form = $(this).closest('form');
+                // Simulate form data, but only include the selected sport value.
+                var data = {};
+                data[$ville.attr('name')] = $ville.val();
+                // Submit data via AJAX to the form's action path.
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    success: function (html) {
+                        // Replace current position field ...
+
+                        $('#rechercheEspace_espace').replaceWith(
+                                // ... with the returned one from the AJAX response.
+                                $(html).find('#rechercheEspace_espace')
+                                );
+
+                        // Position field now displays the appropriate positions.
+                        $("#rechercheEspace_espace").select2(
+                                {
+                                    containerCssClass: 'tpx-select2-container',
+                                    dropdownCssClass: 'tpx-select2-drop'
+                                }
+                        );
+                                $("#loading").attr('hidden', true);
+                    }
+                });
+
+
             });
         });
     </script>

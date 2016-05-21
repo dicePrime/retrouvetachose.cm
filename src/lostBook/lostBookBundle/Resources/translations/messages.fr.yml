@@ -5,10 +5,13 @@ header:
     blog : Blog
     login : Connexion
     find : Chercher
-    parameters : Parametres
-    logout : Déconnexion
+    faq: FAQ et ASTUCES
+    logout : DECONNEXION
     new_lost : J'ai perdu un objet
     new_found : J'ai trouvé un objet
+    settings: paramètres
+    new_space: nouvel espace
+    edit_profil : Editer mon profil
     
 search_menu:
     title : Options de recherce
@@ -34,6 +37,8 @@ search_menu:
         
 general:
     login : Connexion
+    annonce_supprimee: Annonce Supprimée avec succès.
+    espace_supprime : Espace Supprimé avec succès.
     
     
     
@@ -55,6 +60,7 @@ nouvelle_annonce_form:
         inscrution : Cliquez pour ajouter
         
     recompense: 
+        recompense: Récompense et Sécurité
         avec_recompense: Avec Récompense?
         montant: Montant(XAF)
         autre: Ou Autre Chose
@@ -73,6 +79,9 @@ nouvelle_annonce_form:
         
 espaces:
     tous_les_espaces: Tous les espaces
+    nombre_annonces : Annonces
+    aucun_trouve : Aucun espace trouvé
+    resultats_recherche: Résultats Recherche
     
 nouvel_espace_form:
     identification: 
@@ -82,8 +91,7 @@ nouvel_espace_form:
        description: Description
     contacts:
         contacts: Contacts
-        email1: Email 1
-        email2: Email 2
+        email: Email
         telephone1: Téléphone 1
         telephone2: Téléphone 2
     creer: Créer
@@ -95,6 +103,9 @@ details_espace:
     date_creation: Date de création
     nombre_visites: Nombre de vues
     description: Description
+    message_proprietaire_espace : Vous n'avez pas le droit d'éditer cette annonce
+    modifier_espace: Modifier
+    supprimer_espace: Supprimer
     
 index:
     options_recherche: Options de recherche
@@ -106,12 +117,14 @@ index:
     nature: nature
     recompense: Avec recompense ?
     chercher: Chercher
+    toutes_les_annonces : Toutes les annonces
+    resultat_recherche: Résultats de la recherche
     
 saisie_code_createur:
     email: Entrez votre email
     saisir: Entrez le code
     soumettre: Soumettre
-    erreur_code : Le code ne correspond
+    erreur_code : Le code ne correspond pas
     erreur_email : L'email entré ne correspond pas à celui associé à l'annonce
 
 
@@ -120,13 +133,43 @@ less than %seconds seconds ago: Il y'a moins de %seconds secondes
 half a minute ago: Il y'a plus de 30 secondes
 less than a minute ago: Il y'a moins d'une minute 
 1 minute ago: Il y'a une minute
-%minutes minutes ago: Il y'a %minutes minutes
+"%minutes minutes ago": Il y'a %minutes minutes
 about 1 hour ago: Il y'a presque 1 heure
 about %hours hours ago: Il y'a environ %hours heures
 1 day ago: Il y'a 1 jour
-%days days ago: Il y'a %days jours
+"%days days ago": Il y'a %days jours
 "{1} 1 month ago |]1,Inf[ %months months ago": "{1} Il y'a un mois |]1,Inf[ Il y'a %months mois"
 "{1} 1 year ago |]1,Inf[ %years years ago":  "Il ya un an |]1,Inf[ Il y'a %years ans"
+
+
+details_annonce:
+    message_proprietaire_annonce : Vous ne pouvez paséditer cette annonce
+    
+    
+    
+recherche_espace:
+    ville: Ville
+    nom : Nom
+    
+maj_espace:
+    supprimer_image: Supprimer
+    
+    
+contact:
+    titre: Contactez l'annonceur
+    message_label: Votre message
+    envoyer: Envoyer
+    fermer: Fermer
+    
+    
+
+faq:
+    title: Bienvenue dans les FAQ rTC
+    description: Retrouvez ici toutes les questions fréquemment posées par les utilisateurs
+    questions:
+        question1: 
+            title: Pourquoi dois-je m'inscrire ou me connecter pour consulter une annonce?
+            description: Il existe plusieurs raisons à cela, 
         
         
     

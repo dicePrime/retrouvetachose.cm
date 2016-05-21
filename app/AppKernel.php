@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
@@ -35,7 +36,8 @@ class AppKernel extends Kernel
 
             // And finally, the storage and SonataAdminBundle
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new Sonata\AdminBundle\SonataAdminBundle(),            
+            new Sonata\AdminBundle\SonataAdminBundle(),
+           // new HWI\Bundle\OAuthBundle\HWIOAuthBundle()
           );
 
         if (in_array($this->getEnvironment(), array('dev', 'test')))

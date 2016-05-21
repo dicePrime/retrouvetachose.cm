@@ -1,0 +1,130 @@
+{% extends '::default/base.html.twig' %}
+
+
+{% block section %}        
+    {{ include('::commonsFiles/majEspaceForm.html.twig') }}   
+{% endblock %}
+
+{% block location %}
+    <li><a href="{{ path('_lostbook_homepage') }}">Acceuil</a></li>
+    <li><a href="{{ path('_lostbook_details_espace',{'idEspace': espace.id }) }}">Espace {{ espace.id }}</a></li>
+    <li class="active">Mise à jour</li>
+    {% endblock %}
+
+{% block rightMenu %}
+    <blockquote>
+        {{ include('::commonsFiles/infoNouvelleAnnonce.html.twig') }}
+    </blockquote>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/select2.full.js') }}"></script>
+    <script src="{{ asset('js/custom/nouvelleAnnonce.js') }}"></script>
+    <script src="{{ asset('js/validator.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#dropzone").dropzone({
+                url: "{{ oneup_uploader_endpoint('gallery') }}",
+                addRemoveLinks: true,
+                dictDefaultMessage: "{{ "nouvelle_annonce_form.photos.instruction"|trans }}",
+                dictRemoveFile: "{{ "nouvelle_annonce_form.photos.supprimer"|trans }}",
+                acceptedFiles: "image/*",
+                maxFilesize: 10,
+                maxFiles: 1,
+                maxThumbnailFilesize: 8
+
+            });
+
+            $(".previousImages").bind('click', function () {
+
+                var id = $(this).data("value");
+                var idEspace = $("#idEspace").val();
+                var parent = $(this).parent().parent().parent();
+
+                var ajaxRoute = Routing.generate('_lostbook_delete_image_espace_action',
+                        {idEspace: idEspace, idMedia: id});
+                $("#messageSuppression").html("<span class='label label-info'> Suppression en cours ...</span>");
+                $.ajax({
+                    url: ajaxRoute,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data)
+                    {
+                        $("#messageSuppression").html("<span class='label label-success'> Photo Supprimée</span>");
+                        parent.remove();
+                    },
+                    error: function (data)
+                    {
+                        $("#messageSuppression").html("<span class='label label-danger'> Impossible de Supprimer la photo</span>");
+                    }
+
+                });
+
+            });
+
+            $('#dateDebut').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+            $('#dateFin').datetimepicker({
+                useCurrent: false,
+                format: 'DD/MM/YYYY',
+                locale: 'fr'
+            }
+            );
+            $("#dateDebut").on("dp.change", function (e) {
+                $('#dateFin').data("DateTimePicker").minDate(e.date);
+            });
+            $("#dateFin").on("dp.change", function (e) {
+                $('#dateDebut').data("DateTimePicker").maxDate(e.date);
+            });
+
+            var $ville = $('#annonce_ville');
+// When sport gets selected ...
+            $ville.change(function () {
+                // ... retrieve the corresponding form.
+
+                if ($("#annonce_espace").data('select2'))
+                {
+                    $("#annonce_espace").select2("destroy");
+                }
+                var $form = $(this).closest('form');
+                // Simulate form data, but only include the selected sport value.
+                var data = {};
+                data[$ville.attr('name')] = $ville.val();
+                // Submit data via AJAX to the form's action path.
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    success: function (html) {
+                        // Replace current position field ...
+
+                        $('#annonce_espace').replaceWith(
+                                // ... with the returned one from the AJAX response.
+                                $(html).find('#annonce_espace')
+                                );
+
+                        // Position field now displays the appropriate positions.
+                        $("#annonce_espace").select2(
+                                {
+                                    containerCssClass: 'tpx-select2-container',
+                                    dropdownCssClass: 'tpx-select2-drop'
+                                }
+                        );
+
+                    }
+                });
+
+
+            });
+
+        });
+    </script>
+{% endblock %}

@@ -1,9 +1,5 @@
 {% extends '::default/base.html.twig' %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/tiksluscarousel.css') }}" />
 
-{% endblock %}
 {% block location %}
     <li><a href="{{ path('_lostbook_homepage') }}">Acceuil</a></li>
     <li><a href="{{ path('_lostbook_espaces_index') }}">{{ "espaces.tous_les_espaces"|trans }}</a></li>
@@ -22,8 +18,9 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">A propos de l'espace</a></li>
                 <li role="presentation" class="active"><a href="#annonces" aria-controls="annonce" role="tab" data-toggle="tab">Annonces(<span class="rTCGreenText">{{ pagination.getTotalItemCount }})</span></a></li>
+                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">A propos de l'espace</a></li>
+
             </ul>
 
             <!-- Tab panes -->
@@ -32,80 +29,112 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div style="padding-top:30px;">
-                            <h3>{{ espace.nom }}</h3>
-                            {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
-                            <center>
-                             <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
-                            </center>
-                             <p>
-                             <dl class="dl-horizontal">
-                                 <dt>{{ "details_espace.nombre_annonces"|trans }}</dt><dd>{{ espace.nombreAnnonces }}</dd>
-                                 <dt>{{ "details_espace.date_creation"|trans }}</dt><dd>{{ espace.dateCreation | date() }}</dd>
-                                 <dt>{{ "details_espace.ville"|trans }}</dt><dd>{{ espace.ville.libelle }}</dd>
-                                 <dt><span class="glyphicon glyphicon-eye-open"></span></dt><dd>{{ espace.nombreVisites }}</dd>
-                             </dl>
-                            </p>
+                                <h3>{{ espace.nom }}</h3>
+                                {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
+                                <center>
+                                    <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
+                                </center>
+                                <p>
+                                <dl class="dl-horizontal">
+                                    <dt>{{ "details_espace.nombre_annonces"|trans }}</dt><dd>{{ espace.nombreAnnonces }}</dd>
+                                    <dt>{{ "details_espace.date_creation"|trans }}</dt><dd>{{ espace.dateCreation | date() }}</dd>
+                                    <dt>{{ "details_espace.ville"|trans }}</dt><dd>{{ espace.ville.libelle }}</dd>
+                                    <dt><span class="glyphicon glyphicon-eye-open"></span></dt><dd>{{ espace.nombreVisites }}</dd>
+                                </dl>
+                                </p>
+                            </div>
+                            <div style="padding-top:30px;">
+
+                                <h4>{{ "details_espace.description"|trans }}</h4>
+
+                                <p>
+                                    {{ espace.description }}
+                                </p>
+                                </blockquote>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
-                            
-                            <div style="padding-top:100px;">
-                            <blockquote>
-                                <header>
-                                    <h4>{{ "details_espace.description"|trans }}</h4>
-                                </header>
-                                <footer>
-                                {{ espace.description }}
-                                </footer>
-                            </blockquote>
-                            </div>
+                            <h4>Téléphone</h4>
+                            <dl class="dl-horizontal">
+                                <dt><a class="btn btn-social-icon btn-success"><i class="fa fa-phone"></i></a></dt>
+                                <dd style="padding: 10px;"><a href="tel:{{ espace.telephone1 }}">&nbsp;{{ espace.telephone1 }}</a></dd>
+                                <dt><a class="btn btn-social-icon btn-success"><i class="fa fa-phone"></i></a></dt>
+                                <dd style="padding: 10px;"><a href="tel:{{ espace.telephone2 }}">&nbsp;{{ espace.telephone2 }}</a></dd>
+
+                            </dl>
+                            <h4>Email </h4>
+                            <dl class="dl-horizontal">
+                                <dt><a class="btn btn-social-icon btn-primary"><i class="fa fa-envelope"></i></a></dt>
+                                <dd style="padding: 10px;"><a href="mailto:{{ espace.email }}">&nbsp;{{ espace.email }}</a> </dd>
+                            </dl>                          
+
                         </div>
+                    </div>
+                    <div class="row" style="padding-top:50px;">
+                        <div class="col-xs-12 col-sm-5 pull-left">
+                            <h4>
+                                <a href="{{ path('_lostbook_update_espace',{'idEspace':espace.id}) }}" class="rTCBlackText"><span class="glyphicon glyphicon-edit rTCGreenText"></span>&nbsp;{{ "details_espace.modifier_espace"|trans }}</a>
+                            </h4>
+                        </div>
+                        <div class="col-xs-12 col-sm-5">
+                            <h4>
+                                <a href="{{ path('_lostbook_delete_espace',{'idEspace':espace.id}) }}" class="rTCBlackText"><span class="glyphicon glyphicon-trash rTCPinkText"></span>&nbsp;{{ "details_espace.supprimer_espace"|trans }}</a>
+                            </h4>
+                        </div>
+
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane active" id="annonces">
                     <div class="row">
-        <ul class="media-list">
-                    <div class="col-xs-12 col-sm-12">
-        {% for annonce in pagination %}
+                        <div class="col-xs-12">
+                            {% if pagination | length != 0 %}
+                                {% for i,annonce in pagination %}
 
-              
-                
-                <div class="media table-hover">
-                    <div class="media-left media-middle">
-                        {% if annonce.imagePrincipale != NULL  %}
-                            {% set location = ['uploads/documents/annonces/',annonce.imagePrincipale ] | join %}
-                            <a href="{{ path('_lostbook_details_annonce',{ 'idAnnonce':annonce.id }) }}">
-                                <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
-                            </a>
-                        {% endif %}
+                                    <div class="col-xs-12 col-sm-4">
+                                        <div class="thumbnail" style='height:360px;'>
+                                            {% if annonce.imagePrincipale != NULL  %}
+                                                {% set location = ['uploads/documents/annonces/',annonce.imagePrincipale ] | join %}
+                                            {% else %}
+                                                {% set location = 'img/espace.png' %}
+                                            {% endif %}
+                                            <a href="{{ path('_lostbook_details_annonce',{ 'idAnnonce':annonce.id }) }}"> <img src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" ></a>
+                                            <div class="caption">
+                                                {% if annonce.avecRecompense %}
+
+                                                    <p>
+                                                        <span class="rTCPinkText glyphicon glyphicon-usd pull-right"></span>
+                                                    </p>
+                                                {% endif %}
+                                                <h4 class='rTCGreenText'>{{ annonce.titre|truncate(30) }}</h4>
+                                                <p>{{ annonce.commentaire|truncate(50)  }}</p>
+                                                <p><a href="{{ path('_lostbook_details_annonce',{ 'idAnnonce':annonce.id }) }}" class="btn rTCGreen rTCWhiteText" role="button">Afficher</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                            {% else %}
+                                <p>
+                                    <img src="{{asset('img/nothing_found.png') }}" class='img img-responsive' style='display:inline;background-color:black'/> AUCUNE ANNONCE TROUVEE. 
+                                </p>
+
+                            {% endif %}
+                        </div>
                     </div>
+                    <div class="row">
 
-                    <div class="media-body">
-                        <h3 class="media-heading rTCGreenText">{{ annonce.titre }}</h3>                                                     
-                        <p>{{ annonce.commentaire  }}</p>
-                        <br/><br/><br/>
+                        <div class="col-xs-12  navigation">
+                            <center>
+                                {{ knp_pagination_render(pagination) }}
+                            </center>
+                        </div>
                     </div>
-
-
                 </div>
-            
-        {% endfor %}
-        </div>
-        </ul>
-    </div>
-        <div class="row">
-
-        <div class="col-xs-6  navigation pull-right">
-            <center>
-                {{ knp_pagination_render(pagination) }}
-            </center>
-        </div>
-    </div>
-                </div>
-                
             </div>
+
         </div>
     </div>
+
 {% endblock %}
 
 

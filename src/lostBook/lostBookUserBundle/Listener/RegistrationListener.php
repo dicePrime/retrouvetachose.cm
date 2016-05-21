@@ -69,8 +69,7 @@ class RegistrationListener implements EventSubscriberInterface {
           {
               $utilisateur->setPhoto($files[0]->getFileName());
           }
-       // $em->persist($utilisateur);
-        //$em->flush();
+       
     }
 
 }

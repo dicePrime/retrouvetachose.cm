@@ -1,17 +1,14 @@
 $(document).ready(function () {
-
-   
-  
-
     /**
      * Lorsque la page se charge, on rempli la variable qui contient les espaces
      * de la ville par défaut.
      */
-    updateEspace();
+    //updateEspace();
     RecompenseTrigger();
+    CategorieTrigger();
     
     //A chaque fois que la ville change, on recharge les espaces
-    $("#annonce_ville").bind('change',updateEspace);
+   // $("#annonce_ville").bind('change',updateEspace);
     
     /**
      * Cette fonction teste si value est contenue dans le tableau array
@@ -30,6 +27,7 @@ $(document).ready(function () {
     function updateEspace(){
        
         var tableau = [];
+       
         var ajaxRoute = Routing.generate('_espaces_for_ville',{ idVille: $("#annonce_ville").val() });
         $("#annonce_idEspaceHandler").val('loading ...');
         $.ajax({  
@@ -40,9 +38,9 @@ $(document).ready(function () {
            {
               $("#annonce_idEspaceHandler").val('');
               for(var i in data)
-               {              
-                  
-                  tableau.push(data[i].id+"   -   "+data[i].nom );  
+               {         
+                
+                  tableau.push(data[i].nom );  
                }                             
                $("#annonce_idEspaceHandler" ).autocomplete({
                    source: tableau,
@@ -51,7 +49,8 @@ $(document).ready(function () {
                        var valeur = $("#annonce_idEspaceHandler" ).val();
                        if(!isInArray(valeur,tableau))
                        {
-                           $("#annonce_idEspaceHandler" ).val("");
+                           $("#messageEspace").html("<span class='nok' style='padding-top:50px;'>Espace inexistant</span>");
+                           //$("#annonce_idEspaceHandler" ).val("");
                        }
                        
                    }
@@ -69,6 +68,7 @@ $(document).ready(function () {
     
     
     $("#annonce_avecRecompense").bind("change",RecompenseTrigger);
+    $("#annonce_categorie").bind("change", CategorieTrigger);
     
    function RecompenseTrigger()
    {
@@ -81,6 +81,19 @@ $(document).ready(function () {
        {
            $("#montantRecompenseGroup").hide();
            $("#autreRecompenseGroup").hide();
+       }
+   }
+   
+   function CategorieTrigger()
+   {
+       if($("#annonce_categorie").val() === "4" || $("#annonce_categorie").val() === "5")
+       {
+           $(".piecesPersos").show();
+                }
+       else
+       {
+           $(".piecesPersos").hide();
+           
        }
    }
    

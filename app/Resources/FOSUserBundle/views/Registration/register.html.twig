@@ -5,9 +5,26 @@
 {% endblock fos_user_content %}
 {% block location %}
 
-    <li class="active">INSCRIPTION ></li>
+    <li class="active">SECURITE-INSCRIPTION ></li>
 
  {% endblock %}
+ 
+ {% block rightMenu %}
+
+     <p>
+        <h2 style='display:inline'><span class="glyphicon glyphicon-question-sign rTCGreenText"></span></h2>
+        <strong>Pourquoi devez vous fournir vos informations personnelles?</strong>
+        <br/>
+        
+        Lorsqu'une nouvelle annonce est créee, freefinder fait une correspondance entre les informations
+        sur celle-ci et les informations des utilisateurs inscrits. <br/>
+        Ainsi à chaque fois qu'une annonce concernant vos informations personnelles sera publiée
+        vous serez notifié.
+
+        </p>
+
+
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}  
@@ -28,3 +45,5 @@
         });
     </script>
     {% endblock %}
+    
+    

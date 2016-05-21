@@ -22,6 +22,13 @@ services:
         arguments: [@service_container]
         tags:
             - { name: kernel.event_subscriber }
+    
+   # lostbook.userbundle.user_login:
+   #    class: lostBook\lostBookUserBundle\Listener\LoginListener
+   #     arguments: [@service_container,@security.context]
+   #     tags:
+   #         - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+    
     kernel.listener.upload_listener:
         class: lostBook\lostBookBundle\EventListener\RedirectionConnexionListener
         arguments: [@service_container,@session]
@@ -58,5 +65,9 @@ services:
         class: lostBook\lostBookBundle\Admin\CategorieAdmin
         arguments: [~, lostBook\lostBookBundle\Entity\Categorie, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Categorie }
+            - { name: sonata.admin, manager_type: orm, label: Categorie }            
+             
+   # app.provider.oauth:
+    #    class: lostBook\lostBookBundle\Security\Core\User\OAuthUserProvider
+     #   arguments: [@fos_user.user_manager,{facebook: facebookID, google: googleID}]
             

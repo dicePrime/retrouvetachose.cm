@@ -1,13 +1,8 @@
-<div id="accordion" class="panel-group">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#formulaire">
-                   + {{ "index.options_recherche"|trans|upper }}
-                    </a>
-               
-            </h4>
-        </div>
+<div id="accordion" class="panel-group" style='padding-left: 15px;'>
+            <a  data-toggle="collapse"  data-parent="#accordion" href="#formulaire" class="btn rTCGreen rTCWhiteText">
+                    <span class='glyphicon glyphicon-search'></span>
+                 </a>  
+       
 
         <div class="panel-collapse collapse" id="formulaire">
             <div class="panel-body">
@@ -20,38 +15,21 @@
 
                         <div class="co-xs-12 col-sm-6">
                             <div class="input-group">
-                                <span class="input-group-addon">{{ "index.nature"|trans|upper }}</span>
+                                <span class="input-group-addon">{{ "recherche_espace.ville"|trans|upper }}</span>
                                 {{ form_widget(form.ville,{'attr':{'class':'form-control'} }) }}
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-sm-6">
+                        <div class="col-xs-12 col-sm-5">
                             <div class="input-group">
-                                <span class="input-group-addon">{{ "index.categorie"|trans|upper }}</span>
-                                {{ form_widget(form.nom,{'attr':{'class':'form-control'} }) }}
+                                <span class="input-group-addon">{{ "recherche_espace.nom"|trans|upper }}</span>
+                                {{ form_widget(form.espace,{'attr':{'class':'form-control'} }) }}
                             </div>
                         </div>
+                    <div class="col-sm-1" id="loading" hidden><img src="{{ asset('img/ajax_loader.gif') }}" height="30" width="30"/></div>
+
                     </div>
-                     <div class="form-group">
-                        <div class="col-sm-6">
-                            <div class="input-group date" id="dateDebut">
-                                <span class="input-group-addon">{{ "index.du"|trans|upper }}</span>
-                                {{ form_widget(form.debut,{'attr':{'class':'form-control'} }) }}
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            </div>
-                        </div>       
-
-
-                        <div class="col-sm-6">
-                            <div class="input-group date" id="dateFin">
-                                <span class="input-group-addon">{{ "index.au"|trans|upper }}</span>
-                                {{ form_widget(form.fin,{'attr':{'class':'form-control'} }) }}
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            </div>
-                        </div>
-                    </div>
-                 
-
+                        
                     <div class="form-group">
                         
                         <div class="col-xs-12 col-sm-4 col-sm-offset-8">
@@ -64,4 +42,3 @@
 
         {{ form_end(form) }}
     </div>
-</div>

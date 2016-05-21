@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content = "IE-edge">
+        
+    </head>
+    <body>
+
+{% block body_html %}
+  
+    <p>
+Bonjour  ! <br/><br/>
+
+Une nouvelle Annonce pouvant vous conserner a été publiée sur retrouveTaChose.
+    </p>    
+
+<h2>{{ annonce.titre }}</h2>
+
+<p>
+    {{ annonce.commentaire }}
+</p>
+<a href="{{ path('_lostbook_details_annonce',{'idAnnonce':annonce.id }) }}">Cliquez pour afficher l'annonce</a>
+<br>
+{% autoescape false %}
+    Merci,
+L'équipe de retrouveTaChose
+{% endautoescape %}
+
+{% endblock %}
+    </body>
+</html>

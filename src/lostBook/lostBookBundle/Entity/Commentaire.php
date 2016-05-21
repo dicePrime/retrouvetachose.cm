@@ -46,7 +46,7 @@ class Commentaire {
      /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string")
+     * @ORM\Column(name="email", type="string", nullable=TRUE)
      */
     protected $email;
     

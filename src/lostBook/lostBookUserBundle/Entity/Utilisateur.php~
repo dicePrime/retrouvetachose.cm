@@ -23,7 +23,27 @@ class Utilisateur extends BaseUser
      */
     protected $id;
     
+    /**
+     * @var string
+     * @ORM\Column(name="photo",type="string",nullable=TRUE)
+     */
     protected $photo;
+    
+    
+    /**
+     * @var string
+     * @ORM\Column(name="nom",type="string",nullable=TRUE)
+     */
+    protected $nom;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="prenom",type="string",nullable=TRUE)
+     */
+    protected $prenom;
+    
+    
+
             
     public function __construct() 
     {
@@ -59,11 +79,28 @@ class Utilisateur extends BaseUser
      */
     private $media;
     
+    
+    
+    
+    
     /**
      * @var string
      * @ORM\Column(name="telephone1",type="string",nullable=TRUE)
      */
     protected $telephone1;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="numero_cni",type="string",nullable=TRUE)
+     */
+    protected $numeroCNI;
+    
+        
+    /**
+     * @var string
+     * @ORM\Column(name="numero_passport",type="string",nullable=TRUE)
+     */
+    protected $numeroPassport;
     
     /**
      *
@@ -450,5 +487,38 @@ class Utilisateur extends BaseUser
 
     function setPhoto($photo) {
         $this->photo = $photo;
+    }
+
+    /**
+     * Add media
+     *
+     * @param \lostBook\lostBookUserBundle\Entity\MediaUtilisateur $media
+     * @return Utilisateur
+     */
+    public function addMedia(\lostBook\lostBookUserBundle\Entity\MediaUtilisateur $media)
+    {
+        $this->media[] = $media;
+
+        return $this;
+    }
+
+    /**
+     * Remove media
+     *
+     * @param \lostBook\lostBookUserBundle\Entity\MediaUtilisateur $media
+     */
+    public function removeMedia(\lostBook\lostBookUserBundle\Entity\MediaUtilisateur $media)
+    {
+        $this->media->removeElement($media);
+    }
+
+    /**
+     * Get media
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMedia()
+    {
+        return $this->media;
     }
 }

@@ -99,7 +99,8 @@ class Annonce {
 
     /**
      * @var string
-     *
+     * 0 = valide
+     * 1 = suprimée
      * @ORM\Column(name="etat", type="string",options={"defaults:0"})
      */
     protected $etat;
@@ -154,6 +155,29 @@ class Annonce {
     protected $titre;
     
     /**
+     * Cette variable stocke dans le cas où l'annonce concerne une
+     * pièce d'identité on affiche cet élément mais par défaut , il est caché
+    * @var
+     * @ORM\Column(name="numero_piece",type="string")
+     */
+    protected $numeroPiece;
+    
+     /**
+     * @var
+     * @ORM\Column(name="nom_piece",type="string")
+     */
+    protected $nomPiece;
+    
+     /**
+     * @var
+     * @ORM\Column(name="prenom_piece",type="string")
+     */
+    protected $prenomPiece;
+    
+  
+    
+    
+    /**
      * Cette variable stocke le nom de l'image principale
      * on connait le chemin dans le quel on va chercher l'image, en fonction
      * de l'identifiant de celle-ci
@@ -173,6 +197,9 @@ class Annonce {
      * @ORM\JoinColumn(name="espace_id", referencedColumnName="id")
      */
     protected $espace;
+    
+    
+    protected $espaceText;
 
     /**
      * @ORM\ManyToOne(targetEntity="lostBook\lostBookUserBundle\Entity\Utilisateur", inversedBy="annonces")
@@ -186,13 +213,7 @@ class Annonce {
      */
     protected $categorie;  
        
-    
-    /**
-     * Cette variable stocke la description de la couleur de l'objet
-     * @var
-     * @ORM\Column(name="couleur_objet",type="string")
-     */
-    protected $couleurObjet;
+  
     
     /**
      *
@@ -844,5 +865,84 @@ class Annonce {
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+    
+    function getEspaceText() {
+        return $this->espaceText;
+    }
+
+    function setEspaceText($espaceText) {
+        $this->espaceText = $espaceText;
+    }
+
+
+
+    /**
+     * Set numeroPiece
+     *
+     * @param string $numeroPiece
+     * @return Annonce
+     */
+    public function setNumeroPiece($numeroPiece)
+    {
+        $this->numeroPiece = $numeroPiece;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroPiece
+     *
+     * @return string 
+     */
+    public function getNumeroPiece()
+    {
+        return $this->numeroPiece;
+    }
+
+    /**
+     * Set nomPiece
+     *
+     * @param string $nomPiece
+     * @return Annonce
+     */
+    public function setNomPiece($nomPiece)
+    {
+        $this->nomPiece = $nomPiece;
+
+        return $this;
+    }
+
+    /**
+     * Get nomPiece
+     *
+     * @return string 
+     */
+    public function getNomPiece()
+    {
+        return $this->nomPiece;
+    }
+
+    /**
+     * Set prenomPiece
+     *
+     * @param string $prenomPiece
+     * @return Annonce
+     */
+    public function setPrenomPiece($prenomPiece)
+    {
+        $this->prenomPiece = $prenomPiece;
+
+        return $this;
+    }
+
+    /**
+     * Get prenomPiece
+     *
+     * @return string 
+     */
+    public function getPrenomPiece()
+    {
+        return $this->prenomPiece;
     }
 }

@@ -55,7 +55,7 @@ nouvelle_annonce_form:
         instruction : Cliquez pour ajouter
         supprimer: "Supprimer"
     recompense: 
-        recompense: Récompense
+        recompense: Récompense et Sécurité
         avec_recompense: Avec Récompense?
         montant: Montant(XAF)
         autre: Ou Autre Chose

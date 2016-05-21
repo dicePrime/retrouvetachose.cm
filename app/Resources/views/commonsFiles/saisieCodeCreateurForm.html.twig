@@ -10,8 +10,8 @@
         <div class="col-xs-12 col-sm-4">
             {{ form_widget(form.email,{'attr':{'class':'form-control'} }) }}
         </div>
-        <div class="col-xs-12 col-sm-4">
-            {% if messageCode %}
+        <div class="col-xs-12 col-sm-4" style="padding-top:10px;">
+            {% if messageEmail %}
                 <label class="label label-danger control-label">{{ "saisie_code_createur.erreur_email"|trans }}</label>
             {% endif %}
         </div>
@@ -23,8 +23,8 @@
         <div class="col-xs-12 col-sm-4">
             {{ form_widget(form.code,{'attr':{'class':'form-control'} })}}
         </div>
-        <div class="col-xs-12 col-sm-4">
-            {% if messageEmail %}
+        <div class="col-xs-12 col-sm-4" style="padding-top:10px;">
+            {% if messageCode %}
                 <label class="label label-danger control-label">{{ "saisie_code_createur.erreur_code"|trans }}</label>
             {% endif %}
         </div>

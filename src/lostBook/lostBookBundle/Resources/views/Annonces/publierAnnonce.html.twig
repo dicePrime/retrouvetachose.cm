@@ -1,35 +1,31 @@
 {% extends '::default/base.html.twig' %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
-{% endblock %}
-
 {% block section %}        
-         {{ include('::commonsFiles/nouvelleAnnonceForm.html.twig') }}   
+    {{ include('::commonsFiles/nouvelleAnnonceForm.html.twig') }}   
 {% endblock %}
 
 {% block location %}
     <li><a href="{{ path('_lostbook_homepage') }}" class="rTCBlackText">Acceuil</a></li>
-    <li class="active">Nouvelle Annonce</li>
-{% endblock %}
+    <li class="active">Nouvelle Annonce - Trouvé</li>
+    {% endblock %}
 
 {% block rightMenu %}
     <blockquote>
-    {{ include('::commonsFiles/infoNouvelleAnnonce.html.twig') }}
+        {{ include('::commonsFiles/infoNouvelleAnnonce.html.twig') }}
     </blockquote>
 
 {% endblock %}
 
 {% block javascripts %}
-        {{ parent() }}
-        <script src="{{ asset('js/custom/nouvelleAnnonce.js') }}"></script>
-        <script src="{{ asset('js/validator.js') }}"></script>
-        <script src="{{ asset('js/dropzone.js') }}"></script>
-        <script src="{{ asset('js/moment.js') }}"></script>
-         <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
-        <script>
-        $(document).ready(function() {
+    {{ parent() }}
+    <script src="{{ asset('js/select2.full.js') }}"></script>
+    <script src="{{ asset('js/custom/nouvelleAnnonce.js') }}"></script>
+    <script src="{{ asset('js/validator.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+
             $("#dropzone").dropzone({
                 url: "{{ oneup_uploader_endpoint('gallery') }}",
                 addRemoveLinks: true,
@@ -44,18 +40,79 @@
                 locale: 'fr'
             }
             );
-             $('#dateFin').datetimepicker({
-                useCurrent:false,
+            $('#dateFin').datetimepicker({
+                useCurrent: false,
                 format: 'DD/MM/YYYY',
                 locale: 'fr'
             }
             );
+
             $("#dateDebut").on("dp.change", function (e) {
-            $('#dateFin').data("DateTimePicker").minDate(e.date);
+                $('#dateFin').data("DateTimePicker").minDate(e.date);
+            });
+            $("#dateFin").on("dp.change", function (e) {
+                $('#dateDebut').data("DateTimePicker").maxDate(e.date);
+            });
+            
+             $("#annonce_espace").select2(
+                    {
+                        containerCssClass: 'tpx-select2-container',
+                        dropdownCssClass: 'tpx-select2-drop'
+                    });
+               $("#annonce_categorie").select2(
+                    {
+                        containerCssClass: 'tpx-select2-container',
+                        dropdownCssClass: 'tpx-select2-drop'
+                    });
+
+            $("#annonce_ville").select2(
+                    {
+                        containerCssClass: 'tpx-select2-container',
+                        dropdownCssClass: 'tpx-select2-drop'
+                    });
+            var $ville = $('#annonce_ville');
+// When sport gets selected ...
+            $ville.change(function () {
+                // ... retrieve the corresponding form.
+                $("#loading").attr('hidden', false);
+                if ($("#annonce_espace").data('select2'))
+                {
+                    $("#annonce_espace").select2("destroy");
+                }
+                var $form = $(this).closest('form');
+                // Simulate form data, but only include the selected sport value.
+                var data = {};
+                data[$ville.attr('name')] = $ville.val();
+                // Submit data via AJAX to the form's action path.
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    success: function (html) {
+                        // Replace current position field ...
+
+                        $('#annonce_espace').replaceWith(
+                                // ... with the returned one from the AJAX response.
+                                $(html).find('#annonce_espace')
+                                );
+
+                        // Position field now displays the appropriate positions.
+                        $("#annonce_espace").select2(
+                                {
+                                    containerCssClass: 'tpx-select2-container',
+                                    dropdownCssClass: 'tpx-select2-drop'
+                                }
+                        );
+                        $("#loading").attr('hidden', true);
+
+                    }
+                });
+
+
+            });
+
+
+
         });
-        $("#dateFin").on("dp.change", function (e) {
-            $('#dateDebut').data("DateTimePicker").maxDate(e.date);
-        });
-        });
-        </script>
+    </script>
 {% endblock %}

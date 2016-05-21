@@ -14,7 +14,36 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane" id="annonces">
                     <div class="row">
-                        <ul class="media-list">
+                        <div class="col-xs-12 col-sm-12">
+                            {% if pagination | length != 0 %}
+                                {% for i,annonce in pagination %}
+
+                                    <div class="col-xs-12 col-sm-4">
+                                        <div class="thumbnail" style='height:360px;'>
+                                            {% if annonce.imagePrincipale != NULL  %}
+                                                {% set location = ['uploads/documents/annonces/',annonce.imagePrincipale ] | join %}
+                                            {% else %}
+                                                {% set location = 'img/espace.png' %}
+                                            {% endif %}
+                                            <a href="{{ path('_lostbook_details_annonce',{ 'idAnnonce':annonce.id }) }}"> <img src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" ></a>
+                                            <div class="caption">
+                                                <h4 class='rTCGreenText'>{{ annonce.titre|truncate(30) }}</h4>
+                                                <p>{{ annonce.commentaire|truncate(50)  }}</p>
+                                                <p><a href="{{ path('_lostbook_details_annonce',{ 'idAnnonce':annonce.id }) }}" class="btn rTCGreen rTCWhiteText" role="button">Afficher</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                            {% else %}
+                                <p>
+                                    <img src="{{asset('img/nothing_found.png') }}" class='img img-responsive' style='display:inline;background-color:black'/> AUCUNE ANNONCE TROUVEE. 
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+                        {#<ul class="media-list">
                             <div class="col-xs-12 col-sm-12">
                                 {% if pagination | length != 0 %}
                                     {% for annonce in pagination %}
@@ -48,7 +77,16 @@
                                 {% endif %}
 
                             </div>
-                        </ul>
+                        </ul>#}
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-6  navigation pull-right">
+                            <center>
+                                {{ knp_pagination_render(pagination) }}
+                            </center>
+                        </div>
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane active" id="profile">
@@ -86,44 +124,46 @@
 
                     </div>
 
+
                 </div>
 
                 <div role="tabpanel" class="tab-pane" id="espaces">
                     <div class="row">
-                        <ul class="media-list">
-            <div class="col-xs-12 col-sm-12">
-                {% for espace in paginationEspaces %}
-
-
-                    <div class="media table-hover">
-                        <div class="media-left media-middle">
-                            {% if espace.imagePrincipale != NULL  %}
-                                {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
-                                <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
-                                    <img class="media-object img-thumbnail" src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" >
-                                </a>
+                        <div class="col-xs-12">
+                            {% if pagination | length != 0 %}
+                                {% for espace in paginationEspaces %}
+                                    <div class="col-xs-12 col-sm-4">
+                                        <div class="thumbnail" style='height:360px;'>
+                                            {% if espace.imagePrincipale != NULL  %}
+                                                {% set location = ['uploads/documents/espaces/',espace.imagePrincipale ] | join %}
+                                            {% else %}
+                                                {% set location = 'img/espace.png' %}
+                                            {% endif %}
+                                            <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}"> <img src="{{ asset(location|imagine_filter('main_thumb')) }}" alt="image" ></a>
+                                            <div class="caption">
+                                                <h4 class='rTCGreenText'>{{ espace.nom|truncate(30) }}</h4>
+                                                <p>{{ espace.nombreAnnonces }} {{"espaces.nombre_espaces"|trans }}</p>
+                                                <p><a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}" class="btn rTCGreen rTCWhiteText" role="button">Afficher</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             {% else %}
-                                <a href="{{ path('_lostbook_details_espace',{ 'idEspace':espace.id }) }}">
-                                    <img class="media-object img-thumbnail" src="{{ asset('img/espace.png'|imagine_filter('main_thumb')) }}"/>
-                                </a>
+                                <p>
+                                    <img src="{{asset('img/nothing_found.png') }}" class='img img-responsive' style='display:inline;background-color:black'/> {{ "espace.aucun_trouve"|trans|upper }} 
+                                </p>
+
                             {% endif %}
 
                         </div>
-
-                        <div class="media-body">
-                            <h3 class="media-heading rTCGreenText">{{ espace.nom }}</h3>                                                     
-                            <p>{{ espace.description|truncate(100)}}</p>
-                            <p>{{ espace.nombreAnnonces }} Annonces</p>
-                            <br/><br/><br/>
-                        </div>
-
-
                     </div>
+                    <div class="row">
 
-                {% endfor %}
-            </div>
-        </ul>
-                        
+                        <div class="col-xs-6  navigation pull-right">
+                            <center>
+                                {{ knp_pagination_render(paginationEspaces) }}
+                            </center>
+                        </div>
                     </div>
                 </div>
             </div>

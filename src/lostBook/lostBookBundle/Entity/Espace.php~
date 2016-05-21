@@ -96,16 +96,10 @@ class Espace
     /**
      *
      * @var string
-     * @ORM\Column(name="email1",type="string",nullable=TRUE)
+     * @ORM\Column(name="email",type="string",nullable=TRUE)
      */
-    protected $email1;
+    protected $email;
     
-    /**
-     *
-     * @var string
-     * @ORM\Column(name="email2",type="string",nullable=TRUE)
-     */
-    protected $email2;
     
     /**
      *
@@ -128,6 +122,16 @@ class Espace
      * @ORM\Column(name="nombre_visites",type="integer",nullable=TRUE,options={"default:0"})
      */
     protected $nombreVisites;
+    
+    
+    /**
+     * @var string
+     * 0 = valide
+     * 1 = suprimée
+     * @ORM\Column(name="etat", type="string", nullable = FALSE, options={"default:0"})
+     */
+    protected $etat;
+    
     
     /**
      * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireEspace", mappedBy="espace")
@@ -361,53 +365,6 @@ class Espace
     {
         return $this->medias;
     }
-
-    /**
-     * Set email1
-     *
-     * @param string $email1
-     * @return Espace
-     */
-    public function setEmail1($email1)
-    {
-        $this->email1 = $email1;
-
-        return $this;
-    }
-
-    /**
-     * Get email1
-     *
-     * @return string 
-     */
-    public function getEmail1()
-    {
-        return $this->email1;
-    }
-
-    /**
-     * Set email2
-     *
-     * @param string $email2
-     * @return Espace
-     */
-    public function setEmail2($email2)
-    {
-        $this->email2 = $email2;
-
-        return $this;
-    }
-
-    /**
-     * Get email2
-     *
-     * @return string 
-     */
-    public function getEmail2()
-    {
-        return $this->email2;
-    }
-
     /**
      * Set telephone1
      *
@@ -532,4 +489,34 @@ class Espace
     {
         return $this->commentaires;
     }
+    
+    function getEmail() {
+        return $this->email;
+    }
+
+    function setEmail($email) {
+        $this->email = $email;
+    }
+    
+    function setAnnonces($annonces) {
+        $this->annonces = $annonces;
+    }
+
+    function setMedias($medias) {
+        $this->medias = $medias;
+    }
+
+    function setCommentaires($commentaires) {
+        $this->commentaires = $commentaires;
+    }
+    
+    function getEtat() {
+        return $this->etat;
+    }
+
+    function setEtat($etat) {
+        $this->etat = $etat;
+    }
+
+
 }

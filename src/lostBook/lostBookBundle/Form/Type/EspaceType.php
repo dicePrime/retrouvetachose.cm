@@ -27,8 +27,7 @@ class EspaceType extends AbstractType
         $builder->add("ville","entity",array('class'=>'lostBook\lostBookBundle\Entity\Ville','property'=>'libelle'));
         $builder->add("nom","text");
         $builder->add("description","textarea");
-        $builder->add("email1","email");
-        $builder->add("email2","email",array('required'=>false));
+        $builder->add("email","email",array('required' =>false));
         $builder->add("telephone1","text");
         $builder->add("telephone2","text",array('required'=>false));
         

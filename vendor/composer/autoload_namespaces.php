@@ -28,6 +28,7 @@ return array(
     'JMS\\' => array($vendorDir . '/jms/parser-lib/src'),
     'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
     'FOS\\RestBundle' => array($vendorDir . '/friendsofsymfony/rest-bundle'),
+    'FOS\\CommentBundle' => array($vendorDir . '/friendsofsymfony/comment-bundle'),
     'Exporter' => array($vendorDir . '/sonata-project/exporter/lib'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
@@ -36,6 +37,7 @@ return array(
     'Doctrine\\Common\\DataFixtures' => array($vendorDir . '/doctrine/data-fixtures/lib'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
+    'Buzz' => array($vendorDir . '/kriswallsmith/buzz/lib'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
     '' => array($baseDir . '/src'),
 );

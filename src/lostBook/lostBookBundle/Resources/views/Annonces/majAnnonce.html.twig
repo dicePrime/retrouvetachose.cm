@@ -1,10 +1,4 @@
 {% extends '::default/base.html.twig' %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
-{% endblock %}
-
 {% block section %}        
     {{ include('::commonsFiles/majAnnonceForm.html.twig') }}   
 {% endblock %}
@@ -24,6 +18,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/select2.full.js') }}"></script>
     <script src="{{ asset('js/custom/nouvelleAnnonce.js') }}"></script>
     <script src="{{ asset('js/validator.js') }}"></script>
     <script src="{{ asset('js/dropzone.js') }}"></script>
@@ -48,10 +43,10 @@
                 var id = $(this).data("value");
                 var idAnnonce = $("#idAnnonce").val();
                 var parent = $(this).parent().parent().parent();
-                
 
-                var ajaxRoute = Routing.generate('_lostbook_delete_image_annonce_action', 
-                                                {idAnnonce: idAnnonce,idMedia:id});
+
+                var ajaxRoute = Routing.generate('_lostbook_delete_image_annonce_action',
+                        {idAnnonce: idAnnonce, idMedia: id});
                 $("#messageSuppression").html("<span class='label label-info'> Suppression en cours ...</span>");
                 $.ajax({
                     url: ajaxRoute,
@@ -64,7 +59,7 @@
                     },
                     error: function (data)
                     {
-                       $("#messageSuppression").html("<span class='label label-danger'> Impossible de Supprimer la photo</span>"); 
+                        $("#messageSuppression").html("<span class='label label-danger'> Impossible de Supprimer la photo</span>");
                     }
 
                 });
@@ -88,6 +83,47 @@
             $("#dateFin").on("dp.change", function (e) {
                 $('#dateDebut').data("DateTimePicker").maxDate(e.date);
             });
+
+            var $ville = $('#annonce_ville');
+// When sport gets selected ...
+            $ville.change(function () {
+                // ... retrieve the corresponding form.
+
+                if ($("#annonce_espace").data('select2'))
+                {
+                    $("#annonce_espace").select2("destroy");
+                }
+                var $form = $(this).closest('form');
+                // Simulate form data, but only include the selected sport value.
+                var data = {};
+                data[$ville.attr('name')] = $ville.val();
+                // Submit data via AJAX to the form's action path.
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    success: function (html) {
+                        // Replace current position field ...
+
+                        $('#annonce_espace').replaceWith(
+                                // ... with the returned one from the AJAX response.
+                                $(html).find('#annonce_espace')
+                                );
+
+                        // Position field now displays the appropriate positions.
+                        $("#annonce_espace").select2(
+                                {
+                                    containerCssClass: 'tpx-select2-container',
+                                    dropdownCssClass: 'tpx-select2-drop'
+                                }
+                        );
+
+                    }
+                });
+
+
+            });
+
         });
     </script>
 {% endblock %}

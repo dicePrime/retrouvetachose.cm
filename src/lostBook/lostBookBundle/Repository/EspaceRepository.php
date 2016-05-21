@@ -24,103 +24,43 @@ class EspaceRepository extends EntityRepository
         return $espaces;
     }
     
+    public function findAll()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery("SELECT e"
+                                  . " FROM lostBookBundle:Espace e "
+                                  . " where e.etat = '0' order by e.id desc");
+        $annonces = $query->getResult();  
+        
+        return $annonces;  
+    }
+    
     public function getResultatRecherche(RechercheEspaces $recherche)
     {
         $em = $this->getEntityManager();
-        if($recherche->getNom() != null)
+        if($recherche->getEspace() != null)
         {
         $query = $em->createQuery("SELECT e"
                                   . " FROM lostBookBundle:Espace e "
-                                  . "where e.nom like :nom");
-        $query->setParameter('nom','%'.$recherche->getNom().'%');
+                                  . "where e.id = :idEspace");
+        $query->setParameter('idEspace',$recherche->getEspace()->getId());
+        $espaces = $query->getResult();
         }
-        else
+        else if($recherche->getVille() != null)
         {
-           $query = $em->createQuery("SELECT e,m"
+           $query = $em->createQuery("SELECT e"
                                   . " FROM lostBookBundle:Espace e "
-                                  . "JOIN e.medias m"); 
-        }
-        $espaces = $query->getResult();             
-        
-        $espacesVilles = $this->getEspacesForVille($espaces, $recherche->getVille());
-        $espacesDebut = $this->getEspacesForDateDebut($espacesVilles, $recherche->getDebut());
-        $espacesFin = $this->getEspacesForDateFin($espacesDebut, $recherche->getFin());
-        
-        return $espacesFin;
-        
-    }
-    
-    public function getEspacesForVille($espaces,$ville)
-    {
-        if($ville != null)
-        {
-        $resultat = array();
-        
-        foreach($espaces as $next)
-        {
-            if($next->getVille() == $ville)
-            {
-                $resultat[] = $next;
-            }
+                                  . "WHERE e.ville = :ville"); 
+           $query->setParameter('ville',$recherche->getVille()->getId());
+           $espaces = $query->getResult();
         }
         
-        return $resultat;
-        }
         else
         {
-            return $espaces;
+            $espaces = array();
         }
-    }    
+        return $espaces;
         
-    public function getEspacesForDateDebut($espaces,$date)
-    {
-        if($date != null)
-        {
-        $resultat = array();
-        
-        foreach($espaces as $next)
-        {   
-            
-            $debut = \DateTime::createFromFormat('d/m/Y',$date);
-            
-            $debutFormated = \DateTime::createFromFormat('Y-m-d H:i:s',$debut->format('Y-m-d H:i:s'));
-            
-            if($next->getDateCreation() >= $debutFormated)
-            {
-                $resultat[] = $next;
-            }
-        }
-        return $resultat;
-        }
-        else
-        {
-            return $espaces;
-        }
-    }
-    
-    public function getEspacesForDateFin($espaces,$date)
-    {
-        if($date != null)
-        {
-        $resultat = array();
-        
-        foreach($espaces as $next)
-        {   
-            
-            $debut = \DateTime::createFromFormat('d/m/Y',$date);
-            
-            $debutFormated = \DateTime::createFromFormat('Y-m-d H:i:s',$debut->format('Y-m-d H:i:s'));
-            
-            if($next->getDateCreation() <= $debutFormated)
-            {
-                $resultat[] = $next;
-            }
-        }
-        return $resultat;
-        }
-        else
-        {
-            return $espaces;
-        }
-    }
+    }   
+   
 }

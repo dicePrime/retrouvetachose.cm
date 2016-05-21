@@ -22,8 +22,12 @@ class RegistrationType extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('telephone1');
-        $builder->add('telephone2');
+        $builder->add('telephone1', "text", array('required'=> FALSE ));
+        $builder->add('telephone2',"text", array('required'=> FALSE ));
+        $builder->add('nom','text', array('required'=> FALSE ));
+        $builder->add('prenom','text', array('required'=> FALSE ));
+        $builder->add('numeroCNI','text', array('required'=> FALSE ));
+        $builder->add('numeroPassport','text',array('required'=> FALSE ));
        
     }
     

@@ -1,0 +1,1 @@
+Catchable Fatal Error: Argument 1 passed to lostBook\lostBookBundle\Controller\AJAXController::sendContactEmail() must be an instance of lostBook\lostBookBundle\Controller\Annonce, instance of lostBook\lostBookBundle\Entity\Annonce given, called in C:\wamp\www\lostBook\src\lostBook\lostBookBundle\Controller\AJAXController.php on line 55 and defined32

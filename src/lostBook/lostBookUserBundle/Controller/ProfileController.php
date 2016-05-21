@@ -33,19 +33,21 @@ class ProfileController extends BaseController {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
         $annonces = $user->getAnnonces();
+       
          $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate(
             $annonces,
             $request->query->getInt('page', 1)/*page number*/,
-            100/*limit per page*/
+            9/*limit per page*/
         );
+            
             
         $espaces = $user->getEspaces();
         
         $paginationEspaces = $paginator->paginate(
             $espaces,
             $request->query->getInt('page', 1)/*page number*/,
-            100/*limit per page*/
+            9/*limit per page*/
         );
 
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(

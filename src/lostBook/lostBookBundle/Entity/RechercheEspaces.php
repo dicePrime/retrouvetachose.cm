@@ -16,45 +16,27 @@ namespace lostBook\lostBookBundle\Entity;
 class RechercheEspaces {
     //put your code here
     
-    protected $ville;
+    protected $ville;   
     
-    protected $debut;
-    
-    protected $fin;
-    
-    protected $nom;
+    protected $espace;
     
     function getVille() {
         return $this->ville;
-    }
-
-    function getDebut() {
-        return $this->debut;
-    }
-
-    function getFin() {
-        return $this->fin;
-    }
-
-    function getNom() {
-        return $this->nom;
-    }
-
+    } 
+   
     function setVille($ville) {
         $this->ville = $ville;
     }
 
-    function setDebut($debut) {
-        $this->debut = $debut;
+    function getEspace() {
+        return $this->espace;
     }
 
-    function setFin($fin) {
-        $this->fin = $fin;
+    function setEspace($espace) {
+        $this->espace = $espace;
     }
 
-    function setNom($nom) {
-        $this->nom = $nom;
-    }
+
 
 
     

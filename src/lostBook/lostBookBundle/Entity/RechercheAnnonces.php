@@ -31,7 +31,7 @@ class RechercheAnnonces {
     
     /**
      *
-     * @var integer
+     * @var boolean
      */
     protected $nature;
     

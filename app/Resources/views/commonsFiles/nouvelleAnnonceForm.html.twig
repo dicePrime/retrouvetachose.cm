@@ -5,14 +5,6 @@
 <fieldset class="fieldset">
     <div class="circle">1</div>
     <legend>Catégorie</legend>
-    <div class="form-group">
-        <label class="col-xs-12 col-sm-3 control-label">
-            {{ "nouvelle_annonce_form.nature"|trans }}
-        </label>
-        <div class="col-xs-12 col-sm-8">
-            {{ form_widget(form.perdu,{'attr':{'class':'form-control'} }) }}
-        </div>
-    </div>
     <div class="form-group">               
         <label class="col-xs-12 col-sm-3 control-label">
             {{ "nouvelle_annonce_form.categorie"|trans }}
@@ -38,8 +30,9 @@
             {{ "nouvelle_annonce_form.espace"|trans }} 
         </label>
         <div class="col-sm-8">
-            {{ form_widget(form.idEspaceHandler,{'attr':{'class':'form-control'} }) }}            
+            {{ form_widget(form.espace,{'attr':{'class':'form-control'} }) }}            
         </div>
+        <div class="col-xs-1" id="loading" hidden><img src="{{ asset('img/ajax_loader.gif') }}" height="30" width="30"/></div>
     </div>
 
 
@@ -63,17 +56,35 @@
             </div>
         </div>
     </div>       
-    <div class="form-group">
-
-        <label class="col-xs-12 col-sm-3 control-label">Couleur </label>
-        <div class="col-xs-12 col-sm-8">
-            {{ form_widget(form.couleurObjet,{'attr':{'class':'form-control'} }) }}
-        </div>
-    </div>                  
+                  
 </fieldset>
     <fieldset>
         <div class="circle rTCGreen">2</div>
         <legend>Détails</legend>
+        
+        <div class="form-group piecesPersos">
+            <label class="col-xs-12 col-sm-3 control-label">Numéro de la pièce </label>
+            <div class="col-xs-12 col-sm-8">
+                {{ form_widget(form.numeroPiece,{'attr':{'class':'form-control','maxlength':'255'} }) }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+                
+         <div class="form-group piecesPersos">
+            <label class="col-xs-12 col-sm-3 control-label">Nom sur la pièce</label>
+            <div class="col-xs-12 col-sm-8">
+                {{ form_widget(form.nomPiece,{'attr':{'class':'form-control','maxlength':'255'} }) }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+                
+         <div class="form-group piecesPersos">
+            <label class="col-xs-12 col-sm-3 control-label">Prénom sur la pièce </label>
+            <div class="col-xs-12 col-sm-8">
+                {{ form_widget(form.prenomPiece,{'attr':{'class':'form-control','maxlength':'255'} }) }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
 
         <div class="form-group">
 
@@ -128,52 +139,19 @@
         </div>
 
         <div class='form-group' id="montantRecompenseGroup">
-            <label class='col-xs-12 col-sm-3 control-label'>{{ "nouvelle_annonce_form.montant"|trans }}</label>
+            <label class='col-xs-12 col-sm-3 control-label'>{{ "nouvelle_annonce_form.recompense.montant"|trans }}</label>
             <div class='col-xs-12 col-sm-8'>
                 {{ form_widget(form.montantRecompense,{'attr':{'class':'form-control'} }) }}
             </div>
         </div>
         <div class='form-group' id="autreRecompenseGroup">
-            <label class='col-xs-12 col-sm-3 control-label'>{{ "nouvelle_annonce_form.autre"|trans }}</label>
+            <label class='col-xs-12 col-sm-3 control-label'>{{ "nouvelle_annonce_form.recompense.autre"|trans }}</label>
             <div class='col-xs-12 col-sm-8'>
                 {{ form_widget(form.autreRecompense,{'attr':{'class':'form-control'} }) }}
             </div>
         </div>
-    </fieldset>
-
-    <fieldset>
-        <div class="circle rTCGreen">5</div>
-        <legend>
-            {{ "nouvelle_annonce_form.securite.securite"|trans }}
-        </legend>
-        <div class='form-group has-feedback'>
-            <label class='col-xs-12 col-sm-3 control-label'>
-                {{"nouvelle_annonce_form.securite.email"|trans }}
-            </label>
-            <div class='col-xs-12 col-sm-8'>
-                {{ form_widget(form.email,{'attr':{'class':'form-control'} }) }}
-            </div>
-        </div>
-        <div class='form-group has-feedback'>
-            <label class='col-xs-12 col-sm-3 control-label'>
-                {{ "nouvelle_annonce_form.securite.telephone1"|trans }}
-            </label>
-            <div class='col-xs-12 col-sm-8'>
-                {{ form_widget(form.telephone1,{'attr':{'class':'form-control','pattern':'(6|2)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'} }) }}
-                 <span class="help-block with-errors"></span>
-            </div>
-        </div>
-        <div class='form-group has-feedback'>
-            <label class='col-xs-12 col-sm-3 control-label'>
-                {{ "nouvelle_annonce_form.securite.telephone2"|trans }}
-            </label>
-            <div class='col-xs-12 col-sm-8'>
-                {{ form_widget(form.telephone2,{'attr':{'class':'form-control','pattern':'(6|2)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'} }) }}
-                 <span class="help-block with-errors"></span>
-            </div>
-        </div>
-          
-        <div class='form-group'>
+            
+             <div class='form-group'>
             <div class='checkbox col-xs-12 col-sm-8 col-sm-offset-3'>
                 <label class="checkbox-inline">
                     {{ form_widget(form.meContacter) }} <strong>
@@ -183,45 +161,11 @@
             </div>
         </div>
     </fieldset>
-     <br/><br/>
-     <fieldset id='securite'
-       
-               {% if app.user != null %}
-                   style='display:none'
-               {% endif %}
-     >
-         <div class="circle rTCBlack">6</div>
-        <legend>
-          {{ "nouvelle_annonce.securite.code/code"|trans }}
-            
-        </legend>
-        <div class='form-group'>
-            <label class='col-xs-12 col-sm-3 control-label'>
-                {{ "nouvelle_annonce_form.securite.entrez_code"|trans }}
-            </label>
-            <div class='col-xs-12 col-sm-8'>
-                {{ form_widget(form.codeCreateur,{'attr':{'class':'form-control','data-minlength':'4','data-maxlength':'8','id':'password'} }) }}
-                <span class="help-block with-errors"></span>
-            </div>
-        </div>
-        <div class='form-group'>
-            <label class='col-xs-12 col-sm-3 control-label'>
-                {{ "nouvelle_annonce_form.securite.confirm"|trans }}
-            </label>
-            <div class='col-xs-12 col-sm-8'>
-              
-                {{ form_widget(form.confirmCode,{'attr':{'class':'form-control',
-                    'data-match':'#annonce_codeCreateur',
-                    'data-match-error': "nouvelle_annonce_form.erreurs.codes_identiques"|trans  } }) }}
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
-       
-    </fieldset>
-    <br/><br/>
 
-
-    <div class="form-group">
+    
+       
+    
+     <div class="form-group">
         <div class="col-xs-12 col-sm-offset-3">
             <input type="submit" class="btn rTCGreen" value='{{ "nouvelle_annonce_form.publier"|trans}}'/>
         </div>

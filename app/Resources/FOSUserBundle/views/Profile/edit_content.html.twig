@@ -1,82 +1,125 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <form  class="form-horizontal well" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-   
-        {{ form_row(form._token) }}
-        <div class="form-group">
-        <label class="col-xs-12 col-sm-3 control-label">
-            {{ "form.username"|trans }}
+
+    {{ form_row(form._token) }}
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-2 control-label">
+            Email
         </label>
-        <div class="col-xs-12 col-sm-4">
-            {{ form_widget(form.username,{'attr':{'class':'form-control'} }) }}
+        <div class="col-xs-12 col-sm-3">
+            {{ form_widget(form.email,{'attr':{'class':'form-control'} }) }}
         </div>
-        <div class="col-xs-12 col-sm-5">
-            <span style="color:red">{{ form_errors(form.username) }}</span>
-        </div>
-    </div>
-    <div class="form-group">               
-        <label class="col-xs-12 col-sm-3 control-label">
-            {{ "form.email"|trans }}
-        </label>
-        <div class="col-xs-12 col-sm-4">
-            {{ form_widget(form.email,{'attr':{'class':'form-control'} })}}
-        </div>
-         <div class="col-xs-12 col-sm-5">
+        <div class="col-xs-12 col-sm-1">
             <span style="color:red">{{ form_errors(form.email) }}</span>
         </div>
 
-    </div>
-
-    <div class="form-group">                
-        <label class="col-xs-12 col-sm-3 control-label">
-            {{ "form.current_password"|trans }}
+        <label class="col-xs-12 col-sm-2 control-label">
+            Pseudo
         </label>
-
-        <div class="col-xs-12 col-sm-4">
-            {{ form_widget(form.current_password,{'attr':{'class':'form-control'} }) }}
+        <div class="col-xs-12 col-sm-3">
+            {{ form_widget(form.username,{'attr':{'class':'form-control'} }) }}
         </div>
-         <div class="col-xs-12 col-sm-5">
-            <span  class="control-label" style="color:red">{{ form_errors(form.current_password) }}</span>
+        <div class="col-xs-12 col-sm-1">
+            <span style="color:red">{{ form_errors(form.username) }}</span>
         </div>
     </div>
+
+
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-2 control-label">
+            Nom(s)
+        </label>
+        <div class="col-xs-12 col-sm-3">
+            {{ form_widget(form.nom,{'attr':{'class':'form-control'} }) }}
+        </div>
+        <div class="col-xs-12 col-sm-1">
+            <span style="color:red">{{ form_errors(form.nom) }}</span>
+        </div>
+
+        <label class="col-xs-12 col-sm-2 control-label">
+            Prénom(s)
+        </label>
+        <div class="col-xs-12 col-sm-3">
+            {{ form_widget(form.prenom,{'attr':{'class':'form-control'} })}}
+        </div>
+        <div class="col-xs-12 col-sm-1">
+            <span style="color:red">{{ form_errors(form.prenom) }}</span>
+        </div>
+    </div>
+
+    <div class="form-group">               
+        <label class="col-xs-12 col-sm-2 control-label">
+            Numéro CNI
+        </label>
+        <div class="col-xs-12 col-sm-3">
+            {{ form_widget(form.numeroCNI,{'attr':{'class':'form-control'} })}}
+        </div>
+        <div class="col-xs-12 col-sm-1">
+            <span style="color:red">{{ form_errors(form.numeroCNI) }}</span>
+        </div>
+
+        <label class="col-xs-12 col-sm-2 control-label">
+            Numéro Passport
+        </label>
+        <div class="col-xs-12 col-sm-3">
+            {{ form_widget(form.numeroPassport,{'attr':{'class':'form-control'} })}}
+        </div>
+        <div class="col-xs-12 col-sm-1">
+            <span style="color:red">{{ form_errors(form.numeroPassport) }}</span>
+        </div>
+
+    </div>
+
+
     <div class="form-group">
 
-            <label class="col-xs-12 col-sm-3 control-label">Téléphone 1</label>
-            <div class="col-xs-12 col-sm-4">
-                {{ form_widget(form.telephone1,{'attr':{'class':'form-control'} }) }}
-                <div class="help-block with-errors"></div>
-            </div>
+        <label class="col-xs-12 col-sm-2 control-label">Téléphone 1</label>
+        <div class="col-xs-12 col-sm-3">
+            {{ form_widget(form.telephone1,{'attr':{'class':'form-control'} }) }}
+            <div class="help-block with-errors"></div>
         </div>
 
-        <div class="form-group">
-
-            <label class="col-xs-12 col-sm-3 control-label">Téléphone 2</label>
-            <div class="col-xs-12 col-sm-4">
-                {{ form_widget(form.telephone2,{'attr':{'class':'form-control'} }) }}
-                <div class="help-block with-errors"></div>
-            </div>
+        <label class="col-xs-12 col-sm-2 col-sm-offset-1 control-label">Téléphone 2</label>
+        <div class="col-xs-12 col-sm-3">
+            {{ form_widget(form.telephone2,{'attr':{'class':'form-control'} }) }}
+            <div class="help-block with-errors"></div>
         </div>
-         
-         <div class="form-group">
+    </div>
 
-            <label class="col-xs-12 col-sm-3 control-label">Photo</label>
-           <div class="col-xs-12  col-sm-8 dropzone" id="dropzone" style='width:30%'>
 
-            </div>
-            
-                <div class="col-xs-12 col-sm-4">
-                    {% if app.user.photo != null %}
-                                    <img class="img img-thumbnail  img-responsive" src="{{ asset( ['uploads/documents/utilisateurs/',app.user.photo] | join|imagine_filter('avatar') ) }} " style="padding: 0px;display: inline"/>
-                    {% endif %}
-                                    
-                              
-                                
-                </div>
+    <div class="form-group">
+
+        <label class="col-xs-12 col-sm-2 control-label">Photo</label>
+        <div class="col-xs-12  col-sm-3 dropzone" id="dropzone" style='width:30%'>
+
         </div>
 
-        
-             <div class="form-group">
-        <div class="col-xs-12 col-sm-offset-3">
+        <div class="col-xs-12 col-sm-4">
+            {% if app.user.photo != null %}
+                <img class="img img-thumbnail  img-responsive" src="{{ asset( ['uploads/documents/utilisateurs/',app.user.photo] | join|imagine_filter('avatar') ) }} " style="padding: 0px;display: inline"/>
+            {% endif %}
+
+
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+                      
+    <label class="col-xs-12 col-sm-2 control-label">
+        {{ "form.current_password"|trans }}
+    </label>
+
+    <div class="col-xs-12 col-sm-3">
+        {{ form_widget(form.current_password,{'attr':{'class':'form-control'} }) }}
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <span  class="control-label" role="presentation" style="color:red">{{ form_errors(form.current_password) }}</span>
+    </div>
+
+        <div class="col-xs-12 col-sm-2">
             <input type="submit" class="btn rTCGreen" value='{{'profile_edit.submit'|trans}}'/>
         </div>
 

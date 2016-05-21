@@ -28,26 +28,26 @@ class Annonce {
      * Cette variable booléenne indique si l'annonce porte sur une perte ou sur une trouvaille
      * @var boolean
      * 
-     * @ORM\Column(name="perdu",type="boolean",options={"default:0"})
+     * @ORM\Column(name="perdu",type="boolean")
      */ 
-    protected $perdu;
+    protected $perdu = 0;
     
     
     /**
      * Cette variable booléene indique si l'annonce a ou non une récompense
      * Si l'annonce a une récompense, la variable vaut 1
      * @var boolean
-     * @ORM\Column(name="avec_recompense",type="boolean",options={"default:0"})
+     * @ORM\Column(name="avec_recompense",type="boolean")
      */
-    protected $avecRecompense;
+    protected $avecRecompense = false;
     
      /**
      * Cette variable indique si oui ou non on doit afficher le numéro de téléphone
      * de celui qui a crée l'annonce
      * @var type boolean
-     * @ORM\Column(name="me_contacter",type="boolean",options={"default:0"})
+     * @ORM\Column(name="me_contacter",type="boolean")
      */
-    protected $meContacter;
+    protected $meContacter = true;
 
     /**
      * $dateDebut represente la date au plus tôt à laquelle
@@ -62,24 +62,7 @@ class Annonce {
     
     //
     protected $idEspaceHandler;
-    
-    
-    /**
-     * Lorsque quequ'un crée une annonce sans être inscrit à l'application
-     * Il a besoin d'un code pour modifier son annonce plus tard
-     * ce code et son addresse email suffiront pour modifier l'annonce
-     * 
-     * @var string
-     * @ORM\Column(name="code_createur",type="string",nullable=TRUE)
-     */
-    
-    protected $codeCreateur;
-    
-    protected $confirmCode;
-    
-       
-  
-
+            
     /**
      * @var string
      *
@@ -93,17 +76,15 @@ class Annonce {
      * @ORM\JoinColumn(name="ville_id", referencedColumnName="id")
      */
     protected $ville;
-    
-    
-    
+        
 
     /**
      * @var string
      * 0 = valide
      * 1 = suprimée
-     * @ORM\Column(name="etat", type="string",options={"defaults:0"})
+     * @ORM\Column(name="etat", type="string")
      */
-    protected $etat;
+    protected $etat = 0;
 
     /**
      * @var datetime
@@ -128,31 +109,35 @@ class Annonce {
      */
     protected $commentaire;
     
-    /**
-     * @var string
-     * @ORM\Column(name="telephone1",type="string",nullable=TRUE)
-     */
-    protected $telephone1;
-    
-    /**
-     *
-     * @var string
-     * @ORM\Column(name="telephone2",type="string",nullable=TRUE)
-     */
-    protected $telephone2;    
-      
-    /**
-     *
-     * @var string
-     * @ORM\Column(name="email",type="string")
-     */
-    protected $email;
-
+        
     /**
      * @var
      * @ORM\Column(name="titre",type="string")
      */
     protected $titre;
+    
+    /**
+     * Cette variable stocke dans le cas où l'annonce concerne une
+     * pièce d'identité on affiche cet élément mais par défaut , il est caché
+    * @var
+     * @ORM\Column(name="numero_piece",type="string")
+     */
+    protected $numeroPiece;
+    
+     /**
+     * @var
+     * @ORM\Column(name="nom_piece",type="string")
+     */
+    protected $nomPiece;
+    
+     /**
+     * @var
+     * @ORM\Column(name="prenom_piece",type="string")
+     */
+    protected $prenomPiece;
+    
+  
+    
     
     /**
      * Cette variable stocke le nom de l'image principale
@@ -174,6 +159,9 @@ class Annonce {
      * @ORM\JoinColumn(name="espace_id", referencedColumnName="id")
      */
     protected $espace;
+    
+    
+    protected $espaceText;
 
     /**
      * @ORM\ManyToOne(targetEntity="lostBook\lostBookUserBundle\Entity\Utilisateur", inversedBy="annonces")
@@ -187,13 +175,7 @@ class Annonce {
      */
     protected $categorie;  
        
-    
-    /**
-     * Cette variable stocke la description de la couleur de l'objet
-     * @var
-     * @ORM\Column(name="couleur_objet",type="string")
-     */
-    protected $couleurObjet;
+  
     
     /**
      *
@@ -214,9 +196,9 @@ class Annonce {
     /**
      *
      * @var integer
-     * @ORM\Column(name="nombre_vues",type="integer",nullable=true,options={"default:0"})
+     * @ORM\Column(name="nombre_vues",type="integer",nullable=true)
      */
-    protected $nombreVues;
+    protected $nombreVues = 0;
     
     /**
      * @ORM\OneToMany(targetEntity="lostBook\lostBookBundle\Entity\CommentaireAnnonce", mappedBy="annonce")
@@ -585,40 +567,9 @@ class Annonce {
     public function getCouleurObjet()
     {
         return $this->couleurObjet;
-    }
+    }   
 
-    /**
-     * Set codeCreateur
-     *
-     * @param string $codeCreateur
-     * @return Annonce
-     */
-    public function setCodeCreateur($codeCreateur)
-    {
-        $this->codeCreateur = $codeCreateur;
-
-        return $this;
-    }
-
-    /**
-     * Get codeCreateur
-     *
-     * @return string 
-     */
-    public function getCodeCreateur()
-    {
-        return $this->codeCreateur;
-    }
     
-    function getIdEspaceHandler() {
-        return $this->idEspaceHandler;
-    }
-
-    function setIdEspaceHandler($idEspaceHandler) {
-        $this->idEspaceHandler = $idEspaceHandler;
-    }
-
-
 
     /**
      * Set avecRecompense
@@ -664,76 +615,8 @@ class Annonce {
     public function getMeContacter()
     {
         return $this->meContacter;
-    }
-
-    /**
-     * Set telephone1
-     *
-     * @param string $telephone1
-     * @return Annonce
-     */
-    public function setTelephone1($telephone1)
-    {
-        $this->telephone1 = $telephone1;
-
-        return $this;
-    }
-
-    /**
-     * Get telephone1
-     *
-     * @return string 
-     */
-    public function getTelephone1()
-    {
-        return $this->telephone1;
-    }
-
-    /**
-     * Set telephone2
-     *
-     * @param string $telephone2
-     * @return Annonce
-     */
-    public function setTelephone2($telephone2)
-    {
-        $this->telephone2 = $telephone2;
-
-        return $this;
-    }
-
-    /**
-     * Get telephone2
-     *
-     * @return string 
-     */
-    public function getTelephone2()
-    {
-        return $this->telephone2;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Annonce
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
+    } 
+   
 
     /**
      * Set montantRecompense
@@ -845,5 +728,78 @@ class Annonce {
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+    
+   
+
+
+
+    /**
+     * Set numeroPiece
+     *
+     * @param string $numeroPiece
+     * @return Annonce
+     */
+    public function setNumeroPiece($numeroPiece)
+    {
+        $this->numeroPiece = $numeroPiece;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroPiece
+     *
+     * @return string 
+     */
+    public function getNumeroPiece()
+    {
+        return $this->numeroPiece;
+    }
+
+    /**
+     * Set nomPiece
+     *
+     * @param string $nomPiece
+     * @return Annonce
+     */
+    public function setNomPiece($nomPiece)
+    {
+        $this->nomPiece = $nomPiece;
+
+        return $this;
+    }
+
+    /**
+     * Get nomPiece
+     *
+     * @return string 
+     */
+    public function getNomPiece()
+    {
+        return $this->nomPiece;
+    }
+
+    /**
+     * Set prenomPiece
+     *
+     * @param string $prenomPiece
+     * @return Annonce
+     */
+    public function setPrenomPiece($prenomPiece)
+    {
+        $this->prenomPiece = $prenomPiece;
+
+        return $this;
+    }
+
+    /**
+     * Get prenomPiece
+     *
+     * @return string 
+     */
+    public function getPrenomPiece()
+    {
+        return $this->prenomPiece;
     }
 }

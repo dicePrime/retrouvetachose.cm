@@ -1,36 +1,36 @@
 {# empty Twig template #}
-<div class="container-fluid  navbar-default">
-    <div class="row">
-        <div class="col-xs-12 visible-xs navbar-fixed-bottom">
-            <center> <a class="btn rTCGreen" value="" href="{{ path('_lostbook_nouvelle_annonce') }}"><span class="rTCWhiteText"><i class='icon icon-plus'></i>&nbsp;<span class="rTCWhiteText">Nouvelle Annonce</span></span></a>
-            </center>
-        </div>
-    </div>
-    <div class="row">
+<div class="container-fluid rTCBlack">
+    <div class="row rTCWhiteText">
         
 
         <div class="col-lg-2 col-lg-offset-1">
-            <h4>Nos partenaires</h4>
+            <h4 class="rTCGreenText">Nos partenaires</h4>
             <ul class="nav nav-stacked">
                 <li></li>
             </ul>
         </div> 
 
         <div class="col-lg-2">
-            <h4>Localisation</h4>
+            <h4 class="rTCGreenText">Localisation</h4>
             <p><i class="icon-map-marker"></i>&nbsp;</p>
         </div>
 
         <div class="col-lg-2">
-            <h4>Nous contacter</h4>
-            <p><i class="fa fa-phone"></i>&nbsp;Tel:+237 691 161 547</p>
+            <h4 class="rTCGreenText">Nous contacter</h4>
+         
+            <p>
+                <a class="btn btn-social-icon btn-success" href="tel:+237 691 161 547">
+                    <i class="fa fa-phone"></i> 
+                </a>
+                &nbsp;<a href="tel:+237 691 161 547" class="rTCWhiteText">+237 691 161 547</a>
+            </p>
              <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
             <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
             <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
             <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="col-lg-2">
-            <h4>Politique</h4>
+            <h4 class="rTCGreenText">Politique</h4>
             <ul class="nav nav-stacked">
                 <p><i class="icon-eye-open"></i>&nbsp;Vie privée</p>
                 <p><i class="icon-fire"></i>&nbsp;Sécuritée</p>
@@ -41,17 +41,10 @@
 
     <div class="row">
         <div class="col-lg-4 col-lg-offset-3">
-            <p>&copy; Copyright {{ "now"|date('Y') }} - rTC team</p>
+            <p class="rTCGreenText">&copy; Copyright {{ "now"|date('Y') }} - rTC team</p>
         </div>
     </div>
    
 </div>
         
-        {# <a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i>                           </a>
-                        
-                        
-                       
-                        <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
-                        <a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
-                        <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
-                     #}
+       

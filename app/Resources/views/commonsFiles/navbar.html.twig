@@ -2,193 +2,153 @@
     <div class="container">
 
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
+            <button type="button" class="navbar-toggle rTCWhite" data-toggle="collapse" data-target="#navbar-collapsible">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar rTCWhite"></span>
-                <span class="icon-bar rTCWhite"></span>
-                <span class="icon-bar rTCWhite"></span>
+                <span class="icon-bar rTCBlack"></span>
+                <span class="icon-bar rTCBlack"></span>
+                <span class="icon-bar rTCBlack"></span>
             </button>
-            <a class="navbar-brand rTCWhiteText" href="#">lostbook</a>
+            <a class="navbar-brand rTCWhiteText" href="{{ path('_lostbook_homepage') }}">rTC</a>
         </div>
 
         <div class="navbar-collapse collapse" id="navbar-collapsible">
 
-            <ul class="nav navbar-nav navbar-right hidden-xs">
-                <li>
-                    <a role="button" class="dropdown-toggle rTCWhiteText" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        <span class="glyphicon glyphicon-menu-hamburger rTCGreenText"></span> MENU
-                    </a>
-                    <ul class="dropdown-menu navbar-default" role="menu" aria-labelledby="dropdownMenu1">
-                        <li>
-                            <a role="button" href="{{ path('_lostbook_homepage') }}" class="rTCWhiteText">
-                                <span class="glyphicon glyphicon-folder-open rTCGreenText"></span>  TOUTES LES ANNONCES
-                            </a>
-                        </li>
-                        <li role="presentation" class="divider"></li>
-                        <li>
-                            <a role="button" href="{{ path('_lostbook_espaces_index') }}" class="rTCWhiteText">
-                                <span class="glyphicon glyphicon-home rTCPinkText"></span> ESPACES DEDIES
-                            </a>
-                        </li>
-                        <li role="presentation" class="divider"></li>
-                        <li>
-                            <a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
-                                <span class="glyphicon glyphicon-question-sign"></span> FAQ</a>
-                        </li>  
-
-                    </ul>
-                </li>
-
-
+           
+            <ul class="nav navbar-nav hidden-xs hidden-sm">
+                
+               
+                    <li>
+                       <a role="button" class="dropdown-toggle rTCWhiteText" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                        MENU
+                    </a> 
+                        <ul class='dropdown-menu navbar-default' role='menu' aria-labelledby ='dropdownMenu2'>
+                             <li >
+                        <a id="linkToutesLesAnnonces"  href="{{ path('_lostbook_homepage') }}" class="rTCWhiteText">
+                            TOUTES LES ANNONCES
+                        </a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                   
+                    <li>
+                        <a  href="{{ path('_lostbook_espaces_index') }}" class=" rTCWhiteText">
+                            ESPACES DEDIES
+                        </a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li>
+                        <a role="button" href="{{ path('_faqs') }}" class="rTCWhiteText">
+                            FAQ & ASTUCES</a>
+                    </li>  
+                        </ul>
+                    </li>
                     
+                
+
+            </ul>
+                <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
+                <li>
+                <a class="rTCGreenText"  value="" href="{{ path('_lostbook_nouvelle_annonce') }}"><span class="rTCGreenText">J'AI TROUVE UN OBJET</span></a>
+                </li>
+                <li>
+                  <a class="rTCPinkText"  value="" href="{{ path('_lostbook_new_lost') }}"><span class="rTCPinkText">J'AI PERDU UN OBJET</span></a>
+                </li>
+                <li>
+                  <a class="rTCWhiteText" value="" href="{{ path('_lostbook_nouvel_espace') }}">  NOUVEL ESPACE DEDIE</a>
+                </li>
+                {% if app.user %}
+                    <li class="pull-right">
+                        <a role="button" href="{{ path('fos_user_profile_show') }}" class="rTCWhiteText">
+
+                            <span class="glyphicon glyphicon-user"></span>                               
+                            {{ app.user.username }}
+                        </a>
+                    </li>
+                {% endif %}
                 <li>
                     <a role="button" class="dropdown-toggle rTCWhiteText" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        <span class="glyphicon glyphicon-cog rTCGreenText"></span> PARAMETRES
+                        PARAMETRES
                     </a>
                     <ul class="dropdown-menu navbar-default" role="menu" aria-labelledby="dropdownMenu1">
                         {% if not app.user %}
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_login') }}" class="rTCWhiteText">
-                                <span class="glyphicon glyphicon-log-in"></span> CONNEXION / INSCRIPTION
-                            </a>
-                        </li>
-                        
-                        <li role="presentation" class="divider"></li>
-                        {% endif %}
-                        {% if app.user %}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-user rTCGreenText"></span> EDITER MON PROFIL</a></li>
-                        <li role="presentation" class="divider"></li>
-                        {% endif %}
-                        {% if app.user %}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-log-out"></span> DECONNEXION</a></li>
-                        <li role="presentation" class="divider"></li>
-                        {% endif %}
-                        {% if app.user %}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-home"></span> MES ESPACES</a></li>
-                        <li role="presentation" class="divider"></li>
-                        {% endif %}
-                         <li><a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
-                        <span class="glyphicon glyphicon-flag rTCPinkText"></span> LANGUAGE</a>
-                </li>
-                        
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_login') }}" class="rTCWhiteText">
+                                    <span class="glyphicon glyphicon-log-in"></span> CONNEXION / INSCRIPTION
+                                </a>
+                            </li>
+
+                            <li role="presentation" class="divider"></li>
+                            {% endif %}
+                            {% if app.user %}
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-user rTCGreenText"></span> {{ 'header.edit_profil'|trans|upper }}</a></li>
+                            <li role="presentation" class="divider"></li>
+                            {% endif %}
+                            {% if app.user %}
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-log-out"></span> {{ 'header.logout'|trans }}</a></li>
+                            <li role="presentation" class="divider"></li>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('sonata_admin_redirect') }}"><span class="glyphicon glyphicon-user rTCGreenText"></span> ADMINISTRATION</a></li>
+                            <li role="presentation" class="divider"></li>
+                            {% endif %}
+                       
+
 
                     </ul>
                 </li>
+            
+                </ul>
+            <ul class="nav navbar-nav-right visible-sm  visible-xs">               
+                                    
+                
+                
+                    <li>
+                    <a class="rTCGreenText"  value="" href="{{ path('_lostbook_nouvelle_annonce') }}"><span class="rTCGreenText">J'AI TROUVE UN OBJET</span></a>
+                    </li>
+                    <li>
+                    <a class="rTCPinText"  value="" href="{{ path('_lostbook_new_lost') }}"><span class="rTCPinkText">J'AI PERDU UN OBJET</span></a>
+                    </li>
+                
+                <li>
+                    <a href="{{ path('_lostbook_homepage') }}" class="rTCWhiteText">
+                        TOUTES LES ANNONCES
+                    </a>
+                </li>
+                <li role="presentation" class="divider"></li>
+                <li>
+                    <a  href="{{ path('_lostbook_espaces_index') }}" class="rTCWhiteText">
+                       ESPACES DEDIES
+                    </a>
+                </li>
+                <li role="presentation" class="divider"></li>
+                <li>
+                    <a  href="{{ path('_faqs') }}" class="rTCWhiteText">
+                    FAQ &  ASTUCES</a>
+                </li>  
+
+                {% if not app.user %}
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_login') }}" class="rTCWhiteText">
+                            CONNEXION / INSCRIPTION
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="divider"></li>
+                {% endif %}
+
                 {% if app.user %}
-                 <li>
-                            <a role="button" href="{{ path('fos_user_profile_show') }}" class="rTCWhiteText">
-                              
-                                    <span class="glyphicon glyphicon-user"></span>                               
-                                {{ app.user.username }}
-                            </a>
-                 </li>
-                 {% endif %}
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="rTCWhiteText">MON PROFIL</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="rTCWhiteText">DECONNEXION</a></li>
+                {% endif %}
                 
-               
-
-
-
-
-            </ul>
-            <ul class="nav navbar-nav navbar-right visible-xs">
+                <li role="presentation">
+                      <a value="" href="{{ path('_lostbook_nouvel_espace') }}" class="rTCWhiteText">NOUVEL ESPACE DEDIE</a>
+                </li>
+              
                 
-                    
-                   
-                        <li>
-                            <a role="button" href="{{ path('_lostbook_homepage') }}" class="rTCWhiteText">
-                                <span class="glyphicon glyphicon-folder-open rTCGreenText"></span>  TOUTES LES ANNONCES
-                            </a>
-                        </li>
-                        <li role="presentation" class="divider"></li>
-                        <li>
-                            <a role="button" href="{{ path('_lostbook_espaces_index') }}" class="rTCWhiteText">
-                                <span class="glyphicon glyphicon-home rTCPinkText"></span> ESPACES DEDIES
-                            </a>
-                        </li>
-                        <li role="presentation" class="divider"></li>
-                        <li>
-                            <a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
-                                <span class="glyphicon glyphicon-question-sign"></span> FAQ</a>
-                        </li>  
-
-                    
-                                                        
-             
-                   
-                        <li role="presentation">
-                            <a role="menuitem"  href="{{ path('fos_user_security_login') }}" class="rTCWhiteText">
-                                <span class="glyphicon glyphicon-log-in"></span> CONNEXION / INSCRIPTION
-                            </a>
-                        </li>
-                        
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-user rTCGreenText"></span> MON PROFIL</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-log-out"></span> DECONNEXION</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-home"></span> MES ESPACES</a></li>
-                        <li><a role="button" data-toggle="modal" data-target="#loginModal" class="rTCWhiteText">
-                        <span class="glyphicon glyphicon-flag rTCPinkText"></span> LANGUAGE</a>
-                </li>
-                        
-
-                  
-                </li>
-               
-
-
-
-
-            </ul>                    
-                                
-            <ul class="nav navbar-nav navbar-right hidden-xs" style='padding-top:9px'>                
-                    <a class="btn rTCGreen"  value="" href="{{ path('_lostbook_nouvelle_annonce') }}"><span class="rTCWhiteText"><i class='icon icon-plus'></i>&nbsp;<span class="rTCWhiteText">Nouvelle Annonce</span></span></a>
+              
             </ul>
-            {# <div class="col-xs-12 navbar-form navbar-left" style="display:inline;">
-              
-               <a role="button" class="btn rTCPink" href="{{ path('r_tc_nouvelle_annonce') }}">J'ai perdu un objet</a>
-               &nbsp;&nbsp;
-             </div>
-             
-             <div class="col-xs-12 navbar-form navbar-right" style="display:inline;">
-              
-               <button type="button" class="btn rTCGreen">J'ai trouvé un objet</button>
-               &nbsp;&nbsp;
-                           
-             #}
-
-
-
-            {#     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                 <i class="icon-th"></i>&nbsp;Paramètres
-                                 <span class="caret"></span>
-                             </button>
-                             <ul class="dropdown-menu navbar-default" role="menu" aria-labelledby="dropdownMenu1">
-                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Connexion</a></li>
-                                 <li role="presentation" class="divider"></li>
-                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mon profil</a></li>
-                                 <li role="presentation" class="divider"></li>
-                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Déconnexion</a></li>
-                                 <li role="presentation" class="divider"></li>
-                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gerer les espaces</a></li>
-                                 <li role="presentation" class="divider"></li>
-                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gerer les pages</a></li>
-                                 
-                             </ul>                    
-           </div>
-          #}
-
 
             
-            <form class="navbar-form pull-left">
-                <div class="input-group">
-                    <input type="text" class="form-control" aria-label="..." style="border-right: none">
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                    </div>
-                </div>
-            </form>
-            
-
-
-
         </div>
 
     </div>

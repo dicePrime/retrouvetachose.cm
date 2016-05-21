@@ -1,6 +1,6 @@
 <?php
 
-namespace lostBook\lostBookBundle\Entity;
+namespace lostBook\lostBookBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

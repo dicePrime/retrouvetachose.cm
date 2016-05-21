@@ -1,9 +1,5 @@
 {% extends '::default/base.html.twig' %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" />
-{% endblock %}
+
 
 {% block section %}        
          {{ include('::commonsFiles/nouvelEspaceForm.html.twig') }}   
@@ -15,21 +11,24 @@
 {% endblock %}
 
 {% block rightMenu %}
-    <blockquote>
+   {# <blockquote>
     {{ include('::commonsFiles/infoNouvelleAnnonce.html.twig') }}
     </blockquote>
-
+   #}
 {% endblock %}
 
 {% block javascripts %}
         {{ parent() }}
+        <script src="{{ asset('js/select2.full.js') }}"></script>
         <script src="{{ asset('js/custom/nouvelleAnnonce.js') }}"></script>
         <script src="{{ asset('js/validator.js') }}"></script>
         <script src="{{ asset('js/dropzone.js') }}"></script>
         <script src="{{ asset('js/moment.js') }}"></script>
          <script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
         <script>
-        $(document).ready(function() {
+        $(document).ready(function() {  
+            
+            $("#espace_ville").select2();
             $("#dropzone").dropzone({
                 url: "{{ oneup_uploader_endpoint('gallery') }}",
                 addRemoveLinks: true,

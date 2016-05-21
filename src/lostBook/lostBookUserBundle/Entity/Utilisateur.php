@@ -28,6 +28,22 @@ class Utilisateur extends BaseUser
      * @ORM\Column(name="photo",type="string",nullable=TRUE)
      */
     protected $photo;
+    
+    
+    /**
+     * @var string
+     * @ORM\Column(name="nom",type="string",nullable=TRUE)
+     */
+    protected $nom;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="prenom",type="string",nullable=TRUE)
+     */
+    protected $prenom;
+    
+    
+
             
     public function __construct() 
     {
@@ -66,11 +82,25 @@ class Utilisateur extends BaseUser
     
     
     
+    
     /**
      * @var string
      * @ORM\Column(name="telephone1",type="string",nullable=TRUE)
      */
     protected $telephone1;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="numero_cni",type="string",nullable=TRUE)
+     */
+    protected $numeroCNI;
+    
+        
+    /**
+     * @var string
+     * @ORM\Column(name="numero_passport",type="string",nullable=TRUE)
+     */
+    protected $numeroPassport;
     
     /**
      *
@@ -490,5 +520,51 @@ class Utilisateur extends BaseUser
     public function getMedia()
     {
         return $this->media;
+    }
+
+    /**
+     * Set numeroCNI
+     *
+     * @param string $numeroCNI
+     * @return Utilisateur
+     */
+    public function setNumeroCNI($numeroCNI)
+    {
+        $this->numeroCNI = $numeroCNI;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroCNI
+     *
+     * @return string 
+     */
+    public function getNumeroCNI()
+    {
+        return $this->numeroCNI;
+    }
+
+    /**
+     * Set numeroPassport
+     *
+     * @param string $numeroPassport
+     * @return Utilisateur
+     */
+    public function setNumeroPassport($numeroPassport)
+    {
+        $this->numeroPassport = $numeroPassport;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroPassport
+     *
+     * @return string 
+     */
+    public function getNumeroPassport()
+    {
+        return $this->numeroPassport;
     }
 }

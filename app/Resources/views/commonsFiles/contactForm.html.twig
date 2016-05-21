@@ -1,0 +1,45 @@
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h2 class="modal-title rTCGreenText" id="myModalLabel">
+                    {{ 'contact.titre'|trans }}
+                </h2>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+                <form class="form-horizontal" role="form" name='contactForm' id="contactForm">
+                    <div class="form-group">
+                       
+                        <div class="col-xs-12">
+                            <textarea id="message" name="message" class="form-control" rows="4" cols="100"></textarea>
+                        </div>
+                    </div>
+                    <input type="hidden" value="{{ annonce.id }}" id="idAnnonce" name="idAnnonce"/>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-sm-offset-5">
+                            <input type="submit" class="btn rTCGreen" value="{{ 'contact.envoyer'|trans }}" id="btnSubmit"/>
+                        </div>
+                        <div class="col-sm-5">
+                            <span id="reponse" name="reponse">
+                                
+                            </span>
+                        </div>
+                    </div>
+                        
+                </form>          
+                                            
+            </div>
+            
+          </div>
+    </div>
+</div>

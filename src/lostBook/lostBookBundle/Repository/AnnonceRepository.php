@@ -13,12 +13,24 @@ use lostBook\lostBookBundle\Entity\RechercheAnnonces;
  */
 class AnnonceRepository extends EntityRepository
 {
+    
+    public function findAll()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery("SELECT a"
+                                  . " FROM lostBookBundle:Annonce a "
+                                  . " where a.etat = '0'");
+        $annonces = $query->getResult();  
+        
+        return $annonces; 
+    }
     public function getAllAnnonces() {
               
         $em = $this->getEntityManager();
-        $query = $em->createQuery("SELECT a,m,"
+        $query = $em->createQuery("SELECT a"
                                   . " FROM lostBookBundle:Annonce a "
-                                  . "JOIN a.medias");
+                                  . " where a.etat = :etat");
+        $query->setParameter('etat', '0');
         $annonces = $query->getResult();  
         
         return $annonces;
@@ -46,9 +58,9 @@ class AnnonceRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery("SELECT a"
-                                  . " FROM lostBookBundle:Annonce a ");
+                                  . " FROM lostBookBundle:Annonce a where a.etat = '0'");
         $annonces = $query->getResult();  
-        
+       
         $annoncesNature = $this->getAnnoncesForNature($annonces, $recherche->getNature());
         $annoncesVilles = $this->getAnnoncesForVille($annoncesNature, $recherche->getVille());
         $annoncesEspace = $this->getAnnoncesForEspace($annoncesVilles, $recherche->getEspace());
@@ -84,25 +96,38 @@ class AnnonceRepository extends EntityRepository
     }
     
     public function getAnnoncesForNature($annonces,$nature)
-    {
-        if($nature != null)
-        {
-        $resultat = array();
-        
-        foreach($annonces as $next)
-        {
-            if($next->getPerdu() == $nature)
-            {
-                $resultat[] = $next;
-            }
-        }
-        
-        return $resultat;
-        }
-        else
-        {
-            return $annonces;
-        }
+    {        
+      
+      if($nature == '0' || $nature == '1' )
+      {
+         
+          if('1' == $nature)
+          {
+              $isPerdu = TRUE;
+          }
+          else
+          {
+              $isPerdu = FALSE;
+          }
+          
+          $resultat = array();
+          
+          foreach($annonces as $next)
+          {
+              if($next->getPerdu() == $isPerdu )
+              {
+                  $resultat[] = $next;
+              }
+          }
+          
+          return $resultat;
+      }
+      else
+      {
+          return $annonces;
+      }
+      
+      
     }
     
     public function getAnnoncesForVille($annonces,$ville)
@@ -150,6 +175,20 @@ class AnnonceRepository extends EntityRepository
         {
             return $annonces;
         }
+    }
+    
+    public function getAnnoncesForAPeriode($debut, $fin)
+    {
+       $em = $this->getEntityManager();
+        $query = $em->createQuery("SELECT a"
+                                  . " FROM lostBookBundle:Annonce a "
+                                  . " where a.etat = '0' and (a.dateCreation >= :debut and a.dateCreation <= :fin)");
+        
+        $query->setParameter("debut", $debut);
+        $query->setParameter("fin", $fin);
+        $annonces = $query->getResult(); 
+        
+        return $annonces;
     }
     
     public function getAnnoncesForDateDebut($annonces,$date)
