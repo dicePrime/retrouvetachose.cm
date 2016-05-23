@@ -1,6 +1,8 @@
 /web/bundles/*
 /web/uploads/*
-/web/media/*
+/web/media/cache/my_thumb/uploads/documents/annonces/*
+/web/media/cache/main_thumb/uploads/documents/utilisateurs/*
+/web/media/cache/previous_image/uploads/documents/annonces/*
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
